@@ -25,6 +25,10 @@ class SMColors {
   static const int textPlaceHolderWhite = 0xff999999;
 
 
+  //yellow
+  static const int lightGolden = 0xffECC752;
+  static const int darkGolden = 0xffB18B3E;
+
   static const int mainBackgroundColor = miWhite;
 
   static const int mainTextColor = primaryDarkValue;
