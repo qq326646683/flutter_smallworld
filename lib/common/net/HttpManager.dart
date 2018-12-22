@@ -6,6 +6,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter_smallworld/common/net/ResultData.dart';
 import 'package:flutter_smallworld/common/net/Code.dart';
 import 'package:flutter_smallworld/common/config/Config.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 
 
 class HttpManager {
@@ -20,21 +21,11 @@ class HttpManager {
     }
 
     option.connectTimeout = Config.HTTP_TIMEOUT;
-
     Dio dio = new Dio();
-//    print('aaaa111');
-//    Response response;
-//    response=await dio.get('https://gank.io/api/today');
-//    print('aaaa222');
-//
-//    print(response.data.toString());
-
-
     Response response;
     
-    Map<String, String> headers = new HashMap();
-
-    option.headers = headers;
+    String token = await getToken();
+    option.headers = {"token": token};
 
     try {
       response = await dio.request(Config.HOST + url,data: params, options: option);
@@ -56,5 +47,29 @@ class HttpManager {
       }
     }
 
+    try {
+      if (response.statusCode == 201 && response.data['token'] != null) {
+        await StorageUtil.save(Config.TOKEN_KEY, response.data['token']);
+      }
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return new ResultData(response.data, true, Code.SUCCESS, headers: response.headers);
+      }
+    } catch (e) {
+      return new ResultData(response.data, false, response.statusCode, headers: response.headers);
+    }
+
+    return new ResultData(Code.errorHandleEunction(response.statusCode, "", noTip), false, response.statusCode);
+
+
   }
+
+  static clearToken() {
+    StorageUtil.remove(Config.TOKEN_KEY);
+  }
+
+  static Future<String> getToken() async{
+    return await StorageUtil.get(Config.TOKEN_KEY);
+  }
+
 }

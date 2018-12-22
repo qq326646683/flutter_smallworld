@@ -13,6 +13,6 @@ class UserDao {
     };
 
     HttpManager.netFetch('/users/login', json.encode(requestParams), Options(method: "post"));
-    
+
   }
 }
