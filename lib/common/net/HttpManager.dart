@@ -3,7 +3,7 @@ import 'dart:collection';
 
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:flutter_smallworld/common/net/ResultData.dart';
+import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/net/Code.dart';
 import 'package:flutter_smallworld/common/config/Config.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';

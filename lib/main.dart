@@ -15,8 +15,7 @@ class FlutterReduxApp extends StatelessWidget {
   final store = new Store<MainStore>(
       appReducer,
       initialState: MainStore(
-//        userStore: UserStore.initStore(),
-          count: 0
+        userStore: UserStore.initStore(),
       )
   );
 

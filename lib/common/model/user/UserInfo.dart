@@ -25,9 +25,6 @@ class UserInfo {
   // 星座
   String zodiac;
 
-  // 信誉度
-  int credit;
-
   // 性别，1 - 男；0 - 女
   int gender;
 
@@ -44,7 +41,7 @@ class UserInfo {
   String area_code;
 
   // 手机号
-  int mobile;
+  String mobile;
 
   // 微信号
   String wechat;
@@ -100,14 +97,37 @@ class UserInfo {
   // 是否隐身
   int flag_invisible;
 
-  UserInfo(this.id, this.gender, this.profession, this.birthday, this.education,
-      this.area_code, this.mobile,
-      this.wechat, this.stature, this.asset, this.annual_income, this.lifestyle,
-      this.smoking, this.drinking, this.signature, this.flag_check,
-      this.flag_quick, this.flag_banned, this.latest_leave_time, this.img_show,
-      this.weight, this.bwh, this.interest,
-      {this.is_new, this.nickname, this.avatar, this.vip, this.city, this.age, this.zodiac, this.credit, this.flag_invisible});
-
+  UserInfo(this.id,
+      {this.gender,
+      this.profession,
+      this.birthday,
+      this.education,
+      this.area_code,
+      this.mobile,
+      this.wechat,
+      this.stature,
+      this.asset,
+      this.annual_income,
+      this.lifestyle,
+      this.smoking,
+      this.drinking,
+      this.signature,
+      this.flag_check,
+      this.flag_quick,
+      this.flag_banned,
+      this.latest_leave_time,
+      this.img_show,
+      this.weight,
+      this.bwh,
+      this.interest,
+      this.is_new,
+      this.nickname,
+      this.avatar,
+      this.vip,
+      this.city,
+      this.age,
+      this.zodiac,
+      this.flag_invisible});
 
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);
@@ -115,5 +135,4 @@ class UserInfo {
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
 
   UserInfo.empty();
-
 }

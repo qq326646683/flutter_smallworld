@@ -6,6 +6,8 @@ import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/dao/UserDao.dart';
 import 'package:flutter_smallworld/common/redux/MainStore.dart';
 import 'package:flutter_smallworld/common/redux/UserRedux.dart';
+import 'package:flutter_smallworld/common/model/index.dart';
+import 'package:flutter_smallworld/page/index.dart';
 
 class LoginPage extends StatefulWidget {
   static final String sName = "login";
@@ -82,7 +84,6 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         SMInputWidget(
-                          keyboardType: TextInputType.number,
                           textStyle: SMTxtStyle.largeTextWhite,
                           hintTextStyle: SMTxtStyle.largeTextHolderWhite,
                           controller: _passwordController,
@@ -95,12 +96,16 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.all(SMSize.suit(20.0)),
                         ),
                         SMButtonWidget(
-                            text: store.state.count.toString(),
+                            text: '登陆',
                             height: SMSize.suit(50.0),
                             onPress: () {
                               print("mobile" + _mobile + "psd" + _password);
-                              UserDao.login(_mobile, _password, "android");
-                              store.dispatch(updateUserAction(1));
+                              UserDao.login(_mobile, _password, "android", store)
+                                .then((res) {
+                                  if (res != null && res.result) {
+                                    NavigatorUtils.pushReplacementNamed(context, MainPage.sName);
+                                  }
+                              });
                             }
                         ),
                       ],
