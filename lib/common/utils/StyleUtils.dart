@@ -226,6 +226,11 @@ class SMTxtStyle {
     color: Color(SMColors.textPlaceHolderWhite),
     fontSize: bigTextSize,
   );
+
+  static const normalTextHolderWhite = TextStyle(
+    color: Color(SMColors.textPlaceHolderWhite),
+    fontSize: normalTextSize,
+  );
 }
 
 class SMIcons {

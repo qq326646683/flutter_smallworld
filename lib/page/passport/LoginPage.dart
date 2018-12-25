@@ -67,14 +67,14 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("+86", style: SMTxtStyle.largeTextWhite),
+                            Text("+86", style: SMTxtStyle.normalTextWhite),
                             Padding(padding: EdgeInsets.all(4.0)),
                             Flexible(
                                 child: SMInputWidget(
                                   keyboardType: TextInputType.number,
-                                  textStyle: SMTxtStyle.largeTextWhite,
+                                  textStyle: SMTxtStyle.normalTextWhite,
                                   hintTextStyle: SMTxtStyle
-                                      .largeTextHolderWhite,
+                                      .normalTextHolderWhite,
                                   controller: _mobileController,
                                   onChanged: (String value) {
                                     _mobile = value;
@@ -84,8 +84,8 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         SMInputWidget(
-                          textStyle: SMTxtStyle.largeTextWhite,
-                          hintTextStyle: SMTxtStyle.largeTextHolderWhite,
+                          textStyle: SMTxtStyle.normalTextWhite,
+                          hintTextStyle: SMTxtStyle.normalTextHolderWhite,
                           controller: _passwordController,
                           onChanged: (String value) {
                             _password = value;

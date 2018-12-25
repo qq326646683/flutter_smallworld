@@ -22,6 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     SMSize.initScreenWidth(context);
     SMSize.initStatusBarHeight(context);
 
+
     Future.delayed(Duration(seconds: 2), () {
       NavigatorUtils.pushReplacementNamed(context, LoginPage.sName);
     });
