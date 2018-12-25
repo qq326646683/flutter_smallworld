@@ -25,7 +25,7 @@ class HttpManager {
     Response response;
     
     String token = await getToken();
-    option.headers = {"token": token};
+    option.headers = {"Authorization": "Bearer ${token}"};
 
     try {
       response = await dio.request(Config.HOST + url,data: params, options: option);

@@ -22,11 +22,9 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     for (Icon icon in icons) {
-      _tabItems.add(
-          new Tab(
-            child: icon,
-          )
-      );
+      _tabItems.add(new Tab(
+        child: icon,
+      ));
     }
   }
 
@@ -40,11 +38,22 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return StoreBuilder<MainStore>(builder: (context, store) {
-      return SMTabBarWidget(SMTabBarWidget.BOTTOM_TAB, [
-        Container(color: Colors.pink),
-        Container(color: Colors.blue),
-        Container(color: Colors.green),
-      ], _tabItems);
+      return SMTabBarWidget(
+          SMTabBarWidget.BOTTOM_TAB,
+          [
+            Container(color: Colors.pink),
+            Container(color: Colors.blue),
+            Container(
+              color: Colors.green,
+              child: Text(
+                store.state.userStore.userInfo != null
+                    ? store.state.userStore.userInfo.toJson().toString()
+                    : 'deffff',
+                style: TextStyle(color: Colors.white, fontSize: 14.0),
+              ),
+            ),
+          ],
+          _tabItems);
     });
   }
 }

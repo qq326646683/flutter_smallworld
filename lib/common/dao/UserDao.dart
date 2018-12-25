@@ -26,4 +26,22 @@ class UserDao {
     }
     return DataResult(res.data, res.result);
   }
+
+  static getUserInfo(store, {userId}) async{
+    Map requestParams;
+    if (userId != null) {
+      requestParams = {
+        "user_id": userId
+      };
+    }
+
+    var res = await HttpManager.netFetch('/users/info', requestParams, Options(method: "get"));
+    if (res != null && res.result) {
+      UserInfo currentUserInfo = UserInfo.fromJson(res.data);
+      store.dispatch(updateUserAction(currentUserInfo));
+    }
+
+    return DataResult(res.data, res.result);
+
+  }
 }

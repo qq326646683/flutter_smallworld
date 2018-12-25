@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/index.dart';
+import 'package:flutter_smallworld/common/config/Config.dart';
+import 'package:flutter_smallworld/common/dao/index.dart';
+import 'package:flutter_smallworld/common/redux/MainStore.dart';
 
 class SplashPage extends StatefulWidget {
   static final String sName = "/";
@@ -16,16 +21,24 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async{
     super.didChangeDependencies();
     print('didChangeDependencies');
     SMSize.initScreenWidth(context);
     SMSize.initStatusBarHeight(context);
 
-
-    Future.delayed(Duration(seconds: 2), () {
-      NavigatorUtils.pushReplacementNamed(context, LoginPage.sName);
-    });
+    String token = await StorageUtil.get(Config.TOKEN_KEY);
+    if (token != null) {
+      Store<MainStore> store = StoreProvider.of(context);
+      var res = await UserDao.getUserInfo(store);
+      if (res != null && res.result) {
+        NavigatorUtils.pushReplacementNamed(context, MainPage.sName);
+      }
+    } else {
+      Future.delayed(Duration(seconds: 2), () {
+        NavigatorUtils.pushReplacementNamed(context, LoginPage.sName);
+      });
+    }
   }
 
   @override
