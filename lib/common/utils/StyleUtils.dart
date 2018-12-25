@@ -36,6 +36,9 @@ class SMColors {
 
 
   static const int opacity60Cover = 0x96000000;
+
+  // 消息提示点颜色
+  static const int msgTipColor = 0xFFF44336;
 }
 
 class SMSize {
@@ -237,6 +240,19 @@ class SMIcons {
   static const String SPLASH_BG = 'static/images/passport/splash_bg.jpg';
   static const String HOT_TIP = 'static/images/passport/hot_tip.png';
   static const String LOGIN_BG_MP4 = 'static/images/passport/login_bg.mp4';
+  static const String TAB_HOME = 'static/images/tabs/home.png';
+  static const String TAB_HOME_ACTIVE = 'static/images/tabs/home_active.png';
+  static const String TAB_CLUB = 'static/images/tabs/club.png';
+  static const String TAB_CLUB_ACTIVE = 'static/images/tabs/club_active.png';
+  static const String TAB_CHAT = 'static/images/tabs/chat.png';
+  static const String TAB_CHAT_ACTIVE = 'static/images/tabs/chat_active.png';
+  static const String TAB_DISCOVER = 'static/images/tabs/discover.png';
+  static const String TAB_DISCOVER_ACTIVE = 'static/images/tabs/discover_active.png';
+  static const String TAB_PROFILE = 'static/images/tabs/profile.png';
+  static const String TAB_PROFILE_ACTIVE = 'static/images/tabs/profile_active.png';
+
+
+
 }
 
 

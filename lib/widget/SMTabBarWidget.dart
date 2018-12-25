@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 
 class SMTabBarWidget extends StatefulWidget {
   ///底部模式type
@@ -7,17 +8,19 @@ class SMTabBarWidget extends StatefulWidget {
   ///顶部模式type
   static const int TOP_TAB = 2;
 
-  int _type;
+  int type;
 
-  List<Widget> _tabViews;
+  List<Widget> tabViews;
 
-  List<Widget> _tabItems;
+  List<TabItem> tabItems;
 
+  ValueChanged<int> onPageChanged;
 
-  SMTabBarWidget(this._type, this._tabViews,
-      this._tabItems) : super() {
-  }
+  Color backgroundColor;
 
+  SMTabBarWidget(
+      {Key key, this.type, this.tabViews, this.tabItems, this.onPageChanged, this.backgroundColor})
+      : super(key: key);
 
   @override
   _SMTabBarWidgetState createState() => new _SMTabBarWidgetState();
@@ -25,36 +28,70 @@ class SMTabBarWidget extends StatefulWidget {
 
 class _SMTabBarWidgetState extends State<SMTabBarWidget>
     with TickerProviderStateMixin {
-  TabController _tabController;
+  PageController _pageController;
+  List<BottomNavigationBarItem> _bottomNavigationBarItems =
+      new List<BottomNavigationBarItem>();
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabController =
-    new TabController(length: widget._tabItems.length, vsync: this);
+    _pageController = new PageController(initialPage: 0);
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    for (int i = 0; i < widget.tabItems.length; i++) {
+      TabItem currentTabItem = widget.tabItems[i];
+      _bottomNavigationBarItems.add(BottomNavigationBarItem(
+          icon: currentTabItem.icon,
+          activeIcon: currentTabItem.activeIcon,
+          title: Container(),
+          backgroundColor: widget.backgroundColor));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget._type == SMTabBarWidget.BOTTOM_TAB) {
+    if (widget.type == SMTabBarWidget.BOTTOM_TAB) {
       return Scaffold(
-        body: TabBarView(
-            controller: _tabController, children: widget._tabViews),
-        bottomNavigationBar: Material(
-          color: Color(0x995566ee),
-          child: TabBar(
-            controller: _tabController,
-            tabs: widget._tabItems,
-            indicator: BoxDecoration()),
+        body: PageView(
+          controller: _pageController,
+          children: widget.tabViews,
+          onPageChanged: (index) {
+            this.setState(() {
+              _currentIndex = index;
+            });
+            widget.onPageChanged?.call(index);
+          },
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: _bottomNavigationBarItems,
+          currentIndex: _currentIndex,
+          type: BottomNavigationBarType.fixed,
+          onTap: (int index) {
+            this.setState(() {
+              _currentIndex = index;
+            });
+            _pageController.animateToPage(_currentIndex,
+                duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+          },
         ),
       );
     }
   }
 }
 
+class TabItem {
+  Widget icon;
+  Widget activeIcon;
+  String title;
+
+  TabItem({
+    this.title,
+    this.icon,
+    this.activeIcon,
+  });
+}

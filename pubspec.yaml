@@ -81,3 +81,12 @@ flutter:
     - static/images/passport/splash_bg.jpg
     - static/images/passport/hot_tip.png
     - static/images/passport/login_bg.mp4
+    - static/images/tabs/home.png
+    - static/images/tabs/home_active.png
+    - static/images/tabs/chat.png
+    - static/images/tabs/chat_active.png
+    - static/images/tabs/club_active.png
+    - static/images/tabs/discover.png
+    - static/images/tabs/discover_active.png
+    - static/images/tabs/profile.png
+    - static/images/tabs/profile_active.png
