@@ -59,9 +59,9 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: SMSize.suit(160.0),
-                        left: SMSize.suit(35.0),
-                        right: SMSize.suit(35.0)),
+                        top: ScreenUtil().getWidth(160.0),
+                        left: ScreenUtil().getWidth(35.0),
+                        right: ScreenUtil().getWidth(35.0)),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -93,11 +93,11 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "输入密码",
                         ),
                         Padding(
-                          padding: EdgeInsets.all(SMSize.suit(20.0)),
+                          padding: EdgeInsets.all(ScreenUtil().getWidth(20.0)),
                         ),
                         SMButtonWidget(
                             text: '登陆',
-                            height: SMSize.suit(50.0),
+                            height: ScreenUtil().getWidth(50.0),
                             onPress: () {
                               print("mobile" + _mobile + "psd" + _password);
                               UserDao.login(_mobile, _password, "android", store)

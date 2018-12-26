@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_smallworld/common/redux/MainStore.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
+import 'package:flutter_smallworld/page/index.dart';
+import 'package:flutter_smallworld/common/redux/index.dart';
 import 'MainPageStyle.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,23 +15,42 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  List<Icon> icons = [
-    Icon(Icons.aspect_ratio),
-    Icon(Icons.headset_mic),
-    Icon(Icons.offline_bolt),
-  ];
-  List<Widget> _tabItems = new List<Widget>();
+  List<TabItem> _tabItems = new List<TabItem>();
 
   @override
   void initState() {
     super.initState();
-    for (Icon icon in icons) {
-      _tabItems.add(new Tab(
-        child: icon,
-      ));
-    }
   }
 
+  List<TabItem> _renderTabItems() {
+    return [
+      new TabItem(
+          icon: _renderImgBtn(SMIcons.TAB_HOME, false),
+          activeIcon: _renderImgBtn(SMIcons.TAB_HOME_ACTIVE, false)),
+      new TabItem(
+          icon: _renderImgBtn(SMIcons.TAB_CHAT, true),
+          activeIcon: _renderImgBtn(SMIcons.TAB_CHAT_ACTIVE, true)),
+      new TabItem(
+          icon: SMTabBarBtnWidget(
+            icon: Image.asset(SMIcons.TAB_CLUB_ACTIVE,
+                width: MainPageStyle.tabBarClubWidth,
+                height: MainPageStyle.tabBarClubWidth),
+            showDot: true,
+          ),
+          activeIcon: SMTabBarBtnWidget(
+            icon: Image.asset(SMIcons.TAB_CLUB_ACTIVE,
+                width: MainPageStyle.tabBarClubWidth,
+                height: MainPageStyle.tabBarClubWidth),
+            showDot: true,
+          )),
+      new TabItem(
+          icon: _renderImgBtn(SMIcons.TAB_DISCOVER, true),
+          activeIcon: _renderImgBtn(SMIcons.TAB_DISCOVER_ACTIVE, true)),
+      new TabItem(
+          icon: _renderImgBtn(SMIcons.TAB_PROFILE, false),
+          activeIcon: _renderImgBtn(SMIcons.TAB_PROFILE_ACTIVE, false)),
+    ];
+  }
   Widget _renderImgBtn(String name, bool showDot) {
     return SMTabBarBtnWidget(
       icon: Image.asset(name,
@@ -42,41 +62,18 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    _tabItems = _renderTabItems();
     return StoreBuilder<MainStore>(builder: (context, store) {
       return SMTabBarWidget(
         type: SMTabBarWidget.BOTTOM_TAB,
         tabViews: <Widget>[
-          Container(color: Colors.pink),
-          Container(color: Colors.blue),
-          Container(color: Colors.yellow),
-          Container(color: Colors.deepOrange),
-          Container(
-            color: Colors.green,
-            child: Text(
-              store.state.userStore.userInfo != null
-                  ? store.state.userStore.userInfo.toJson().toString()
-                  : 'deffff',
-              style: TextStyle(color: Colors.white, fontSize: 14.0),
-            ),
-          ),
+          HomePage(),
+          ChatPage(),
+          ClubPage(),
+          DiscoverPage(),
+          ProfilePage()
         ],
-        tabItems: [
-          new TabItem(
-              icon: _renderImgBtn(SMIcons.TAB_HOME, false),
-              activeIcon: _renderImgBtn(SMIcons.TAB_HOME_ACTIVE, false)),
-          new TabItem(
-              icon: _renderImgBtn(SMIcons.TAB_CHAT, true),
-              activeIcon: _renderImgBtn(SMIcons.TAB_CHAT_ACTIVE, true)),
-          new TabItem(
-              icon: _renderImgBtn(SMIcons.TAB_CLUB_ACTIVE, true),
-              activeIcon: _renderImgBtn(SMIcons.TAB_CLUB_ACTIVE, true)),
-          new TabItem(
-              icon: _renderImgBtn(SMIcons.TAB_DISCOVER, true),
-              activeIcon: _renderImgBtn(SMIcons.TAB_DISCOVER_ACTIVE, true)),
-          new TabItem(
-              icon: _renderImgBtn(SMIcons.TAB_PROFILE, false),
-              activeIcon: _renderImgBtn(SMIcons.TAB_PROFILE_ACTIVE, false)),
-        ],
+        tabItems: _tabItems,
         backgroundColor: Color(SMColors.primaryDarkValue),
         onPageChanged: (int index) {
           print('currentIndex::' + index.toString());
@@ -85,3 +82,4 @@ class _MainPageState extends State<MainPage> {
     });
   }
 }
+

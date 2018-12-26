@@ -23,9 +23,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() async{
     super.didChangeDependencies();
-    print('didChangeDependencies');
-    SMSize.initScreenWidth(context);
-    SMSize.initStatusBarHeight(context);
 
     String token = await StorageUtil.get(Config.TOKEN_KEY);
     if (token != null) {
@@ -53,8 +50,8 @@ class _SplashPageState extends State<SplashPage> {
           children: <Widget>[
             Image.asset(
               SMIcons.HOT_TIP,
-              width: SMSize.suit(156.0),
-              height: SMSize.suit(70.0),
+              width: ScreenUtil().getWidth(156.0),
+              height: ScreenUtil().getWidth(70.0),
               fit: BoxFit.cover,
             ),
           ],

@@ -32,7 +32,7 @@ class SMButtonWidget extends StatelessWidget {
       },
       child: Container(
         padding: EdgeInsets.symmetric(
-            horizontal: SMSize.suit(20.0), vertical: SMSize.suit(5.0)),
+            horizontal: ScreenUtil().getWidth(20.0), vertical: ScreenUtil().getWidth(5.0)),
         alignment: Alignment.center,
         width: this.width,
         height: this.height,

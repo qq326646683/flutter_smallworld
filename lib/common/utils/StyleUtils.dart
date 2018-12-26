@@ -41,25 +41,6 @@ class SMColors {
   static const int msgTipColor = 0xFFF44336;
 }
 
-class SMSize {
-  static double screenWidth = 0.0;
-  static double statusBarHeight = 0.0;
-
-  static void initStatusBarHeight(context) async{
-    statusBarHeight = await FlutterStatusbar.height / MediaQuery.of(context).devicePixelRatio;
-  }
-
-  static void initScreenWidth(context) {
-    screenWidth = MediaQuery.of(context).size.width;
-  }
-
-  // 4.7 寸宽375为标准
-  static suit(double size) {
-    return screenWidth * size / 375;
-  }
-}
-
-
 // 文本样式
 class SMTxtStyle {
   static const lagerTextSize = 30.0;
@@ -242,7 +223,6 @@ class SMIcons {
   static const String LOGIN_BG_MP4 = 'static/images/passport/login_bg.mp4';
   static const String TAB_HOME = 'static/images/tabs/home.png';
   static const String TAB_HOME_ACTIVE = 'static/images/tabs/home_active.png';
-  static const String TAB_CLUB = 'static/images/tabs/club.png';
   static const String TAB_CLUB_ACTIVE = 'static/images/tabs/club_active.png';
   static const String TAB_CHAT = 'static/images/tabs/chat.png';
   static const String TAB_CHAT_ACTIVE = 'static/images/tabs/chat_active.png';
