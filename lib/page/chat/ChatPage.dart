@@ -4,68 +4,65 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 
-
-class ChatPage extends StatefulWidget{
+class ChatPage extends StatefulWidget {
   @override
   _ChatPageState createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage>  with AutomaticKeepAliveClientMixin<ChatPage>{
-  Map siseMap = {
-    "width": 0.0,
-    "height" : 0.0
-  };
-  Map positionMap = {
-    "left": 0.0,
-    "top": 0.0
-  };
+class _ChatPageState extends State<ChatPage>
+    with AutomaticKeepAliveClientMixin<ChatPage> {
+  Map siseMap = {"width": 0.0, "height": 0.0};
+  Map positionMap = {"left": 0.0, "top": 0.0};
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     print('render:ChatPage');
-    return StoreBuilder<MainStore>(builder: (context, store) {
-      return Container(
-        color: Colors.blueAccent,
-        child: Column(
-          children: <Widget>[
-            TestWidget(
-              widthAndHeight: (Map map){
-                this.setState((){
-                  siseMap = {
-                    "width": map['width'].toString(),
-                    "height" : map['height'].toString()
+    return Container(
+      color: Colors.blueAccent,
+      child: Column(
+        children: <Widget>[
+          TestWidget(widthAndHeight: (Map map) {
+            this.setState(() {
+              siseMap = {
+                "width": map['width'].toString(),
+                "height": map['height'].toString()
+              };
+            });
+          }),
+          Text(
+            '宽:${siseMap["width"]}高:${siseMap["height"]}',
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
+          ),
+          LayoutBuilder(builder: (BuildContext mContext, BoxConstraints cons) {
+            return RaisedButton(
+              child: Text('获取我的位置'),
+              onPressed: () {
+                Offset offset = WidgetUtil.getWidgetLocalToGlobal(mContext);
+                print('获取位置');
+                this.setState(() {
+                  positionMap = {
+                    "left": offset.dx,
+                    "top": offset.dy,
                   };
                 });
-              }
-            ),
-            Text('宽:${siseMap["width"]}高:${siseMap["height"]}',
-              style: TextStyle(color: Colors.white, fontSize: 14.0),
-            ),
-            LayoutBuilder(builder: (BuildContext mContext, BoxConstraints cons) {
-              return RaisedButton(
-                child: Text('获取我的位置'),
-                onPressed: () {
-                  Offset offset = WidgetUtil.getWidgetLocalToGlobal(mContext);
-                  print('获取位置');
-                  this.setState((){
-                    positionMap = {
-                      "left": offset.dx,
-                      "top": offset.dy,
-                    };
-                  });
-                },
-              );
-            }),
-            Text('距离左边:${positionMap["left"]}距离上边:${positionMap["top"]}',
-              style: TextStyle(color: Colors.white, fontSize: 14.0),
-            ),
-            RaisedButton(onPressed: () {
+              },
+            );
+          }),
+          Text(
+            '距离左边:${positionMap["left"]}距离上边:${positionMap["top"]}',
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
+          ),
+          RaisedButton(
+            onPressed: () {
+              Store<MainStore> store = StoreProvider.of(context);
               store.dispatch(updateUserAction(null));
-            },child: Text('修改userinfoStore为null'),)
-          ],
-        ),
-      );
-    });
+            },
+            child: Text('修改userinfoStore为null'),
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -75,7 +72,7 @@ class _ChatPageState extends State<ChatPage>  with AutomaticKeepAliveClientMixin
 class TestWidget extends StatefulWidget {
   final ValueChanged<Map<String, double>> widthAndHeight;
 
-  TestWidget({Key key, this.widthAndHeight}): super(key: key);
+  TestWidget({Key key, this.widthAndHeight}) : super(key: key);
 
   @override
   _TestWidgetState createState() => _TestWidgetState();
@@ -85,7 +82,6 @@ class _TestWidgetState extends State<TestWidget> {
   String text = '点击改变我的大小';
 
   WidgetUtil widgetUtil = new WidgetUtil();
-
 
   @override
   Widget build(BuildContext context) {
@@ -104,5 +100,3 @@ class _TestWidgetState extends State<TestWidget> {
     );
   }
 }
-
-

@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                               UserDao.login(_mobile, _password, "android", store)
                                 .then((res) {
                                   if (res != null && res.result) {
-                                    NavigatorUtils.pushReplacementNamed(context, MainPage.sName);
+                                    NavigatorUtils.pushNamed(context, MainPage.sName);
                                   }
                               });
                             }
