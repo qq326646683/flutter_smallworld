@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
@@ -20,9 +21,11 @@ class _ChatPageState extends State<ChatPage>  with AutomaticKeepAliveClientMixin
   };
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    print('render:ChatPage');
     return StoreBuilder<MainStore>(builder: (context, store) {
       return Container(
-        color: Colors.purpleAccent,
+        color: Colors.blueAccent,
         child: Column(
           children: <Widget>[
             TestWidget(
@@ -56,6 +59,9 @@ class _ChatPageState extends State<ChatPage>  with AutomaticKeepAliveClientMixin
             Text('距离左边:${positionMap["left"]}距离上边:${positionMap["top"]}',
               style: TextStyle(color: Colors.white, fontSize: 14.0),
             ),
+            RaisedButton(onPressed: () {
+              store.dispatch(updateUserAction(null));
+            },child: Text('修改userinfoStore为null'),)
           ],
         ),
       );

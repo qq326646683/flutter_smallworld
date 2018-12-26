@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("loginPage");
+    print("render: LoginPage");
     return StoreBuilder<MainStore>(builder: (context, store) {
       return GestureDetector(
         onTap: () {

@@ -12,6 +12,8 @@ class ProfilePage extends StatefulWidget{
 class _ProfilePageState extends State<ProfilePage>  with AutomaticKeepAliveClientMixin<ProfilePage>{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    print('render:ProfilePage');
     return StoreBuilder<MainStore>(builder: (context, store) {
       return Container(
         color: Colors.purpleAccent,
