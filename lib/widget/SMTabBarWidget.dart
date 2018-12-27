@@ -37,11 +37,6 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
   void initState() {
     super.initState();
     _pageController = new PageController(initialPage: 0);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
 
     for (int i = 0; i < widget.tabItems.length; i++) {
       TabItem currentTabItem = widget.tabItems[i];
@@ -51,6 +46,11 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
           title: Container(),
           backgroundColor: widget.backgroundColor));
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override

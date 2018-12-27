@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/page/index.dart';
 
 class DiscoverPage extends StatefulWidget {
   @override
   _DiscoverPageState createState() => _DiscoverPageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> with AutomaticKeepAliveClientMixin<DiscoverPage>{
+class _DiscoverPageState extends State<DiscoverPage>
+    with AutomaticKeepAliveClientMixin<DiscoverPage> {
+  @override
+  void initState() {
+    super.initState();
+    NavigatorUtils.getInstance().setContext(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueAccent
+      color: Colors.blueAccent,
+      child: Column(
+        children: <Widget>[
+          RaisedButton(
+            onPressed: () {
+              NavigatorUtils.getInstance().pushNamed(TaskhallPage.sName);
+            },
+            child: Text('任务大厅'),
+          )
+        ],
+      ),
     );
   }
 
