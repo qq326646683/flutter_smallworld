@@ -3,6 +3,7 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
+import 'package:flutter_smallworld/common/model/index.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -15,22 +16,17 @@ class _ProfilePageState extends State<ProfilePage>
   Widget build(BuildContext context) {
     super.build(context);
     print('render:ProfilePage');
-
+    UserInfo userInfo = StoreProvider.of<MainStore>(context).state.userStore.userInfo;
+    print(userInfo.toString());
     return Container(
       color: Colors.purpleAccent,
       child: Column(
         children: <Widget>[
-          new StoreConnector<MainStore, String>(
-            converter: (store) =>
-                store.state.userStore.userInfo.toJson().toString(),
-            builder: (context, count) {
-              return new Text(
-                count != null
-                    ? count
-                    : 'deffff',
-                style: TextStyle(color: Colors.white, fontSize: 14.0),
-              );
-            },
+          Text(
+            userInfo != null
+                ? userInfo.toJson().toString()
+                : 'deffff',
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
           ),
         ],
       ),

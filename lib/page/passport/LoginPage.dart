@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    NavigatorUtils.getInstance().setContext(context);
     _controller = VideoPlayerController.asset(SMIcons.LOGIN_BG_MP4);
     _controller.setLooping(true);
     _controller.setVolume(0.0);
@@ -103,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                               UserDao.login(_mobile, _password, "android", store)
                                 .then((res) {
                                   if (res != null && res.result) {
-                                    NavigatorUtils.pushNamed(context, MainPage.sName);
+                                    NavigatorUtils.getInstance().pushNamed(MainPage.sName);
                                   }
                               });
                             }

@@ -23,17 +23,18 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() async{
     super.didChangeDependencies();
+    NavigatorUtils.getInstance().setContext(context);
 
     String token = await StorageUtil.get(Config.TOKEN_KEY);
     if (token != null) {
       Store<MainStore> store = StoreProvider.of(context);
       var res = await UserDao.getUserInfo(store);
       if (res != null && res.result) {
-        NavigatorUtils.pushReplacementNamed(context, MainPage.sName);
+        NavigatorUtils.getInstance().pushReplacementNamed(MainPage.sName);
       }
     } else {
       Future.delayed(Duration(seconds: 2), () {
-        NavigatorUtils.pushReplacementNamed(context, LoginPage.sName);
+        NavigatorUtils.getInstance().pushReplacementNamed(LoginPage.sName);
       });
     }
   }

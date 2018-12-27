@@ -23,17 +23,28 @@ class HttpManager {
     option.connectTimeout = Config.HTTP_TIMEOUT;
     Dio dio = new Dio();
     Response response;
-    
+
     String token = await getToken();
     option.headers = {"Authorization": "Bearer ${token}"};
 
     try {
       response = await dio.request(Config.HOST + url,data: params, options: option);
     } on DioError catch (e) {
+      Response errorResponse;
+      if(e.response != null) {
+        errorResponse = e.response;
+      } else {
+        errorResponse = new Response(statusCode: 666);
+      }
+      if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+        errorResponse.statusCode = Code.NETWORK_TIMEOUT;
+      }
+
       if (Config.DEBUG) {
         print('请求异常: ' + e.toString());
         print('请求异常url: ' + url);
       }
+      return new ResultData(Code.errorHandleEunction(errorResponse.statusCode, e.message, noTip), false, errorResponse.statusCode);
     }
 
     if (Config.DEBUG) {

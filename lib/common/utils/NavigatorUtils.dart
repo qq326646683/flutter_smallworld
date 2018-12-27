@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
 
 class NavigatorUtils {
+  static NavigatorUtils navigatorUtils;
+  BuildContext mContext;
+
+  static NavigatorUtils getInstance() {
+    if (navigatorUtils == null) {
+      navigatorUtils = new NavigatorUtils();
+    }
+
+    return navigatorUtils;
+  }
+
+  setContext(BuildContext context) {
+    mContext = context;
+  }
+
+  BuildContext getContext() {
+    return mContext;
+  }
+
   // replace 页面
-  static pushReplacementNamed(BuildContext context, String routeName) {
-    Navigator.pushReplacementNamed(context, routeName);
+  pushReplacementNamed(String routeName) {
+    Navigator.pushReplacementNamed(mContext, routeName);
   }
 
   // push 页面
-  static pushNamed(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+  pushNamed(String routeName) {
+    Navigator.pushNamed(mContext, routeName);
   }
 }
