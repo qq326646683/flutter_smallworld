@@ -1,6 +1,15 @@
 import 'package:redux/redux.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
-import 'UserStore.dart';
+
+class UserStore {
+  UserInfo userInfo;
+
+  UserStore(this.userInfo);
+
+  static initStore() {
+    return UserStore(null);
+  }
+}
 
 
 final UserReducer = combineReducers<UserStore>([
@@ -17,18 +26,3 @@ class updateUserAction {
   final UserInfo userInfo;
   updateUserAction(this.userInfo);
 }
-
-
-//final UserReducer = combineReducers<int>([
-//  TypedReducer<int, updateUserAction>(_updateUserLoad),
-//]);
-//
-//int _updateUserLoad(int count, action) {
-//  return count + action.count;
-//}
-//
-//
-//class updateUserAction {
-//  final int count;
-//  updateUserAction(this.count);
-//}

@@ -6,6 +6,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/net/Code.dart';
 import 'package:flutter_smallworld/common/config/Config.dart';
+import 'package:flutter_smallworld/common/net/ApiAddress.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 
 
@@ -28,7 +29,7 @@ class HttpManager {
     option.headers = {"Authorization": "Bearer ${token}"};
 
     try {
-      response = await dio.request(Config.HOST + url,data: params, options: option);
+      response = await dio.request(ApiAddress.HOST + url,data: params, options: option);
     } on DioError catch (e) {
       Response errorResponse;
       if(e.response != null) {
