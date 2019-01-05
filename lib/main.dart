@@ -5,7 +5,8 @@ import 'package:redux/redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_smallworld/page/index.dart';
 import 'package:flutter_smallworld/common/redux/MainStore.dart';
-import 'package:flutter_smallworld/common/redux/UserStore.dart';
+import 'package:flutter_smallworld/common/redux/UserRedux.dart';
+import 'package:flutter_smallworld/common/redux/TaskhallRedux.dart';
 import 'package:flutter_smallworld/common/net/Code.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/net/HttpManager.dart';
@@ -25,6 +26,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> {
   final store = new Store<MainStore>(appReducer,
       initialState: MainStore(
         userStore: UserStore.initStore(),
+        taskHallStore: TaskhallStore.initStore(),
       ));
 
   @override

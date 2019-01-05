@@ -1,9 +1,9 @@
 import 'UserRedux.dart';
-import 'TaskHallRedux.dart';
+import 'TaskhallRedux.dart';
 
 class MainStore {
   UserStore userStore;
-  TaskHallStore taskHallStore;
+  TaskhallStore taskHallStore;
 
   MainStore({this.userStore, this.taskHallStore});
 
@@ -12,13 +12,6 @@ class MainStore {
 MainStore appReducer(MainStore store, dynamic action) {
   return MainStore(
     userStore: UserReducer(store.userStore, action),
-    taskHallStore:
+    taskHallStore: TaskhallReducer(store.taskHallStore, action),
   );
 }
-
-
-
-
-
-
-

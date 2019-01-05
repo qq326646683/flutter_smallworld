@@ -16,7 +16,14 @@ class _DiscoverPageState extends State<DiscoverPage>
   }
 
   @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+    debugPrint("----disocer deactivate");
+  }
+  @override
   Widget build(BuildContext context) {
+    debugPrint("----disocer build");
     return Container(
       color: Colors.blueAccent,
       child: Column(
