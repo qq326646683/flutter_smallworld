@@ -49,23 +49,23 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> {
   errorHandleFunction(int code, message) {
     switch (code) {
       case Code.NETWORK_ERROR:
-        Fluttertoast.showToast(msg: '网络错误');
+        ToastUtil.showRed('网络错误');
         break;
       case 401:
-        Fluttertoast.showToast(msg: '[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]');
+        ToastUtil.showRed('[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]');
         HttpManager.clearToken();
         NavigatorUtils.getInstance().pushReplacementNamed(LoginPage.sName);
         break;
       case 403:
-        Fluttertoast.showToast(msg: '403权限错误');
+        ToastUtil.showRed('403权限错误');
         break;
       case 404:
         break;
       case Code.NETWORK_TIMEOUT:
-        Fluttertoast.showToast(msg: '404错误');
+        ToastUtil.showRed('404错误');
         break;
       default:
-        Fluttertoast.showToast(msg: '其他异常');
+        ToastUtil.showRed('其他异常');
         break;
     }
   }

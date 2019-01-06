@@ -5,6 +5,10 @@ import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/dao/TaskhallDao.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/config/Config.dart';
+import 'package:flutter_smallworld/common/model/index.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
+import 'TaskhallPageStyle.dart';
+import 'TaskhallItem.dart';
 
 class TaskhallPage extends StatefulWidget {
   static final String sName = "taskhall";
@@ -16,22 +20,7 @@ class TaskhallPage extends StatefulWidget {
 class _TaskhallPageState extends State<TaskhallPage>
     with
         SMListState<TaskhallPage>,
-        AutomaticKeepAliveClientMixin<TaskhallPage>,
-        WidgetsBindingObserver {
-  @override
-  void initState() {
-    super.initState();
-    debugPrint("========");
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    debugPrint("====dispose====");
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
+        AutomaticKeepAliveClientMixin<TaskhallPage> {
 
 
   @override
@@ -56,7 +45,7 @@ class _TaskhallPageState extends State<TaskhallPage>
         page: this.page);
     setState(() {
       pullLoadWidgetControl.needLoadMore =
-          (res != null && res.length == Config.PAGE_SIZE);
+      (res != null && res.length == Config.PAGE_SIZE);
     });
     isLoading = false;
     return null;
@@ -93,33 +82,8 @@ class _TaskhallPageState extends State<TaskhallPage>
     super.didChangeDependencies();
   }
 
-  _renderItem(index) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(border: Border.all()),
-      child: Text('index:' + index.toString()),
-    );
-  }
-
-
-  @override
-  Future<bool> didPopRoute() {
-    // TODO: implement didPopRoute
-    debugPrint("pop----");
-    return super.didPopRoute();
-  }
-
-  @override
-  Future<bool> didPushRoute(String route) {
-    // TODO: implement didPushRoute
-    debugPrint("push----");
-    return super.didPushRoute(route);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('=====555=======');
-    print(state);
+  _renderItem(Taskhall item) {
+    return TaskhallItem(taskhall: item,);
   }
 
   Store<MainStore> _getStore() {
@@ -129,18 +93,32 @@ class _TaskhallPageState extends State<TaskhallPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return new StoreBuilder<MainStore>(builder: (context, store) {
-      return Scaffold(
-        backgroundColor: Colors.brown,
-        appBar: null,
-        body: SMPullLoadWidget(
-          pullLoadWidgetControl,
-          (BuildContext context, int index) => _renderItem(index),
-          handleRefresh,
-          onLoadMore,
-          refreshKey: refreshIndicatorKey,
+    return new Scaffold(
+//      backgroundColor: Colors.brown,
+      appBar: null,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(SMIcons.TASKHALL_BG),fit: BoxFit.fill),
         ),
-      );
-    });
+        child: Stack(
+          children: <Widget>[
+            /*蒙层*/
+            Container(
+              width: ScreenUtil().screenWidth,
+              height: ScreenUtil().screenHeight,
+              color: Color(SMColors.opacity75Cover),
+            ),
+            SMPullLoadWidget(
+              pullLoadWidgetControl,
+                  (BuildContext context, int index) =>
+                  _renderItem(pullLoadWidgetControl.dataList[index]),
+              handleRefresh,
+              onLoadMore,
+              refreshKey: refreshIndicatorKey,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

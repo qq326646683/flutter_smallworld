@@ -148,7 +148,7 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
       new Text(
         '加载中...',
         style: TextStyle(
-          color: Color(0xFF121917),
+          color: Colors.grey,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
         ),

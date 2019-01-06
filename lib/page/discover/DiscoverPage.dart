@@ -17,7 +17,6 @@ class _DiscoverPageState extends State<DiscoverPage>
 
   @override
   void deactivate() {
-    // TODO: implement deactivate
     super.deactivate();
     debugPrint("----disocer deactivate");
   }

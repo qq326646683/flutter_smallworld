@@ -19,6 +19,7 @@ class SMColors {
   static const int textWhite = 0xFFFFFFFF;
   static const int miWhite = 0xffececec;
   static const int white = 0xFFFFFFFF;
+  static const int black = 0xFF000000;
   static const int actionBlue = 0xff267aff;
   static const int subTextColor = 0xff959595;
   static const int subLightTextColor = 0xffc4c4c4;
@@ -36,6 +37,8 @@ class SMColors {
 
 
   static const int opacity60Cover = 0x96000000;
+
+  static const int opacity75Cover = 0xcc000000;
 
   // 消息提示点颜色
   static const int msgTipColor = 0xFFF44336;
@@ -230,6 +233,9 @@ class SMIcons {
   static const String TAB_DISCOVER_ACTIVE = 'static/images/tabs/discover_active.png';
   static const String TAB_PROFILE = 'static/images/tabs/profile.png';
   static const String TAB_PROFILE_ACTIVE = 'static/images/tabs/profile_active.png';
+  static const String TASKHALL_BG = 'static/images/discover/taskhall/task_bg.jpg';
+  static const String TASKHALL_ITEM_BG = 'static/images/discover/taskhall/task_item_bg.png';
+
 
 
 
