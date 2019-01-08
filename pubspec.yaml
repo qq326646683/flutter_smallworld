@@ -93,3 +93,6 @@ flutter:
     - static/images/tabs/profile_active.png
     - static/images/discover/taskhall/task_bg.jpg
     - static/images/discover/taskhall/task_item_bg.png
+    - static/images/discover/taskhall/rectangle_yellow.png
+    - static/images/discover/taskhall/task_picture.png
+    - static/images/discover/taskhall/task_video.png

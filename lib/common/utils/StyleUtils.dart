@@ -235,6 +235,9 @@ class SMIcons {
   static const String TAB_PROFILE_ACTIVE = 'static/images/tabs/profile_active.png';
   static const String TASKHALL_BG = 'static/images/discover/taskhall/task_bg.jpg';
   static const String TASKHALL_ITEM_BG = 'static/images/discover/taskhall/task_item_bg.png';
+  static const String TASK_RECT = 'static/images/discover/taskhall/rectangle_yellow.png';
+  static const String TASK_PICTURE = 'static/images/discover/taskhall/task_picture.png';
+  static const String TASK_VIDEO = 'static/images/discover/taskhall/task_video.png';
 
 
 

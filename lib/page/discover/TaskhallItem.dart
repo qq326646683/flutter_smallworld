@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 import 'TaskhallPageStyle.dart';
 
@@ -23,12 +24,10 @@ class _TaskhallItemState extends State<TaskhallItem> {
     return Container(
       width: ScreenUtil().screenWidth,
       height: TaskhallPageStyle.itemContainerHeight,
-      padding: EdgeInsets.symmetric(
-        vertical: TaskhallPageStyle.itemContainerPaddingVertical,
-        horizontal: TaskhallPageStyle.itemContainerPaddingVertical,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(width: 1.0, color: Colors.white)
+      padding: EdgeInsets.only(
+        top:TaskhallPageStyle.itemContainerPaddingVertical,
+        left: TaskhallPageStyle.itemContainerPaddingVertical,
+        right: TaskhallPageStyle.itemContainerPaddingVertical
       ),
       child: Column(
         children: <Widget>[
@@ -62,33 +61,37 @@ class _TaskhallItemState extends State<TaskhallItem> {
           /*第二行*/
           Expanded(
             flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage(SMIcons.TASKHALL_ITEM_BG),fit: BoxFit.fill),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(SMColors.lightGolden), Color(SMColors.darkGolden)],
-                  tileMode: TileMode.repeated
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  width: 50,
+                  height: 15,
+                  child: CustomPaint(painter: TrianglePainter(context),
+                ),),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(image: AssetImage(SMIcons.TASKHALL_ITEM_BG),fit: BoxFit.fill),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Color(SMColors.lightGolden), Color(SMColors.darkGolden)],
+                            tileMode: TileMode.repeated
+                        )
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset(SMIcons.TASKHALL_BG, width: 80, height: 60,)
+                      ],
+                    ),
+                  ),
                 )
-              ),
-              child: Row(
-                children: <Widget>[
-                  Image.asset(SMIcons.TASKHALL_BG, width: 80, height: 60,)
-                ],
-              ),
+              ],
             ),
           ),
-//          Container(
-//            color: Colors.deepOrange,
-//            child: Row(
-//              children: <Widget>[
-//
-//              ],
-//            ),
-//          )
-
         ],
       ),
     );
