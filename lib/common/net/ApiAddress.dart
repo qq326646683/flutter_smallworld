@@ -2,6 +2,7 @@ import 'package:flutter_smallworld/common/config/Config.dart';
 
 class ApiAddress {
   static const HOST = 'http://106.75.29.87:8082';
+//  static const HOST = 'https://api.onemicroworld.com';
 
   // 任务大厅
   static getTashhall() {

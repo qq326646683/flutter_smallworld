@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class NavigatorUtils extends NavigatorObserver{
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;
+  static List<Route> _mRoutes;
+
 
   static NavigatorUtils getInstance() {
     if (navigatorUtils == null) {
@@ -40,6 +42,11 @@ class NavigatorUtils extends NavigatorObserver{
     //....等等
     print('^^^^routePush');
     print(route.settings.name);
+    if (_mRoutes == null) {
+      _mRoutes = new List<Route>();
+    }
+    _mRoutes.add(route);
+    routeObserver();
   }
 
   @override
@@ -47,6 +54,9 @@ class NavigatorUtils extends NavigatorObserver{
     super.didReplace();
     print('^^^^routeReplace');
     print(newRoute.settings.name);
+    _mRoutes.remove(oldRoute);
+    _mRoutes.add(newRoute);
+    routeObserver();
   }
 
   @override
@@ -54,5 +64,14 @@ class NavigatorUtils extends NavigatorObserver{
     super.didPop(route, previousRoute);
     print('^^^^routePop');
     print(route.settings.name);
+    _mRoutes.remove(route);
+    routeObserver();
+  }
+
+  void routeObserver() {
+    print('&&routes&&');
+    print(_mRoutes);
+    print('&&currentRoute&&');
+    print(_mRoutes[_mRoutes.length - 1]);
   }
 }
