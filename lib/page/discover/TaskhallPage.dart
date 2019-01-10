@@ -22,6 +22,10 @@ class _TaskhallPageState extends State<TaskhallPage>
         SMListState<TaskhallPage>,
         AutomaticKeepAliveClientMixin<TaskhallPage> {
 
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   bool get wantKeepAlive => true;
@@ -92,13 +96,14 @@ class _TaskhallPageState extends State<TaskhallPage>
 
   @override
   Widget build(BuildContext context) {
+    StatusBarUtil.setLight();
     super.build(context);
-    return new Scaffold(
-//      backgroundColor: Colors.brown,
+    return Scaffold(
       appBar: null,
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage(SMIcons.TASKHALL_BG),fit: BoxFit.fill),
+          image: DecorationImage(
+              image: AssetImage(SMIcons.TASKHALL_BG), fit: BoxFit.fill),
         ),
         child: Stack(
           children: <Widget>[

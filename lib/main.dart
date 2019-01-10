@@ -20,7 +20,7 @@ class FlutterReduxApp extends StatefulWidget {
   _FlutterReduxAppState createState() => _FlutterReduxAppState();
 }
 
-class _FlutterReduxAppState extends State<FlutterReduxApp> {
+class _FlutterReduxAppState extends State<FlutterReduxApp>{
   StreamSubscription stream;
 
   final store = new Store<MainStore>(appReducer,
@@ -37,6 +37,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> {
     });
   }
 
+
   @override
   void dispose() {
     super.dispose();
@@ -44,6 +45,25 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> {
       stream.cancel();
       stream = null;
     }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return new StoreProvider(
+        store: store,
+        child: MaterialApp(
+          navigatorObservers: [
+            NavigatorUtils.getInstance(),
+          ],
+          routes: {
+            SplashPage.sName: (context) => SplashPage(),
+            LoginPage.sName: (context) => LoginPage(),
+            MainPage.sName: (context) => MainPage(),
+            TaskhallPage.sName: (context) => TaskhallPage(),
+          },
+        )
+    );
   }
 
   errorHandleFunction(int code, message) {
@@ -70,19 +90,4 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> {
     }
   }
 
-
-  @override
-  Widget build(BuildContext context) {
-    return new StoreProvider(
-        store: store,
-        child: MaterialApp(
-          routes: {
-            SplashPage.sName: (context) => SplashPage(),
-            LoginPage.sName: (context) => LoginPage(),
-            MainPage.sName: (context) => MainPage(),
-            TaskhallPage.sName: (context) => TaskhallPage(),
-          },
-        )
-    );
-  }
 }

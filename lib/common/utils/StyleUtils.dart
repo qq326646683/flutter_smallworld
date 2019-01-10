@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbar/flutter_statusbar.dart';
 
 class SMColors {
   static const String primaryValueString = "#24292E";

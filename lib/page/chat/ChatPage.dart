@@ -15,6 +15,11 @@ class _ChatPageState extends State<ChatPage>
   Map positionMap = {"left": 0.0, "top": 0.0};
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     print('render:ChatPage');
