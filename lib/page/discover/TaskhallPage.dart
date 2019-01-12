@@ -98,7 +98,11 @@ class _TaskhallPageState extends State<TaskhallPage>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: null,
+      appBar: SMTitleBarWidget(
+        isDefault: false,
+        title: '任务大厅',
+        backIconColor: Color(SMColors.lightGolden),
+      ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

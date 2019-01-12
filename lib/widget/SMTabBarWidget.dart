@@ -58,6 +58,7 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
     if (widget.type == SMTabBarWidget.BOTTOM_TAB) {
       return Scaffold(
         body: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
           children: widget.tabViews,
           onPageChanged: (index) {

@@ -33,6 +33,11 @@ class NavigatorUtils extends NavigatorObserver{
     Navigator.pushNamed(mContext, routeName);
   }
 
+  // pop 页面
+  pop() {
+    Navigator.pop(mContext);
+  }
+
 
   @override
   void didPush(Route route, Route previousRoute) {

@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -22,6 +23,22 @@ class _ProfilePageState extends State<ProfilePage>
       color: Colors.purpleAccent,
       child: Column(
         children: <Widget>[
+          SMTitleBarWidget(
+            needLeftBack: false,
+            bgColor: Colors.transparent,
+            rightWidget: Row(
+              children: <Widget>[
+                Image.asset(SMIcons.TAB_DISCOVER),
+                Padding(padding: EdgeInsets.all(10),),
+                GestureDetector(
+                  onTap: () {
+                    print('aaa');
+                  },
+                  child: Image.asset(SMIcons.TAB_CLUB_ACTIVE),
+                ),
+              ],
+            )
+          ),
           Text(
             userInfo != null
                 ? userInfo.toJson().toString()

@@ -236,7 +236,7 @@ class SMIcons {
   static const String TASK_RECT = 'static/images/discover/taskhall/rectangle_yellow.png';
   static const String TASK_PICTURE = 'static/images/discover/taskhall/task_picture.png';
   static const String TASK_VIDEO = 'static/images/discover/taskhall/task_video.png';
-
+  static const String COMMON_BACK = 'static/images/common/icon_back.png';
 
 
 
