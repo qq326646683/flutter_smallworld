@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 
 class NavigatorUtils extends NavigatorObserver{
   static NavigatorUtils navigatorUtils;
@@ -73,5 +74,6 @@ class NavigatorUtils extends NavigatorObserver{
     print(_mRoutes);
     print('&&currentRoute&&');
     print(_mRoutes[_mRoutes.length - 1]);
+    StatusBarUtil.setupStatusBar(_mRoutes[_mRoutes.length - 1]);
   }
 }

@@ -96,7 +96,6 @@ class _TaskhallPageState extends State<TaskhallPage>
 
   @override
   Widget build(BuildContext context) {
-    StatusBarUtil.setLight();
     super.build(context);
     return Scaffold(
       appBar: null,

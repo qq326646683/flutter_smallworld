@@ -3,18 +3,30 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:flutter_smallworld/page/index.dart';
 
+enum StatusColor {
+  Light,
+  Dark
+}
+
 
 class StatusBarUtil {
   static List<String> lightRouteNameList = [
+    TaskhallPage.sName,
+  ];
+  static List darkRoutNameList = [
     SplashPage.sName,
     LoginPage.sName,
-    MainPage.sName
+    MainPage.sName,
   ];
-  static List
 
-  static String currentColor = 'light';
+  static StatusColor currentColor = StatusColor.Light;
+
   static setupStatusBar(Route currentRoute) {
-    TaskhallPage.sName
+    if (lightRouteNameList.contains(currentRoute.settings.name)) {
+      setLight();
+    } else if (darkRoutNameList.contains(currentRoute.settings.name)) {
+      setDart();
+    }
   }
 
   /**
@@ -22,8 +34,9 @@ class StatusBarUtil {
    */
   static setLight() {
 //    FlutterStatusbarcolor.setStatusBarColor(Color(SMColors.black));
-    if (currentColor != 'light') {
+    if (currentColor != StatusColor.Light) {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+      currentColor = StatusColor.Light;
     }
   }
 
@@ -32,8 +45,9 @@ class StatusBarUtil {
    */
   static setDart() {
 //    FlutterStatusbarcolor.setStatusBarColor(Color(SMColors.white));
-    if (currentColor != 'dart') {
+    if (currentColor != StatusColor.Dark) {
       FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+      currentColor = StatusColor.Dark;
     }
   }
 
