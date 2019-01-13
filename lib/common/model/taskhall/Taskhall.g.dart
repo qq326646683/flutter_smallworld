@@ -17,7 +17,8 @@ Taskhall _$TaskhallFromJson(Map<String, dynamic> json) {
       shot: json['shot'] as int,
       user: json['user'] == null
           ? null
-          : UserInfo.fromJson(json['user'] as Map<String, dynamic>));
+          : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
+      isComplete: json['isComplete'] as bool);
 }
 
 Map<String, dynamic> _$TaskhallToJson(Taskhall instance) => <String, dynamic>{
@@ -28,5 +29,6 @@ Map<String, dynamic> _$TaskhallToJson(Taskhall instance) => <String, dynamic>{
       'context': instance.context,
       'content_type': instance.content_type,
       'shot': instance.shot,
-      'user': instance.user
+      'user': instance.user,
+      'isComplete': instance.isComplete
     };

@@ -13,6 +13,7 @@ class Taskhall {
   int content_type;
   int shot;
   UserInfo user;
+  bool isComplete;
   
   Taskhall({
     this.id,
@@ -22,7 +23,8 @@ class Taskhall {
     this.context,
     this.content_type,
     this.shot,
-    this.user
+    this.user,
+    this.isComplete
   });
 
   factory Taskhall.fromJson(Map<String, dynamic> json) =>

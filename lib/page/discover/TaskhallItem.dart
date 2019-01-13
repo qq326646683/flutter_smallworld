@@ -7,6 +7,7 @@ import 'TaskhallPageStyle.dart';
 
 class TaskhallItem extends StatefulWidget {
   final Taskhall taskhall;
+
   TaskhallItem({this.taskhall});
 
   @override
@@ -16,19 +17,22 @@ class TaskhallItem extends StatefulWidget {
 class _TaskhallItemState extends State<TaskhallItem> {
   UserInfo user;
   Taskhall taskhall;
+  bool isPicTask;
+  bool isFullTask;
 
   @override
   Widget build(BuildContext context) {
     user = widget.taskhall.user;
     taskhall = widget.taskhall;
+    isPicTask = taskhall.content_type == 1;
+    isFullTask = int.parse(taskhall.complete_num) >= taskhall.num;
     return Container(
       width: ScreenUtil().screenWidth,
       height: TaskhallPageStyle.itemContainerHeight,
       padding: EdgeInsets.only(
-        top:TaskhallPageStyle.itemContainerPaddingVertical,
-        left: TaskhallPageStyle.itemContainerPaddingVertical,
-        right: TaskhallPageStyle.itemContainerPaddingVertical
-      ),
+          top: TaskhallPageStyle.itemContainerPaddingVertical,
+          left: TaskhallPageStyle.itemContainerPaddingVertical,
+          right: TaskhallPageStyle.itemContainerPaddingVertical),
       child: Column(
         children: <Widget>[
           /*第一行*/
@@ -38,23 +42,35 @@ class _TaskhallItemState extends State<TaskhallItem> {
               Stack(
                 overflow: Overflow.visible,
                 children: <Widget>[
-                  CircleAvatar(backgroundImage: NetworkImage(user.avatar),backgroundColor: Colors.black,),
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(user.avatar),
+                    backgroundColor: Colors.black,
+                  ),
                   Positioned(
                       bottom: TaskhallPageStyle.itemVipContainerBottom,
                       right: TaskhallPageStyle.itemVipContainerRight,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: TaskhallPageStyle.itemVipContainerPaddingHorizontal),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: TaskhallPageStyle
+                                .itemVipContainerPaddingHorizontal),
                         decoration: BoxDecoration(
                           color: Color(SMColors.darkGolden),
-                          borderRadius: BorderRadius.all(Radius.circular(TaskhallPageStyle.itemVipContainerRadius)),
-                          border: Border.all(color: Color(SMColors.white),width: TaskhallPageStyle.itemVipContainerBorder),
+                          borderRadius: BorderRadius.all(Radius.circular(
+                              TaskhallPageStyle.itemVipContainerRadius)),
+                          border: Border.all(
+                              color: Color(SMColors.white),
+                              width: TaskhallPageStyle.itemVipContainerBorder),
                         ),
-                        child: Text('V' + user.vip.toString(), style: TaskhallPageStyle.vipText,),
-                      )
-                  ),
+                        child: Text(
+                          'V' + user.vip.toString(),
+                          style: TaskhallPageStyle.vipText,
+                        ),
+                      )),
                 ],
               ),
-              Padding(padding: EdgeInsets.all(TaskhallPageStyle.itemNicknamePaddingLeft)),
+              Padding(
+                  padding: EdgeInsets.all(
+                      TaskhallPageStyle.itemNicknamePaddingLeft)),
               Text(user.nickname, style: TaskhallPageStyle.nicknameText),
             ],
           ),
@@ -67,24 +83,94 @@ class _TaskhallItemState extends State<TaskhallItem> {
                 Container(
                   width: 50,
                   height: 15,
-                  child: CustomPaint(painter: TrianglePainter(context),
-                ),),
+                  child: CustomPaint(
+                    painter: TrianglePainter(context),
+                  ),
+                ),
                 Expanded(
                   flex: 1,
                   child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
                     decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage(SMIcons.TASKHALL_ITEM_BG),fit: BoxFit.fill),
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Color(SMColors.lightGolden), Color(SMColors.darkGolden)],
-                            tileMode: TileMode.repeated
-                        )
+                      image: DecorationImage(
+                          image: AssetImage(SMIcons.TASKHALL_ITEM_BG),
+                          fit: BoxFit.fill),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(TaskhallPageStyle.itemBorderRadius)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(SMColors.lightGolden),
+                            Color(SMColors.darkGolden)
+                          ],
+                          tileMode: TileMode.repeated),
                     ),
                     child: Row(
                       children: <Widget>[
-                        Image.asset(SMIcons.TASKHALL_BG, width: 80, height: 60,)
+                        Image.asset(
+                          isPicTask ? SMIcons.TASK_PICTURE : SMIcons.TASK_VIDEO,
+                          width: isPicTask
+                              ? TaskhallPageStyle.itemLeftImgPicWid
+                              : TaskhallPageStyle.itemLeftImgVideoWid,
+                          height: isPicTask
+                              ? TaskhallPageStyle.itemLeftImgPicHei
+                              : TaskhallPageStyle.itemLeftImgVideoHei,
+                          fit: BoxFit.contain,
+                        ),
+                        /*中间*/
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(taskhall.context, style: TaskhallPageStyle.contextTextStyle, maxLines: 3, overflow: TextOverflow.ellipsis),
+                              Text.rich(TextSpan(
+                                children: [
+                                  TextSpan(text: '¥ ${taskhall.reward}', style: SMTxtStyle.largeTextWhite),
+                                  TextSpan(text: '  红包奖励', style: SMTxtStyle.minTextWhite),
+                                ]
+                              ))
+                            ],
+                          ),
+                        ),
+                        /*右边*/
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            isFullTask
+                                ? Container(
+                                    height: TaskhallPageStyle.itemRightButtonH,
+                                    padding: TaskhallPageStyle.buttonPadding,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            width: 1.0,
+                                            color: Color(SMColors.white)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                SMSize.borderRadius5))),
+                                    child: Text(
+                                      '名额已满',
+                                      style: SMTxtStyle.smallTextWhite,
+                                    ),
+                                  )
+                                : SMButtonWidget(
+                                    height: TaskhallPageStyle.itemRightButtonH,
+                                    text: '去完成',
+                                    gradientColors: [
+                                      Colors.white,
+                                      Colors.white
+                                    ],
+                                    textStyle: TaskhallPageStyle.toCompleteText,
+                                  ),
+                            Padding(padding: EdgeInsets.only(top: 3.0)),
+                            Text(
+                              '已提交 ${taskhall.complete_num}/${taskhall.num}',
+                              style: TaskhallPageStyle.microTextStyle,
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),

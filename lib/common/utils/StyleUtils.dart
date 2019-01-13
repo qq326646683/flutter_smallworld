@@ -42,6 +42,10 @@ class SMColors {
   static const int msgTipColor = 0xFFF44336;
 }
 
+class SMSize {
+  static double borderRadius5 = 5.0;
+}
+
 // 文本样式
 class SMTxtStyle {
   static const lagerTextSize = 30.0;
@@ -54,6 +58,12 @@ class SMTxtStyle {
   static const minText = TextStyle(
     color: Color(SMColors.subLightTextColor),
     fontSize: minTextSize,
+  );
+
+  static const minTextWhite = TextStyle(
+    color: Color(SMColors.textColorWhite),
+    fontSize: minTextSize,
+    fontWeight: FontWeight.w300
   );
 
   static const smallTextWhite = TextStyle(
