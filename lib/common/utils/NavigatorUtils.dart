@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_smallworld/page/index.dart';
 
-class NavigatorUtils extends NavigatorObserver{
+class NavigatorUtils extends NavigatorObserver {
+  /*配置routes*/
+  static Map<String, WidgetBuilder> configRoutes = {
+    SplashPage.sName: (context) => SplashPage(),
+    LoginPage.sName: (context) => LoginPage(),
+    MainPage.sName: (context) => MainPage(),
+    TaskhallPage.sName: (context) => TaskhallPage(),
+  };
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;
   static List<Route> _mRoutes;
 
+  setContext(BuildContext context) {
+    mContext = context;
+  }
 
   static NavigatorUtils getInstance() {
     if (navigatorUtils == null) {
@@ -13,10 +25,6 @@ class NavigatorUtils extends NavigatorObserver{
     }
 
     return navigatorUtils;
-  }
-
-  setContext(BuildContext context) {
-    mContext = context;
   }
 
   BuildContext getContext() {
@@ -30,14 +38,18 @@ class NavigatorUtils extends NavigatorObserver{
 
   // push 页面
   pushNamed(String routeName) {
-    Navigator.pushNamed(mContext, routeName);
+    Navigator.push(
+        mContext,
+        CupertinoPageRoute(
+          builder: configRoutes[routeName],
+          settings: RouteSettings(name: routeName),
+        ));
   }
 
   // pop 页面
   pop() {
     Navigator.pop(mContext);
   }
-
 
   @override
   void didPush(Route route, Route previousRoute) {

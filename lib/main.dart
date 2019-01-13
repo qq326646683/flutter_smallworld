@@ -23,6 +23,7 @@ class FlutterReduxApp extends StatefulWidget {
 class _FlutterReduxAppState extends State<FlutterReduxApp>{
   StreamSubscription stream;
 
+
   final store = new Store<MainStore>(appReducer,
       initialState: MainStore(
         userStore: UserStore.initStore(),
@@ -56,12 +57,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
           navigatorObservers: [
             NavigatorUtils.getInstance(),
           ],
-          routes: {
-            SplashPage.sName: (context) => SplashPage(),
-            LoginPage.sName: (context) => LoginPage(),
-            MainPage.sName: (context) => MainPage(),
-            TaskhallPage.sName: (context) => TaskhallPage(),
-          },
+          routes: NavigatorUtils.configRoutes,
         )
     );
   }
