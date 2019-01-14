@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class SMColors {
   static const String primaryValueString = "#24292E";
@@ -55,174 +56,174 @@ class SMTxtStyle {
   static const smallTextSize = 14.0;
   static const minTextSize = 12.0;
 
-  static const minText = TextStyle(
+  static const minText = SMTextStyle(
     color: Color(SMColors.subLightTextColor),
     fontSize: minTextSize,
   );
 
-  static const minTextWhite = TextStyle(
+  static const minTextWhite =SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: minTextSize,
     fontWeight: FontWeight.w300
   );
 
-  static const smallTextWhite = TextStyle(
+  static const smallTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: smallTextSize,
   );
 
-  static const smallText = TextStyle(
+  static const smallText = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: smallTextSize,
   );
 
-  static const smallTextBold = TextStyle(
+  static const smallTextBold = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: smallTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const smallSubLightText = TextStyle(
+  static const smallSubLightText = SMTextStyle(
     color: Color(SMColors.subLightTextColor),
     fontSize: smallTextSize,
   );
 
-  static const smallActionLightText = TextStyle(
+  static const smallActionLightText = SMTextStyle(
     color: Color(SMColors.actionBlue),
     fontSize: smallTextSize,
   );
 
-  static const smallMiLightText = TextStyle(
+  static const smallMiLightText = SMTextStyle(
     color: Color(SMColors.miWhite),
     fontSize: smallTextSize,
   );
 
-  static const smallSubText = TextStyle(
+  static const smallSubText = SMTextStyle(
     color: Color(SMColors.subTextColor),
     fontSize: smallTextSize,
   );
 
-  static const middleText = TextStyle(
+  static const middleText = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: middleTextWhiteSize,
   );
 
-  static const middleTextWhite = TextStyle(
+  static const middleTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: middleTextWhiteSize,
   );
 
-  static const middleSubText = TextStyle(
+  static const middleSubText = SMTextStyle(
     color: Color(SMColors.subTextColor),
     fontSize: middleTextWhiteSize,
   );
 
-  static const middleSubLightText = TextStyle(
+  static const middleSubLightText = SMTextStyle(
     color: Color(SMColors.subLightTextColor),
     fontSize: middleTextWhiteSize,
   );
 
-  static const middleTextBold = TextStyle(
+  static const middleTextBold = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: middleTextWhiteSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const middleTextWhiteBold = TextStyle(
+  static const middleTextWhiteBold = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: middleTextWhiteSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const middleSubTextBold = TextStyle(
+  static const middleSubTextBold = SMTextStyle(
     color: Color(SMColors.subTextColor),
     fontSize: middleTextWhiteSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const normalText = TextStyle(
+  static const normalText = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: normalTextSize,
   );
 
-  static const normalTextBold = TextStyle(
+  static const normalTextBold = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const normalSubText = TextStyle(
+  static const normalSubText = SMTextStyle(
     color: Color(SMColors.subTextColor),
     fontSize: normalTextSize,
   );
 
-  static const normalTextWhite = TextStyle(
+  static const normalTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: normalTextSize,
   );
 
-  static const normalTextMitWhiteBold = TextStyle(
+  static const normalTextMitWhiteBold = SMTextStyle(
     color: Color(SMColors.miWhite),
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const normalTextActionWhiteBold = TextStyle(
+  static const normalTextActionWhiteBold = SMTextStyle(
     color: Color(SMColors.actionBlue),
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const normalTextLight = TextStyle(
+  static const normalTextLight = SMTextStyle(
     color: Color(SMColors.primaryLightValue),
     fontSize: normalTextSize,
   );
 
-  static const largeText = TextStyle(
+  static const largeText = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: bigTextSize,
   );
 
-  static const largeTextSubLight = TextStyle(
+  static const largeTextSubLight = SMTextStyle(
     color: Color(SMColors.subLightTextColor),
     fontSize: bigTextSize,
   );
 
-  static const largeTextBold = TextStyle(
+  static const largeTextBold = SMTextStyle(
     color: Color(SMColors.mainTextColor),
     fontSize: bigTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const largeTextWhite = TextStyle(
+  static const largeTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: bigTextSize,
   );
 
-  static const largeTextWhiteBold = TextStyle(
+  static const largeTextWhiteBold = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: bigTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const largeLargeTextWhite = TextStyle(
+  static const largeLargeTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: lagerTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const largeLargeText = TextStyle(
+  static const largeLargeText = SMTextStyle(
     color: Color(SMColors.primaryValue),
     fontSize: lagerTextSize,
     fontWeight: FontWeight.bold,
   );
 
-  static const largeTextHolderWhite = TextStyle(
+  static const largeTextHolderWhite = SMTextStyle(
     color: Color(SMColors.textPlaceHolderWhite),
     fontSize: bigTextSize,
   );
 
-  static const normalTextHolderWhite = TextStyle(
+  static const normalTextHolderWhite = SMTextStyle(
     color: Color(SMColors.textPlaceHolderWhite),
     fontSize: normalTextSize,
   );

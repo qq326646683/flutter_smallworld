@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class SMButtonWidget extends StatelessWidget {
   final double width;
@@ -10,7 +11,7 @@ class SMButtonWidget extends StatelessWidget {
 
   final List<Color> gradientColors;
 
-  final TextStyle textStyle;
+  final SMTextStyle textStyle;
 
   final VoidCallback onPress;
 

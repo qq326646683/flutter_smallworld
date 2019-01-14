@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class SMTitleBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final Widget leftWidget;
@@ -28,8 +29,8 @@ class _SMTitleBarWidgetState extends State<SMTitleBarWidget>{
 
   @override
   Widget build(BuildContext context) {
-    TextStyle titleTextStyle = widget.isDefault ? SMTxtStyle.middleTextBold :SMTxtStyle.middleTextWhiteBold;
-    TextStyle rightTitleTextStyle = widget.isDefault ? SMTxtStyle.smallText :SMTxtStyle.smallTextWhite;
+    SMTextStyle titleTextStyle = widget.isDefault ? SMTxtStyle.middleTextBold :SMTxtStyle.middleTextWhiteBold;
+    SMTextStyle rightTitleTextStyle = widget.isDefault ? SMTxtStyle.smallText :SMTxtStyle.smallTextWhite;
     Color containBg = widget.bgColor != null ? widget.bgColor : (widget.isDefault ? Color(SMColors.white) : Color(SMColors.black));
     Color backIconColor = widget.backIconColor != null ? widget.backIconColor : (widget.isDefault ? Color(SMColors.black) : Color(SMColors.white));
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 ///通用下上刷新控件
 class SMPullLoadWidget extends StatefulWidget {
@@ -147,7 +148,7 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
       ///加载中文本
       new Text(
         '加载中...',
-        style: TextStyle(
+        style: SMTextStyle(
           color: Colors.grey,
           fontSize: 14.0,
           fontWeight: FontWeight.bold,

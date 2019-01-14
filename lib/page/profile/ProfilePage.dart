@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage>
             userInfo != null
                 ? userInfo.toJson().toString()
                 : 'deffff',
-            style: TextStyle(color: Colors.white, fontSize: 14.0),
+            style: SMTextStyle(color: Colors.white, fontSize: 14.0),
           ),
         ],
       ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class SMInputWidget extends StatefulWidget {
-  final TextStyle textStyle;
+  final SMTextStyle textStyle;
 
   final String hintText;
 
-  final TextStyle hintTextStyle;
+  final SMTextStyle hintTextStyle;
 
   final TextInputType keyboardType;
 

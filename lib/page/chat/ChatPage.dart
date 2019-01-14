@@ -3,6 +3,7 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class ChatPage extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _ChatPageState extends State<ChatPage>
           }),
           Text(
             '宽:${siseMap["width"]}高:${siseMap["height"]}',
-            style: TextStyle(color: Colors.white, fontSize: 14.0),
+            style: SMTextStyle(color: Colors.white, fontSize: 14.0),
           ),
           LayoutBuilder(builder: (BuildContext mContext, BoxConstraints cons) {
             return RaisedButton(
@@ -56,7 +57,7 @@ class _ChatPageState extends State<ChatPage>
           }),
           Text(
             '距离左边:${positionMap["left"]}距离上边:${positionMap["top"]}',
-            style: TextStyle(color: Colors.white, fontSize: 14.0),
+            style: SMTextStyle(color: Colors.white, fontSize: 14.0),
           ),
           RaisedButton(
             onPressed: () {
