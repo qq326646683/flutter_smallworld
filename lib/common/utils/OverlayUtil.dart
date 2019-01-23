@@ -11,7 +11,7 @@ class OverlayUtil {
           return Dialog(
             child: child,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(SMSize.borderRadius5))
+                borderRadius: SMCommonStyle.borderRadius5
             ),
           );
         },

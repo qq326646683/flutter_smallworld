@@ -10,30 +10,62 @@ class ConfirmUtil {
     switch (param.type) {
       case 2:
         widget = Container(
-          height: 200,
+          height: _Style.type2Height,
+          padding: EdgeInsets.all(_Style.containPad),
           decoration: BoxDecoration(
-            color: Color(SMColors.black),
-            borderRadius: BorderRadius.all(Radius.circular(SMSize.borderRadius5))
+              color: Color(SMColors.black),
+              borderRadius: SMCommonStyle.borderRadius5
           ),
           child: Column(
             children: <Widget>[
-              Text(param.title, style: SMTxtStyle.normalTextBoldWhite,),
-              Text(param.content, style: SMTxtStyle.smallTextWhite,),
+              Text(param.title, style: SMTxtStyle.largeTextGoldenBold,),
+              Padding(padding: SMCommonStyle.padding5,),
+              Expanded(
+                child: Text(param.content, style: SMTxtStyle.normalTextGolden,),
+              ),
               Row(
                 children: <Widget>[
-                  SMButtonWidget(
-//                    height: TaskhallPageStyle.itemRightButtonH,
-                    text: param.sureText ?? '确认',
-                    gradientColors: [
-                      Colors.white,
-                      Colors.white
-                    ],
-                    textStyle: SMTxtStyle.normalText,
-                    onPress: () {
-                      Navigator.pop(NavigatorUtils.getInstance().getContext());
-                      param.surePress?.call();
-                    },
-                  )
+                  Expanded(
+                    child: GestureDetector(
+                      child: Container(
+                        height: _Style.cancelHeight,
+                        padding: SMCommonStyle.btnPadding,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: SMCommonStyle.border05White,
+                            borderRadius: SMCommonStyle.borderRadius5
+                        ),
+                        child: Text(
+                          param.cancelText ?? '取消',
+                          style: SMTxtStyle.normalTextWhite,
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.pop(
+                            NavigatorUtils.getInstance().getContext());
+                        param.cancelPress?.call();
+                      },
+                    ),
+                  ),
+                  Padding(padding: SMCommonStyle.padding5,),
+                  Expanded(
+                    child: SMButtonWidget(
+                      height: _Style.cancelHeight,
+                      text: param.sureText ?? '确认',
+                      gradientColors: [
+                        Colors.white,
+                        Colors.white
+                      ],
+                      textStyle: SMTxtStyle.normalText,
+                      onPress: () {
+                        Navigator.pop(
+                            NavigatorUtils.getInstance().getContext());
+                        param.surePress?.call();
+                      },
+                    ),
+                  ),
+
+
                 ],
               ),
             ],
@@ -46,6 +78,12 @@ class ConfirmUtil {
   }
 }
 
+class _Style {
+  static double type2Height = ScreenUtil().getWidth(180.0);
+  static double containPad = ScreenUtil().getWidth(15.0);
+  static double cancelHeight = ScreenUtil().getWidth(40.0);
+}
+
 class ConfirmParam {
   int type;
   String title;
@@ -54,5 +92,7 @@ class ConfirmParam {
   String sureText;
   VoidCallback cancelPress;
   VoidCallback surePress;
-  ConfirmParam({@required this.type, this.title, this.content, this.cancelText, this.sureText, this.cancelPress, this.surePress});
+
+  ConfirmParam(
+      {@required this.type, this.title, this.content, this.cancelText, this.sureText, this.cancelPress, this.surePress});
 }

@@ -43,8 +43,15 @@ class SMColors {
   static const int msgTipColor = 0xFFF44336;
 }
 
-class SMSize {
-  static double borderRadius5 = 5.0;
+class SMCommonStyle {
+  static BorderRadius borderRadius5 = BorderRadius.all(
+      Radius.circular(5.0));
+  static EdgeInsets padding5 = EdgeInsets.all(5.0);
+  static EdgeInsets btnPadding = EdgeInsets.symmetric(
+      horizontal: 10.0, vertical: 5.0);
+  static Border border05White = Border.all(
+      width: 0.5,
+      color: Color(SMColors.white));
 }
 
 // 文本样式
@@ -61,7 +68,7 @@ class SMTxtStyle {
     fontSize: minTextSize,
   );
 
-  static const minTextWhite =SMTextStyle(
+  static const minTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: minTextSize,
   );
@@ -161,6 +168,11 @@ class SMTxtStyle {
     fontSize: normalTextSize,
   );
 
+  static const normalTextGolden = SMTextStyle(
+    color: Color(SMColors.lightGolden),
+    fontSize: normalTextSize,
+  );
+
   static const normalTextBoldWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: normalTextSize,
@@ -211,6 +223,12 @@ class SMTxtStyle {
     fontWeight: FontWeight.bold,
   );
 
+  static const largeTextGoldenBold = SMTextStyle(
+    color: Color(SMColors.lightGolden),
+    fontSize: bigTextSize,
+    fontWeight: FontWeight.bold,
+  );
+
   static const largeLargeTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: lagerTextSize,
@@ -253,7 +271,6 @@ class SMIcons {
   static const String TASK_PICTURE = 'static/images/discover/taskhall/task_picture.png';
   static const String TASK_VIDEO = 'static/images/discover/taskhall/task_video.png';
   static const String COMMON_BACK = 'static/images/common/icon_back.png';
-
 
 
 }

@@ -150,12 +150,8 @@ class _TaskhallItemState extends State<TaskhallItem> {
                               height: TaskhallPageStyle.itemRightButtonH,
                               padding: TaskhallPageStyle.buttonPadding,
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1.0,
-                                      color: Color(SMColors.white)),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                          SMSize.borderRadius5))),
+                                  border: SMCommonStyle.border05White,
+                                  borderRadius: SMCommonStyle.borderRadius5),
                               child: Text(
                                 '名额已满',
                                 style: SMTxtStyle.smallTextWhite,
@@ -190,8 +186,10 @@ class _TaskhallItemState extends State<TaskhallItem> {
     );
   }
 
-  Future doTask() async {
+  doTask() async {
     bool result = await PermissionUtil.deal([PermissionGroup.photos, PermissionGroup.camera]);
-    print(result);
+    if (result) {
+
+    }
   }
 }

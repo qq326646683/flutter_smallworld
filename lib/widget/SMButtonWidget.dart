@@ -32,8 +32,7 @@ class SMButtonWidget extends StatelessWidget {
         this.onPress?.call();
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: ScreenUtil().getWidth(10.0), vertical: ScreenUtil().getWidth(5.0)),
+        padding: SMCommonStyle.btnPadding,
         alignment: Alignment.center,
         width: this.width,
         height: this.height,
