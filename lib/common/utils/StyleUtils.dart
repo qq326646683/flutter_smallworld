@@ -64,7 +64,6 @@ class SMTxtStyle {
   static const minTextWhite =SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: minTextSize,
-    fontWeight: FontWeight.w300
   );
 
   static const smallTextWhite = SMTextStyle(
@@ -160,6 +159,12 @@ class SMTxtStyle {
   static const normalTextWhite = SMTextStyle(
     color: Color(SMColors.textColorWhite),
     fontSize: normalTextSize,
+  );
+
+  static const normalTextBoldWhite = SMTextStyle(
+    color: Color(SMColors.textColorWhite),
+    fontSize: normalTextSize,
+    fontWeight: FontWeight.bold,
   );
 
   static const normalTextMitWhiteBold = SMTextStyle(

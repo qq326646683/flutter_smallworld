@@ -58,32 +58,38 @@ class NavigatorUtils extends NavigatorObserver {
     //可通过route.settings获取路由相关内容
     //route.currentResult获取返回内容
     //....等等
-    print('^^^^routePush');
-    print(route.settings.name);
     if (_mRoutes == null) {
       _mRoutes = new List<Route>();
     }
-    _mRoutes.add(route);
-    routeObserver();
+    if(route is CupertinoPageRoute || route is MaterialPageRoute) {
+      print('^^^^routePush');
+      print(route.settings.name);
+      _mRoutes.add(route);
+      routeObserver();
+    }
   }
 
   @override
   void didReplace({Route newRoute, Route oldRoute}) {
     super.didReplace();
-    print('^^^^routeReplace');
-    print(newRoute.settings.name);
-    _mRoutes.remove(oldRoute);
-    _mRoutes.add(newRoute);
-    routeObserver();
+    if(newRoute is CupertinoPageRoute || newRoute is MaterialPageRoute) {
+      print('^^^^routeReplace');
+      print(newRoute.settings.name);
+      _mRoutes.remove(oldRoute);
+      _mRoutes.add(newRoute);
+      routeObserver();
+    }
   }
 
   @override
   void didPop(Route route, Route previousRoute) {
     super.didPop(route, previousRoute);
-    print('^^^^routePop');
-    print(route.settings.name);
-    _mRoutes.remove(route);
-    routeObserver();
+    if(route is CupertinoPageRoute || route is MaterialPageRoute) {
+      print('^^^^routePop');
+      print(route.settings.name);
+      _mRoutes.remove(route);
+      routeObserver();
+    }
   }
 
   void routeObserver() {

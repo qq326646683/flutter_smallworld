@@ -5,3 +5,6 @@ export 'ScreenUtil.dart';
 export 'WidgetUtil.dart';
 export 'ToastUtil.dart';
 export 'StatusBarUtil.dart';
+export 'PermissionUtil.dart';
+export 'OverlayUtil.dart';
+export 'ConfirmUtil.dart';
