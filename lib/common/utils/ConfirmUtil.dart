@@ -13,7 +13,7 @@ class ConfirmUtil {
           height: _Style.type2Height,
           padding: EdgeInsets.all(_Style.containPad),
           decoration: BoxDecoration(
-              color: Color(SMColors.black),
+              color: SMColors.black,
               borderRadius: SMCommonStyle.borderRadius5
           ),
           child: Column(
@@ -74,7 +74,9 @@ class ConfirmUtil {
         break;
     }
 
-    OverlayUtil.showPop(widget);
+    OverlayUtil.showPop(
+      child: widget,
+    );
   }
 }
 

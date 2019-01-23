@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
           ProfilePage()
         ],
         tabItems: _tabItems,
-        backgroundColor: Color(SMColors.primaryDarkValue),
+        backgroundColor: SMColors.primaryDarkValue,
         onPageChanged: (int index) {
 //          print('currentIndex::' + index.toString());
         },

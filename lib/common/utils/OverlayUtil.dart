@@ -4,7 +4,7 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 
 
 class OverlayUtil {
-  static showPop(Widget child, [barrierDismissible = false]) {
+  static showPop({@required Widget child, barrierDismissible = false, barrierColor = SMColors.opacity60CoverWhite}) {
     showGeneralDialog(
         context: NavigatorUtils.getInstance().getContext(),
         pageBuilder: (context, animation, secondaryAnimation) {
@@ -17,6 +17,7 @@ class OverlayUtil {
         },
         barrierDismissible: barrierDismissible,
         barrierLabel: '',
+        barrierColor: barrierColor,
         transitionDuration: Duration(milliseconds: 100)
     );
   }

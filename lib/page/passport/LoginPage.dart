@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                     ? VideoPlayer(_controller)
                     : Container(),
                 // 蒙层
-                Container(color: Color(SMColors.opacity60Cover)),
+                Container(color: SMColors.opacity60Cover),
                 // 登陆
                 Center(
                   child: Padding(

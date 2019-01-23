@@ -31,8 +31,8 @@ class _SMTitleBarWidgetState extends State<SMTitleBarWidget>{
   Widget build(BuildContext context) {
     SMTextStyle titleTextStyle = widget.isDefault ? SMTxtStyle.middleTextBold :SMTxtStyle.middleTextWhiteBold;
     SMTextStyle rightTitleTextStyle = widget.isDefault ? SMTxtStyle.smallText :SMTxtStyle.smallTextWhite;
-    Color containBg = widget.bgColor != null ? widget.bgColor : (widget.isDefault ? Color(SMColors.white) : Color(SMColors.black));
-    Color backIconColor = widget.backIconColor != null ? widget.backIconColor : (widget.isDefault ? Color(SMColors.black) : Color(SMColors.white));
+    Color containBg = widget.bgColor != null ? widget.bgColor : (widget.isDefault ? SMColors.white : SMColors.black);
+    Color backIconColor = widget.backIconColor != null ? widget.backIconColor : (widget.isDefault ? SMColors.black : SMColors.white);
 
     return Container(
       color: containBg,

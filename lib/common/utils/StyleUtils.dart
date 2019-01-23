@@ -10,37 +10,40 @@ class SMColors {
   static const String webDraculaBackgroundColorString = "#282a36";
   static const String textPlaceHolderWhiteString = "#999999";
 
-  static const int primaryValue = 0xFF24292E;
-  static const int primaryLightValue = 0xFF42464b;
-  static const int primaryDarkValue = 0xFF121917;
+  static const Color primaryValue = Color(0xFF24292E);
+  static const Color primaryLightValue = Color(0xFF42464b);
+  static const Color primaryDarkValue = Color(0xFF121917);
 
-  static const int cardWhite = 0xFFFFFFFF;
-  static const int textWhite = 0xFFFFFFFF;
-  static const int miWhite = 0xffececec;
-  static const int white = 0xFFFFFFFF;
-  static const int black = 0xFF000000;
-  static const int actionBlue = 0xff267aff;
-  static const int subTextColor = 0xff959595;
-  static const int subLightTextColor = 0xffc4c4c4;
-  static const int textPlaceHolderWhite = 0xff999999;
+  static const Color cardWhite = Color(0xFFFFFFFF);
+  static const Color textWhite = Color(0xFFFFFFFF);
+  static const Color miWhite = Color(0xffececec);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
+  static const Color actionBlue = Color(0xff267aff);
+  static const Color subTextColor = Color(0xff959595);
+  static const Color subLightTextColor = Color(0xffc4c4c4);
+  static const Color textPlaceHolderWhite = Color(0xff999999);
 
 
   //yellow
-  static const int lightGolden = 0xffECC752;
-  static const int darkGolden = 0xffB18B3E;
+  static const Color lightGolden = Color(0xffECC752);
+  static const Color darkGolden = Color(0xffB18B3E);
 
-  static const int mainBackgroundColor = miWhite;
+  static const Color mainBackgroundColor = miWhite;
 
-  static const int mainTextColor = primaryDarkValue;
-  static const int textColorWhite = white;
+  static const Color mainTextColor = primaryDarkValue;
+  static const Color textColorWhite = white;
 
+  static const Color opacity60Cover = Color(0x96000000);
 
-  static const int opacity60Cover = 0x96000000;
+  static const Color opacity75Cover = Color(0xcc000000);
 
-  static const int opacity75Cover = 0xcc000000;
+  static const Color opacity60CoverWhite = Color(0x96ffffff);
+
+  static const Color opacity75CoverWhite = Color(0xccffffff);
 
   // 消息提示点颜色
-  static const int msgTipColor = 0xFFF44336;
+  static const Color msgTipColor = Color(0xFFF44336);
 }
 
 class SMCommonStyle {
@@ -51,7 +54,7 @@ class SMCommonStyle {
       horizontal: 10.0, vertical: 5.0);
   static Border border05White = Border.all(
       width: 0.5,
-      color: Color(SMColors.white));
+      color: SMColors.white);
 }
 
 // 文本样式
@@ -64,190 +67,190 @@ class SMTxtStyle {
   static const minTextSize = 12.0;
 
   static const minText = SMTextStyle(
-    color: Color(SMColors.subLightTextColor),
+    color: SMColors.subLightTextColor,
     fontSize: minTextSize,
   );
 
   static const minTextWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: minTextSize,
   );
 
   static const smallTextWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: smallTextSize,
   );
 
   static const smallText = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: smallTextSize,
   );
 
   static const smallTextBold = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: smallTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const smallSubLightText = SMTextStyle(
-    color: Color(SMColors.subLightTextColor),
+    color: SMColors.subLightTextColor,
     fontSize: smallTextSize,
   );
 
   static const smallActionLightText = SMTextStyle(
-    color: Color(SMColors.actionBlue),
+    color: SMColors.actionBlue,
     fontSize: smallTextSize,
   );
 
   static const smallMiLightText = SMTextStyle(
-    color: Color(SMColors.miWhite),
+    color: SMColors.miWhite,
     fontSize: smallTextSize,
   );
 
   static const smallSubText = SMTextStyle(
-    color: Color(SMColors.subTextColor),
+    color: SMColors.subTextColor,
     fontSize: smallTextSize,
   );
 
   static const middleText = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: middleTextWhiteSize,
   );
 
   static const middleTextWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: middleTextWhiteSize,
   );
 
   static const middleSubText = SMTextStyle(
-    color: Color(SMColors.subTextColor),
+    color: SMColors.subTextColor,
     fontSize: middleTextWhiteSize,
   );
 
   static const middleSubLightText = SMTextStyle(
-    color: Color(SMColors.subLightTextColor),
+    color: SMColors.subLightTextColor,
     fontSize: middleTextWhiteSize,
   );
 
   static const middleTextBold = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: middleTextWhiteSize,
     fontWeight: FontWeight.bold,
   );
 
   static const middleTextWhiteBold = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: middleTextWhiteSize,
     fontWeight: FontWeight.bold,
   );
 
   static const middleSubTextBold = SMTextStyle(
-    color: Color(SMColors.subTextColor),
+    color: SMColors.subTextColor,
     fontSize: middleTextWhiteSize,
     fontWeight: FontWeight.bold,
   );
 
   static const normalText = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: normalTextSize,
   );
 
   static const normalTextBold = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const normalSubText = SMTextStyle(
-    color: Color(SMColors.subTextColor),
+    color: SMColors.subTextColor,
     fontSize: normalTextSize,
   );
 
   static const normalTextWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: normalTextSize,
   );
 
   static const normalTextGolden = SMTextStyle(
-    color: Color(SMColors.lightGolden),
+    color: SMColors.lightGolden,
     fontSize: normalTextSize,
   );
 
   static const normalTextBoldWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const normalTextMitWhiteBold = SMTextStyle(
-    color: Color(SMColors.miWhite),
+    color: SMColors.miWhite,
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const normalTextActionWhiteBold = SMTextStyle(
-    color: Color(SMColors.actionBlue),
+    color: SMColors.actionBlue,
     fontSize: normalTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const normalTextLight = SMTextStyle(
-    color: Color(SMColors.primaryLightValue),
+    color: SMColors.primaryLightValue,
     fontSize: normalTextSize,
   );
 
   static const largeText = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: bigTextSize,
   );
 
   static const largeTextSubLight = SMTextStyle(
-    color: Color(SMColors.subLightTextColor),
+    color: SMColors.subLightTextColor,
     fontSize: bigTextSize,
   );
 
   static const largeTextBold = SMTextStyle(
-    color: Color(SMColors.mainTextColor),
+    color: SMColors.mainTextColor,
     fontSize: bigTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const largeTextWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: bigTextSize,
   );
 
   static const largeTextWhiteBold = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: bigTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const largeTextGoldenBold = SMTextStyle(
-    color: Color(SMColors.lightGolden),
+    color: SMColors.lightGolden,
     fontSize: bigTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const largeLargeTextWhite = SMTextStyle(
-    color: Color(SMColors.textColorWhite),
+    color: SMColors.textColorWhite,
     fontSize: lagerTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const largeLargeText = SMTextStyle(
-    color: Color(SMColors.primaryValue),
+    color: SMColors.primaryValue,
     fontSize: lagerTextSize,
     fontWeight: FontWeight.bold,
   );
 
   static const largeTextHolderWhite = SMTextStyle(
-    color: Color(SMColors.textPlaceHolderWhite),
+    color: SMColors.textPlaceHolderWhite,
     fontSize: bigTextSize,
   );
 
   static const normalTextHolderWhite = SMTextStyle(
-    color: Color(SMColors.textPlaceHolderWhite),
+    color: SMColors.textPlaceHolderWhite,
     fontSize: normalTextSize,
   );
 }

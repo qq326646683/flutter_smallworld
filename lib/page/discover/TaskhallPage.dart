@@ -101,7 +101,7 @@ class _TaskhallPageState extends State<TaskhallPage>
       appBar: SMTitleBarWidget(
         isDefault: false,
         title: '任务大厅',
-        backIconColor: Color(SMColors.lightGolden),
+        backIconColor: SMColors.lightGolden,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -114,7 +114,7 @@ class _TaskhallPageState extends State<TaskhallPage>
             Container(
               width: ScreenUtil().screenWidth,
               height: ScreenUtil().screenHeight,
-              color: Color(SMColors.opacity75Cover),
+              color: SMColors.opacity75Cover,
             ),
             SMPullLoadWidget(
               pullLoadWidgetControl,

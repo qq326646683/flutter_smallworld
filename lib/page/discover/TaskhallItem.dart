@@ -54,11 +54,11 @@ class _TaskhallItemState extends State<TaskhallItem> {
                             horizontal: TaskhallPageStyle
                                 .itemVipContainerPaddingHorizontal),
                         decoration: BoxDecoration(
-                          color: Color(SMColors.darkGolden),
+                          color: SMColors.darkGolden,
                           borderRadius: BorderRadius.all(Radius.circular(
                               TaskhallPageStyle.itemVipContainerRadius)),
                           border: Border.all(
-                              color: Color(SMColors.white),
+                              color: SMColors.white,
                               width: TaskhallPageStyle.itemVipContainerBorder),
                         ),
                         child: Text(
@@ -102,8 +102,8 @@ class _TaskhallItemState extends State<TaskhallItem> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Color(SMColors.lightGolden),
-                            Color(SMColors.darkGolden)
+                            SMColors.lightGolden,
+                            SMColors.darkGolden
                           ],
                           tileMode: TileMode.repeated),
                     ),
@@ -148,7 +148,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
                             isFullTask
                                 ? Container(
                               height: TaskhallPageStyle.itemRightButtonH,
-                              padding: TaskhallPageStyle.buttonPadding,
+                              padding: SMCommonStyle.btnPadding,
                               decoration: BoxDecoration(
                                   border: SMCommonStyle.border05White,
                                   borderRadius: SMCommonStyle.borderRadius5),
@@ -187,7 +187,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
   }
 
   doTask() async {
-    bool result = await PermissionUtil.deal([PermissionGroup.photos, PermissionGroup.camera]);
+    bool result = await PermissionUtil.deal([PermissionGroup.photos]);
     if (result) {
 
     }

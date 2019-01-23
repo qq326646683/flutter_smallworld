@@ -42,7 +42,7 @@ class SMButtonWidget extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: this.gradientColors ??
-                    [Color(SMColors.lightGolden), Color(SMColors.darkGolden)],
+                    [SMColors.lightGolden, SMColors.darkGolden],
                 tileMode: TileMode.repeated)),
         child: Flex(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -7,7 +7,7 @@ class TrianglePainter extends CustomPainter {
   TrianglePainter(this.mContext) {
     mPaint = new Paint();
     mPaint.style = PaintingStyle.fill;
-    mPaint.color = Color(SMColors.lightGolden);
+    mPaint.color = SMColors.lightGolden;
     mPaint.isAntiAlias = true;
 
   }

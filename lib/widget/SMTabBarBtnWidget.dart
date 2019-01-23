@@ -17,7 +17,7 @@ class SMTabBarBtnWidget extends StatelessWidget {
             right: 0.0,
             child: Container(
               decoration: BoxDecoration(
-                color: Color(SMColors.msgTipColor),
+                color: SMColors.msgTipColor,
                 borderRadius: BorderRadius.circular(cirWidth / 2),
               ),
               width: showDot ? cirWidth : 0.0,
