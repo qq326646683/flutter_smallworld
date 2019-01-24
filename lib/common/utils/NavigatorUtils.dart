@@ -10,6 +10,7 @@ class NavigatorUtils extends NavigatorObserver {
     LoginPage.sName: (context) => LoginPage(),
     MainPage.sName: (context) => MainPage(),
     TaskhallPage.sName: (context) => TaskhallPage(),
+    SPHomePage.sName: (context) => SPHomePage(),
   };
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;

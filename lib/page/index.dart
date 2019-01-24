@@ -8,3 +8,5 @@ export 'package:flutter_smallworld/page/club/ClubPage.dart';
 export 'package:flutter_smallworld/page/discover/DiscoverPage.dart';
 export 'package:flutter_smallworld/page/profile/ProfilePage.dart';
 export 'package:flutter_smallworld/page/discover/TaskhallPage.dart';
+
+export 'package:flutter_smallworld/page/common/smphoto/SPHomePage.dart';

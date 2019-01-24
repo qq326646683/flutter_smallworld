@@ -12,6 +12,7 @@ enum StatusColor {
 class StatusBarUtil {
   static List<String> lightRouteNameList = [
     TaskhallPage.sName,
+    SPHomePage.sName,
   ];
   static List darkRoutNameList = [
     SplashPage.sName,

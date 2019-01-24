@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
+import 'package:flutter_smallworld/page/index.dart';
 
 import 'TaskhallPageStyle.dart';
 
@@ -189,7 +190,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
   doTask() async {
     bool result = await PermissionUtil.deal([PermissionGroup.photos]);
     if (result) {
-
+      NavigatorUtils.getInstance().pushNamed(SPHomePage.sName);
     }
   }
 }
