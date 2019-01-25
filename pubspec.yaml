@@ -98,3 +98,5 @@ flutter:
     - static/images/discover/taskhall/task_picture.png
     - static/images/discover/taskhall/task_video.png
     - static/images/common/icon_back.png
+    - static/images/common/icon_right.png
+    - static/images/common/place_nodata.png

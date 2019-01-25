@@ -12,7 +12,6 @@ class _DiscoverPageState extends State<DiscoverPage>
   @override
   void initState() {
     super.initState();
-    NavigatorUtils.getInstance().setContext(context);
   }
 
   @override
@@ -23,6 +22,7 @@ class _DiscoverPageState extends State<DiscoverPage>
   @override
   Widget build(BuildContext context) {
     debugPrint("----disocer build");
+    NavigatorUtils.getInstance().setContext(context);
     return Container(
       color: Colors.blueAccent,
       child: Column(

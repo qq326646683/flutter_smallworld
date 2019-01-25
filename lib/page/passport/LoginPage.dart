@@ -27,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    NavigatorUtils.getInstance().setContext(context);
     _controller = VideoPlayerController.asset(SMIcons.LOGIN_BG_MP4);
     _controller.setLooping(true);
     _controller.setVolume(0.0);
@@ -40,6 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     print("render: LoginPage");
+    NavigatorUtils.getInstance().setContext(context);
     return StoreBuilder<MainStore>(builder: (context, store) {
       return GestureDetector(
         onTap: () {

@@ -24,7 +24,6 @@ class SMColors {
   static const Color subLightTextColor = Color(0xffc4c4c4);
   static const Color textPlaceHolderWhite = Color(0xff999999);
 
-
   //yellow
   static const Color lightGolden = Color(0xffECC752);
   static const Color darkGolden = Color(0xffB18B3E);
@@ -33,6 +32,8 @@ class SMColors {
 
   static const Color mainTextColor = primaryDarkValue;
   static const Color textColorWhite = white;
+
+  static const Color grayLineColor = Color(0xff707070);
 
   static const Color opacity60Cover = Color(0x96000000);
 
@@ -47,14 +48,13 @@ class SMColors {
 }
 
 class SMCommonStyle {
-  static BorderRadius borderRadius5 = BorderRadius.all(
-      Radius.circular(5.0));
+  static BorderRadius borderRadius5 = BorderRadius.all(Radius.circular(5.0));
   static EdgeInsets padding5 = EdgeInsets.all(5.0);
-  static EdgeInsets btnPadding = EdgeInsets.symmetric(
-      horizontal: 10.0, vertical: 5.0);
-  static Border border05White = Border.all(
-      width: 0.5,
-      color: SMColors.white);
+  static EdgeInsets btnPadding =
+      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0);
+  static Border border05White = Border.all(width: 0.5, color: SMColors.white);
+  static Border borderBottom03Gray =
+      Border(bottom: BorderSide(width: 0.3, color: SMColors.grayLineColor));
 }
 
 // 文本样式
@@ -253,6 +253,11 @@ class SMTxtStyle {
     color: SMColors.textPlaceHolderWhite,
     fontSize: normalTextSize,
   );
+
+  static const smallTextGray = SMTextStyle(
+    color: SMColors.grayLineColor,
+    fontSize: smallTextSize
+  );
 }
 
 class SMIcons {
@@ -265,18 +270,22 @@ class SMIcons {
   static const String TAB_CHAT = 'static/images/tabs/chat.png';
   static const String TAB_CHAT_ACTIVE = 'static/images/tabs/chat_active.png';
   static const String TAB_DISCOVER = 'static/images/tabs/discover.png';
-  static const String TAB_DISCOVER_ACTIVE = 'static/images/tabs/discover_active.png';
+  static const String TAB_DISCOVER_ACTIVE =
+      'static/images/tabs/discover_active.png';
   static const String TAB_PROFILE = 'static/images/tabs/profile.png';
-  static const String TAB_PROFILE_ACTIVE = 'static/images/tabs/profile_active.png';
-  static const String TASKHALL_BG = 'static/images/discover/taskhall/task_bg.jpg';
-  static const String TASKHALL_ITEM_BG = 'static/images/discover/taskhall/task_item_bg.png';
-  static const String TASK_RECT = 'static/images/discover/taskhall/rectangle_yellow.png';
-  static const String TASK_PICTURE = 'static/images/discover/taskhall/task_picture.png';
-  static const String TASK_VIDEO = 'static/images/discover/taskhall/task_video.png';
+  static const String TAB_PROFILE_ACTIVE =
+      'static/images/tabs/profile_active.png';
+  static const String TASKHALL_BG =
+      'static/images/discover/taskhall/task_bg.jpg';
+  static const String TASKHALL_ITEM_BG =
+      'static/images/discover/taskhall/task_item_bg.png';
+  static const String TASK_RECT =
+      'static/images/discover/taskhall/rectangle_yellow.png';
+  static const String TASK_PICTURE =
+      'static/images/discover/taskhall/task_picture.png';
+  static const String TASK_VIDEO =
+      'static/images/discover/taskhall/task_video.png';
   static const String COMMON_BACK = 'static/images/common/icon_back.png';
-
-
+  static const String COMMON_RIGHT = 'static/images/common/icon_right.png';
+  static const String PLACE_NODATA = 'static/images/common/place_nodata.png';
 }
-
-
-

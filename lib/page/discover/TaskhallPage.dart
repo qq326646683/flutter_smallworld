@@ -97,6 +97,7 @@ class _TaskhallPageState extends State<TaskhallPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    NavigatorUtils.getInstance().setContext(context);
     return Scaffold(
       appBar: SMTitleBarWidget(
         isDefault: false,
