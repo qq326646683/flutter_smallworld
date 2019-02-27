@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/widget/index.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 
 class SMColors {
   static const String primaryValueString = "#24292E";
@@ -45,11 +46,18 @@ class SMColors {
 
   // 消息提示点颜色
   static const Color msgTipColor = Color(0xFFF44336);
+
+}
+
+class SMSize {
+  static double dp5 = ScreenUtil().getWidth(5.0);
 }
 
 class SMCommonStyle {
   static BorderRadius borderRadius5 = BorderRadius.all(Radius.circular(5.0));
+  static BorderRadius borderRadius10 = BorderRadius.all(Radius.circular(10.0));
   static EdgeInsets padding5 = EdgeInsets.all(5.0);
+  static EdgeInsets padding10 = EdgeInsets.all(10.0);
   static EdgeInsets btnPadding =
       EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0);
   static Border border05White = Border.all(width: 0.5, color: SMColors.white);
@@ -78,6 +86,11 @@ class SMTxtStyle {
 
   static const smallTextWhite = SMTextStyle(
     color: SMColors.textColorWhite,
+    fontSize: smallTextSize,
+  );
+
+  static const smallTextLightGolden = SMTextStyle(
+    color: SMColors.lightGolden,
     fontSize: smallTextSize,
   );
 

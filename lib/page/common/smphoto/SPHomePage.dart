@@ -1,12 +1,13 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:photo_manager/photo_manager.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/page/index.dart';
+import './PhotoManager.dart';
 
 class SPHomePage extends StatefulWidget {
-  static final String sName = "smphoto_home";
+  static final String sName = "/";
 
   @override
   _SPHomePageState createState() => _SPHomePageState();
@@ -30,7 +31,7 @@ class _SPHomePageState extends State<SPHomePage> {
     }
 
     List<AssetPathEntity> albumListRes =
-        await PhotoManager.getAssetPathList(hasVideo: true);
+    await PhotoManager.getAssetPathList(hasVideo: true);
 
     List<_Album> tmpAlbum = [];
     List<Future<List<AssetEntity>>> futureList = [];
@@ -89,11 +90,14 @@ class _SPHomePageState extends State<SPHomePage> {
               snapshot.data != null) {
             return GestureDetector(
               onTap: () {
-
+                NavigatorUtils.getInstance().pushNamed(
+                    SPGridViewPage.sName, (context) =>
+                    SPGridViewPage(albumName: albumList[index].name,
+                        assetList: albumList[index].assetList));
               },
               child: Container(
                   decoration:
-                      BoxDecoration(border: SMCommonStyle.borderBottom03Gray),
+                  BoxDecoration(border: SMCommonStyle.borderBottom03Gray),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -153,3 +157,5 @@ class _Album {
 
   _Album(this.name, this.assetList);
 }
+
+

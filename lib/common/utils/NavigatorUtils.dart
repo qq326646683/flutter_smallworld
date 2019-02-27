@@ -6,11 +6,12 @@ import 'package:flutter_smallworld/page/index.dart';
 class NavigatorUtils extends NavigatorObserver {
   /*配置routes*/
   static Map<String, WidgetBuilder> configRoutes = {
-    SplashPage.sName: (context) => SplashPage(),
+//    SplashPage.sName: (context) => SplashPage(),
     LoginPage.sName: (context) => LoginPage(),
     MainPage.sName: (context) => MainPage(),
     TaskhallPage.sName: (context) => TaskhallPage(),
     SPHomePage.sName: (context) => SPHomePage(),
+
   };
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;
@@ -38,11 +39,11 @@ class NavigatorUtils extends NavigatorObserver {
   }
 
   // push 页面
-  pushNamed(String routeName) {
+  pushNamed(String routeName, [WidgetBuilder builder]) {
     Navigator.push(
         mContext,
         CupertinoPageRoute(
-          builder: configRoutes[routeName],
+          builder: builder ?? configRoutes[routeName],
           settings: RouteSettings(name: routeName),
         ));
   }

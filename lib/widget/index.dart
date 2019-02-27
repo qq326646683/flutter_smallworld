@@ -8,3 +8,6 @@ export 'canvas/TrianglePainter.dart';
 export 'SMTitleBarWidget.dart';
 export 'SMTextStyle.dart';
 export 'SMNodataWidget.dart';
+export 'AlbumNumCheckBox.dart';
+export 'SMZoomWidget.dart';
+export 'SMVideoPlayer.dart';
