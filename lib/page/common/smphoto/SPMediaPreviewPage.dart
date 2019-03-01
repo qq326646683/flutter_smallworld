@@ -7,77 +7,69 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'PhotoManager.dart';
 import 'AssetLruCache.dart';
 
-class MediaPreviewPage extends StatefulWidget {
+class SPMediaPreviewPage extends StatefulWidget {
   static final String sName = "media_preview";
-  List<AssetEntity> selectAssetList;
+  List<AssetEntity> assetList;
+  int currentIndex;
 
-  MediaPreviewPage(List<AssetEntity> selectAssetList) {
-    this.selectAssetList = selectAssetList.reversed;
-  }
+  SPMediaPreviewPage({@required this.assetList, this.currentIndex = 0});
 
   @override
-  _MediaPreviewPageState createState() => new _MediaPreviewPageState();
+  _SPMediaPreviewPageState createState() => new _SPMediaPreviewPageState();
 }
 
-class _MediaPreviewPageState extends State<MediaPreviewPage> {
+class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
-        itemBuilder: this._itemBuilder,
-        itemCount: widget.selectAssetList.length,
+      controller: PageController(initialPage: widget.currentIndex),
+      itemBuilder: this._itemBuilder,
+      itemCount: widget.assetList.length,
     );
   }
 
   Widget _itemBuilder(BuildContext context, int index) {
-    AssetEntity entity = widget.selectAssetList[index];
+    AssetEntity entity = widget.assetList[index];
     if (entity.type == AssetType.video) {
       return FutureBuilder(
-        future: entity.file,
+          future: entity.file,
           builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-            if(snapshot.connectionState == ConnectionState.done && snapshot.data != null) {
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.data != null) {
               return SMVideoPlayer(file: snapshot.data);
-
             } else {
               return Container();
-
             }
-
-          }
-      );
+          });
     }
 
-
-    Uint8List data = AssetLruCache.getData(
-        entity, ScreenUtil().screenWidth.floor());
+    Uint8List data =
+        AssetLruCache.getData(entity, ScreenUtil().screenWidth.floor());
 
     if (data == null) {
       return FutureBuilder(
-          future: entity.thumbDataWithSize(
-              ScreenUtil().screenWidth.floor(),
+          future: entity.thumbDataWithSize(ScreenUtil().screenWidth.floor(),
               ScreenUtil().screenHeight.floor()),
           builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.data != null) {
               AssetLruCache.setData(
-                  entity,
-                  ScreenUtil().screenWidth.floor(), snapshot.data);
+                  entity, ScreenUtil().screenWidth.floor(), snapshot.data);
               return Scaffold(
                 body: Container(
                     child: SMZoomWidget(
-                      child: Image.memory(
-                        snapshot.data,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    )
-                ),
+                  child: Image.memory(
+                    snapshot.data,
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                )),
               );
             } else {
               return Container();
             }
-          }
-      );
+          });
     } else {
       return Scaffold(
         body: Container(
