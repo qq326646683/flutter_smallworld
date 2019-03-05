@@ -51,11 +51,11 @@ class _SPHomePageState extends State<SPHomePage> {
     });
 
     List<List<AssetEntity>> assetLists = await Future.wait(futureList);
-
     for (int i = 0; i < assetLists.length; i++) {
-      tmpAlbum.add(new _Album(albumListRes[i].name, assetLists[i]));
+      if (assetLists[i].length != 0) {
+        tmpAlbum.add(new _Album(albumListRes[i].name, assetLists[i]));
+      }
     }
-
 
     this.setState(() {
       albumList = tmpAlbum;

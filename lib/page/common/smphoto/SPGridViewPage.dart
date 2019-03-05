@@ -56,22 +56,28 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
                       : _Style.smallTextGray,
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  indexList.length > 0
-                      ? AlbumNumCheckBox(
-                          num: indexList.length,
-                        )
-                      : Container(),
-                  SizedBox(
-                    width: SMSize.dp5,
-                  ),
-                  Text('完成',
-                      style: indexList.length > 0
-                          ? SMTxtStyle.smallTextLightGolden
-                          : SMTxtStyle.smallTextWhite),
-                ],
-              )
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.popUntil(context, predicate)
+                },
+                child: Row(
+                  children: <Widget>[
+                    indexList.length > 0
+                        ? AlbumNumCheckBox(
+                      num: indexList.length,
+                    )
+                        : Container(),
+                    SizedBox(
+                      width: SMSize.dp5,
+                    ),
+                    Text('完成',
+                        style: indexList.length > 0
+                            ? SMTxtStyle.smallTextLightGolden
+                            : SMTxtStyle.smallTextWhite),
+                  ],
+                )
+              ),
             ],
           ),
         ),
