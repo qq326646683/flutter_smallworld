@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/page/index.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:redux/redux.dart';
 import 'AssetLruCache.dart';
-import 'PhotoManager.dart';
 
 class SPGridViewPage extends StatefulWidget {
   static final String sName = "smphoto_gridview";

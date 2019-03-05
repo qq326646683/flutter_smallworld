@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
-import 'PhotoManager.dart';
 import 'AssetLruCache.dart';
 
 class SPMediaPreviewPage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
     }
 
     Uint8List data =
-        AssetLruCache.getData(entity, ScreenUtil().screenWidth.floor());
+    AssetLruCache.getData(entity, ScreenUtil().screenWidth.floor());
 
     if (data == null) {
       return FutureBuilder(
@@ -58,13 +58,13 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
               return Scaffold(
                 body: Container(
                     child: SMZoomWidget(
-                  child: Image.memory(
-                    snapshot.data,
-                    fit: BoxFit.contain,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
-                )),
+                      child: Image.memory(
+                        snapshot.data,
+                        fit: BoxFit.contain,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    )),
               );
             } else {
               return Container();

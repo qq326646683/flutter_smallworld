@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:quiver/collection.dart';
-import 'PhotoManager.dart';
+import 'package:photo_manager/photo_manager.dart';
+
 class AssetLruCache {
   static LruMap<_AssetCacheEntity, Uint8List> _map = LruMap<_AssetCacheEntity, Uint8List>();
 

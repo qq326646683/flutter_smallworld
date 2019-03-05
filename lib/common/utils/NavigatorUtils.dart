@@ -6,12 +6,11 @@ import 'package:flutter_smallworld/page/index.dart';
 class NavigatorUtils extends NavigatorObserver {
   /*配置routes*/
   static Map<String, WidgetBuilder> configRoutes = {
-//    SplashPage.sName: (context) => SplashPage(),
+    SplashPage.sName: (context) => SplashPage(),
     LoginPage.sName: (context) => LoginPage(),
     MainPage.sName: (context) => MainPage(),
     TaskhallPage.sName: (context) => TaskhallPage(),
     SPHomePage.sName: (context) => SPHomePage(),
-    SPGridViewPage.sName: (context) => SPGridViewPage(),
   };
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;

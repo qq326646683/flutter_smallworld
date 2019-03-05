@@ -190,7 +190,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
   doTask() async {
     bool result = await PermissionUtil.deal([PermissionGroup.photos]);
     if (result) {
-      NavigatorUtils.getInstance().pushNamed(SPHomePage.sName);
+      NavigatorUtils.getInstance().pushNamed(SPHomePage.sName, (context) => SPHomePage(spType: isPicTask ? SPType.IMAGE : SPType.VIDEO,));
     }
   }
 }

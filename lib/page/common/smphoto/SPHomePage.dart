@@ -1,13 +1,17 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/index.dart';
-import './PhotoManager.dart';
 
 class SPHomePage extends StatefulWidget {
-  static final String sName = "/";
+  static final String sName = "smphoto_home";
+
+  SPType spType;
+
+  SPHomePage({this.spType = SPType.ALL});
 
   @override
   _SPHomePageState createState() => _SPHomePageState();
@@ -30,8 +34,15 @@ class _SPHomePageState extends State<SPHomePage> {
       return;
     }
 
-    List<AssetPathEntity> albumListRes =
-    await PhotoManager.getAssetPathList(hasVideo: true);
+    List<AssetPathEntity> albumListRes;
+
+    if (widget.spType == SPType.ALL) {
+      albumListRes =  await PhotoManager.getAssetPathList();
+    } else if (widget.spType == SPType.VIDEO) {
+      albumListRes =  await PhotoManager.getVideoAsset();
+    } else if (widget.spType == SPType.IMAGE) {
+      albumListRes =  await PhotoManager.getImageAsset();
+    }
 
     List<_Album> tmpAlbum = [];
     List<Future<List<AssetEntity>>> futureList = [];
@@ -40,9 +51,11 @@ class _SPHomePageState extends State<SPHomePage> {
     });
 
     List<List<AssetEntity>> assetLists = await Future.wait(futureList);
+
     for (int i = 0; i < assetLists.length; i++) {
       tmpAlbum.add(new _Album(albumListRes[i].name, assetLists[i]));
     }
+
 
     this.setState(() {
       albumList = tmpAlbum;
@@ -158,4 +171,10 @@ class _Album {
   _Album(this.name, this.assetList);
 }
 
+
+enum SPType {
+  ALL,
+  VIDEO,
+  IMAGE,
+}
 
