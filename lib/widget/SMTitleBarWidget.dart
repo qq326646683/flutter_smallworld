@@ -49,7 +49,7 @@ class _SMTitleBarWidgetState extends State<SMTitleBarWidget>{
             child: widget.needLeftBack ? GestureDetector(
               onTap: () {
                 if (widget.leftWidget == null) {
-                  NavigatorUtils.getInstance().pop();
+                  NavigatorUtils.getInstance().pop(context);
                 } else {
                   widget.leftLick?.call();
                 }

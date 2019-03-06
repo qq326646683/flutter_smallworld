@@ -29,18 +29,17 @@ class _SplashPageState extends State<SplashPage> {
       Store<MainStore> store = StoreProvider.of(context);
       var res = await UserDao.getUserInfo(store);
       if (res != null && res.result) {
-        NavigatorUtils.getInstance().pushReplacementNamed(MainPage.sName);
+        NavigatorUtils.getInstance().pushReplacementNamed(context, MainPage.sName);
       }
     } else {
       Future.delayed(Duration(seconds: 2), () {
-        NavigatorUtils.getInstance().pushReplacementNamed(LoginPage.sName);
+        NavigatorUtils.getInstance().pushReplacementNamed(context, LoginPage.sName);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    NavigatorUtils.getInstance().setContext(context);
 
     return Container(
       decoration: BoxDecoration(

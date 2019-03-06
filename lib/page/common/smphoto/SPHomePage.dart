@@ -37,11 +37,11 @@ class _SPHomePageState extends State<SPHomePage> {
     List<AssetPathEntity> albumListRes;
 
     if (widget.spType == SPType.ALL) {
-      albumListRes =  await PhotoManager.getAssetPathList();
+      albumListRes = await PhotoManager.getAssetPathList();
     } else if (widget.spType == SPType.VIDEO) {
-      albumListRes =  await PhotoManager.getVideoAsset();
+      albumListRes = await PhotoManager.getVideoAsset();
     } else if (widget.spType == SPType.IMAGE) {
-      albumListRes =  await PhotoManager.getImageAsset();
+      albumListRes = await PhotoManager.getImageAsset();
     }
 
     List<_Album> tmpAlbum = [];
@@ -64,8 +64,6 @@ class _SPHomePageState extends State<SPHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    NavigatorUtils.getInstance().setContext(context);
-
     Widget body;
     if (albumList == null) {
       body = Center(
@@ -104,6 +102,7 @@ class _SPHomePageState extends State<SPHomePage> {
             return GestureDetector(
               onTap: () {
                 NavigatorUtils.getInstance().pushNamed(
+                    context,
                     SPGridViewPage.sName, (context) =>
                     SPGridViewPage(albumName: albumList[index].name,
                         assetList: albumList[index].assetList));

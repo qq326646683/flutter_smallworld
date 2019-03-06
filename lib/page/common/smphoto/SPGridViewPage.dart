@@ -27,7 +27,6 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    NavigatorUtils.getInstance().setContext(context);
     indexList =
         StoreProvider.of<MainStore>(context).state.smPhotoStore.indexList;
 
@@ -58,8 +57,7 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
-                  Navigator.popUntil(context, predicate)
+                  this._clickComplete(store);
                 },
                 child: Row(
                   children: <Widget>[
@@ -160,6 +158,7 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
 
   _clickItem(int index) {
     NavigatorUtils.getInstance().pushNamed(
+        context,
         SPMediaPreviewPage.sName,
         (context) => SPMediaPreviewPage(
               assetList: widget.assetList,
@@ -175,8 +174,22 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
     for (int i = 0; i < indexList.length; i++) {
       assetList.add(widget.assetList[indexList[i]]);
     }
-    NavigatorUtils.getInstance().pushNamed(SPMediaPreviewPage.sName,
+    NavigatorUtils.getInstance().pushNamed(context, SPMediaPreviewPage.sName,
         (context) => SPMediaPreviewPage(assetList: assetList));
+  }
+
+  _clickComplete(Store<MainStore> store) {
+    if (indexList.length <= 0) {
+      return;
+    }
+    List<AssetEntity> assetList = new List<AssetEntity>();
+    for (int i = 0; i < indexList.length; i++) {
+      assetList.add(widget.assetList[indexList[i]]);
+    }
+
+    store.dispatch(updateSelectListAction(assetList));
+    NavigatorUtils.getInstance().popUntil(context, TaskhallPage.sName);
+
   }
 
   int _getNum(int index) {

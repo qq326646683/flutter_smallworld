@@ -16,10 +16,6 @@ class NavigatorUtils extends NavigatorObserver {
   BuildContext mContext;
   static List<Route> _mRoutes;
 
-  setContext(BuildContext context) {
-    mContext = context;
-  }
-
   static NavigatorUtils getInstance() {
     if (navigatorUtils == null) {
       navigatorUtils = new NavigatorUtils();
@@ -33,12 +29,14 @@ class NavigatorUtils extends NavigatorObserver {
   }
 
   // replace 页面
-  pushReplacementNamed(String routeName) {
+  pushReplacementNamed(BuildContext context, String routeName) {
+    mContext = context;
     Navigator.pushReplacementNamed(mContext, routeName);
   }
 
   // push 页面
-  pushNamed(String routeName, [WidgetBuilder builder]) {
+  pushNamed(BuildContext context, String routeName, [WidgetBuilder builder]) {
+    mContext = context;
     Navigator.push(
         mContext,
         CupertinoPageRoute(
@@ -48,8 +46,14 @@ class NavigatorUtils extends NavigatorObserver {
   }
 
   // pop 页面
-  pop() {
-    Navigator.pop(mContext);
+  pop(BuildContext context) {
+    mContext = context;
+    Navigator.pop(context);
+  }
+
+  popUntil(BuildContext context, String routeName) {
+    mContext = context;
+    Navigator.popUntil(context, ModalRoute.withName(routeName));
   }
 
   @override

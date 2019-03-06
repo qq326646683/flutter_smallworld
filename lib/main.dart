@@ -69,7 +69,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
       case 401:
         ToastUtil.showRed('[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]');
         HttpManager.clearToken();
-        NavigatorUtils.getInstance().pushReplacementNamed(LoginPage.sName);
+        NavigatorUtils.getInstance().pushReplacementNamed(context, LoginPage.sName);
         break;
       case 403:
         ToastUtil.showRed('403权限错误');

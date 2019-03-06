@@ -39,7 +39,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     print("render: LoginPage");
-    NavigatorUtils.getInstance().setContext(context);
     return StoreBuilder<MainStore>(builder: (context, store) {
       return GestureDetector(
         onTap: () {
@@ -104,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                               UserDao.login(_mobile, _password, "android", store)
                                 .then((res) {
                                   if (res != null && res.result) {
-                                    NavigatorUtils.getInstance().pushReplacementNamed(MainPage.sName);
+                                    NavigatorUtils.getInstance().pushReplacementNamed(context, MainPage.sName);
                                   }
                               });
                             }
