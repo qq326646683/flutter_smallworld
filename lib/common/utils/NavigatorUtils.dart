@@ -51,9 +51,16 @@ class NavigatorUtils extends NavigatorObserver {
     Navigator.pop(context);
   }
 
+  // pop页面 到routeName为止
   popUntil(BuildContext context, String routeName) {
     mContext = context;
     Navigator.popUntil(context, ModalRoute.withName(routeName));
+  }
+
+  // push一个页面， 移除该页面下面所有页面
+  pushNamedAndRemoveUntil(BuildContext context, String newRouteName) {
+    mContext = context;
+    Navigator.pushNamedAndRemoveUntil(context, newRouteName, (Route<dynamic> route) => false);
   }
 
   @override
@@ -96,6 +103,18 @@ class NavigatorUtils extends NavigatorObserver {
       routeObserver();
     }
   }
+
+  @override
+  void didRemove(Route removedRoute, Route oldRoute) {
+    super.didRemove(removedRoute, oldRoute);
+    if (removedRoute is CupertinoPageRoute || removedRoute is MaterialPageRoute) {
+      print('^^^^routeRemove');
+      print(removedRoute.settings.name);
+      _mRoutes.remove(removedRoute);
+      routeObserver();
+    }
+  }
+
 
   void routeObserver() {
     print('&&routes&&');
