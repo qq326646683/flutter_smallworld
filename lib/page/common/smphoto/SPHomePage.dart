@@ -10,8 +10,9 @@ class SPHomePage extends StatefulWidget {
   static final String sName = "smphoto_home";
 
   SPType spType;
+  ValueChanged<List<AssetEntity>> backRes;
 
-  SPHomePage({this.spType = SPType.ALL});
+  SPHomePage({this.spType = SPType.ALL, @required this.backRes});
 
   @override
   _SPHomePageState createState() => _SPHomePageState();
@@ -103,13 +104,16 @@ class _SPHomePageState extends State<SPHomePage> {
               onTap: () {
                 NavigatorUtils.getInstance().pushNamed(
                     context,
-                    SPGridViewPage.sName, (context) =>
-                    SPGridViewPage(albumName: albumList[index].name,
-                        assetList: albumList[index].assetList));
+                    SPGridViewPage.sName,
+                    (context) => SPGridViewPage(
+                          albumName: albumList[index].name,
+                          assetList: albumList[index].assetList,
+                          backRes: widget.backRes,
+                        ));
               },
               child: Container(
                   decoration:
-                  BoxDecoration(border: SMCommonStyle.borderBottom03Gray),
+                      BoxDecoration(border: SMCommonStyle.borderBottom03Gray),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -170,10 +174,8 @@ class _Album {
   _Album(this.name, this.assetList);
 }
 
-
 enum SPType {
   ALL,
   VIDEO,
   IMAGE,
 }
-

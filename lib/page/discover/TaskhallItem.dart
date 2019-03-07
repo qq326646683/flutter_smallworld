@@ -91,8 +91,8 @@ class _TaskhallItemState extends State<TaskhallItem> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 5.0, vertical: 10),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.0, vertical: 10),
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(SMIcons.TASKHALL_ITEM_BG),
@@ -102,10 +102,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
                       gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [
-                            SMColors.lightGolden,
-                            SMColors.darkGolden
-                          ],
+                          colors: [SMColors.lightGolden, SMColors.darkGolden],
                           tileMode: TileMode.repeated),
                     ),
                     child: Row(
@@ -130,14 +127,14 @@ class _TaskhallItemState extends State<TaskhallItem> {
                                   style: TaskhallPageStyle.contextTextStyle,
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis),
-                              Text.rich(TextSpan(
-                                  children: [
-                                    TextSpan(text: '¥ ${taskhall.reward}',
-                                        style: SMTxtStyle.largeTextWhite),
-                                    TextSpan(text: '  红包奖励',
-                                        style: SMTxtStyle.minTextWhite),
-                                  ]
-                              ))
+                              Text.rich(TextSpan(children: [
+                                TextSpan(
+                                    text: '¥ ${taskhall.reward}',
+                                    style: SMTxtStyle.largeTextWhite),
+                                TextSpan(
+                                    text: '  红包奖励',
+                                    style: SMTxtStyle.minTextWhite),
+                              ]))
                             ],
                           ),
                         ),
@@ -148,26 +145,29 @@ class _TaskhallItemState extends State<TaskhallItem> {
                           children: <Widget>[
                             isFullTask
                                 ? Container(
-                              height: TaskhallPageStyle.itemRightButtonH,
-                              padding: SMCommonStyle.btnPadding,
-                              decoration: BoxDecoration(
-                                  border: SMCommonStyle.border05White,
-                                  borderRadius: SMCommonStyle.borderRadius5),
-                              child: Text(
-                                '名额已满',
-                                style: SMTxtStyle.smallTextWhite,
-                              ),
-                            )
+                                    height: TaskhallPageStyle.itemRightButtonH,
+                                    padding: SMCommonStyle.btnPadding,
+                                    decoration: BoxDecoration(
+                                        border: SMCommonStyle.border05White,
+                                        borderRadius:
+                                            SMCommonStyle.borderRadius5),
+                                    child: Text(
+                                      '名额已满',
+                                      style: SMTxtStyle.smallTextWhite,
+                                    ),
+                                  )
                                 : SMButtonWidget(
-                              height: TaskhallPageStyle.itemRightButtonH,
-                              text: '去完成',
-                              gradientColors: [
-                                Colors.white,
-                                Colors.white
-                              ],
-                              textStyle: TaskhallPageStyle.toCompleteText,
-                              onPress: () {this.doTask();},
-                            ),
+                                    height: TaskhallPageStyle.itemRightButtonH,
+                                    text: '去完成',
+                                    gradientColors: [
+                                      Colors.white,
+                                      Colors.white
+                                    ],
+                                    textStyle: TaskhallPageStyle.toCompleteText,
+                                    onPress: () {
+                                      this.doTask();
+                                    },
+                                  ),
                             Padding(padding: EdgeInsets.only(top: 3.0)),
                             Text(
                               '已提交 ${taskhall.complete_num}/${taskhall.num}',
@@ -190,7 +190,16 @@ class _TaskhallItemState extends State<TaskhallItem> {
   doTask() async {
     bool result = await PermissionUtil.deal([PermissionGroup.photos]);
     if (result) {
-      NavigatorUtils.getInstance().pushNamed(context, SPHomePage.sName, (context) => SPHomePage(spType: isPicTask ? SPType.IMAGE : SPType.VIDEO,));
+      NavigatorUtils.getInstance().pushNamed(
+          context,
+          SPHomePage.sName,
+          (context) => SPHomePage(
+              spType: isPicTask ? SPType.IMAGE : SPType.VIDEO,
+              backRes: (res) {
+                print('res:nell');
+                print(res);
+                print(res[0].toString());
+              }));
     }
   }
 }

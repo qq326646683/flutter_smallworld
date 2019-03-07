@@ -15,8 +15,10 @@ class SPGridViewPage extends StatefulWidget {
 
   List<AssetEntity> assetList;
   String albumName;
+  ValueChanged<List<AssetEntity>> backRes;
 
-  SPGridViewPage({@required this.assetList, this.albumName});
+
+  SPGridViewPage({@required this.assetList, @required this.backRes, this.albumName});
 
   @override
   _SPGridViewPageState createState() => _SPGridViewPageState();
@@ -187,6 +189,7 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
       assetList.add(widget.assetList[indexList[i]]);
     }
 
+    widget.backRes(assetList);
     store.dispatch(updateSelectListAction(assetList));
     NavigatorUtils.getInstance().popUntil(context, TaskhallPage.sName);
 

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:collection';
-
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
@@ -11,6 +11,8 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 
 
 class HttpManager {
+  static Dio dio = new Dio();
+
   static netFetch(url, params, Options option, {noTip = false}) async {
     // 没有网络
     var connectivityResult = await (new Connectivity().checkConnectivity());
@@ -22,7 +24,6 @@ class HttpManager {
     }
 
     option.connectTimeout = Config.HTTP_TIMEOUT;
-    Dio dio = new Dio();
     Response response;
 
     String token = await getToken();
@@ -74,6 +75,12 @@ class HttpManager {
     return new ResultData(Code.errorHandleEunction(response.statusCode, "", noTip), false, response.statusCode);
 
 
+  }
+
+  static uploadFiles(List<File> fileList) {
+    FormData formData = new FormData.from({
+      
+    });
   }
 
   static clearToken() {
