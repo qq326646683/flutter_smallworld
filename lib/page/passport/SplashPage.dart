@@ -23,6 +23,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() async{
     super.didChangeDependencies();
+    NavigatorUtils.getInstance().setContext(context);
 
     String token = await StorageUtil.get(Config.TOKEN_KEY);
     if (token != null) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'home_tab/HomeItem.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,11 +8,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   final List<Tab> myTabs = <Tab>[
     Tab(text: '附近'),
-    Tab(text: '活跃'),
-    Tab(text: '新人'),
+    Tab(text: '活跃活跃活跃'),
+    Tab(text: '新人新人'),
   ];
   TabController _tabController;
 
@@ -28,15 +29,18 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         TabBarView(
             controller: _tabController,
             children: [
-              Container(color: Colors.pinkAccent,),
-              Container(color: Colors.brown,),
-              Container(color: Colors.purple,)
+              HomeItem(tab: TabType.tab_near,),
+              HomeItem(tab: TabType.tab_recent,),
+              HomeItem(tab: TabType.tab_new,),
             ]
         ),
         TabBar(
@@ -52,4 +56,5 @@ class _HomePageState extends State<HomePage>
       ],
     );
   }
+
 }

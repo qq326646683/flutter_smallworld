@@ -24,6 +24,10 @@ class NavigatorUtils extends NavigatorObserver {
     return navigatorUtils;
   }
 
+  setContext(BuildContext context) {
+    mContext = context;
+  }
+
   BuildContext getContext() {
     return mContext;
   }
