@@ -9,9 +9,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'LEFT'),
-    Tab(text: 'MIDDLE'),
-    Tab(text: 'RIGHT'),
+    Tab(text: '附近'),
+    Tab(text: '活跃'),
+    Tab(text: '新人'),
   ];
   TabController _tabController;
 
@@ -29,25 +29,27 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      body: Stack(
-        children: <Widget>[
-          TabBarView(
-              controller: _tabController,
-              children: [
-                Container(color: Colors.pinkAccent,),
-                Container(color: Colors.brown,),
-                Container(color: Colors.purple,)
-              ]
-          ),
-          TabBar(
+    return Stack(
+      children: <Widget>[
+        TabBarView(
             controller: _tabController,
-            tabs: myTabs,
-            indicatorSize:TabBarIndicatorSize.label,
-          )
-        ],
-      ),
+            children: [
+              Container(color: Colors.pinkAccent,),
+              Container(color: Colors.brown,),
+              Container(color: Colors.purple,)
+            ]
+        ),
+        TabBar(
+          controller: _tabController,
+          tabs: myTabs,
+          indicatorSize: TabBarIndicatorSize.label,
+          labelPadding: EdgeInsets.only(top: 30),
+          labelColor: SMColors.lightGolden,
+          labelStyle: SMTxtStyle.smallTextLightGolden,
+          unselectedLabelColor: SMColors.miWhite,
+          indicatorColor: SMColors.lightGolden,
+        )
+      ],
     );
   }
 }
