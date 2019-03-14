@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
-import 'home_tab/HomeItem.dart';
+import 'home_tab/HomeTab.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,9 +38,9 @@ class _HomePageState extends State<HomePage>
         TabBarView(
             controller: _tabController,
             children: [
-              HomeItem(tab: TabType.tab_near,),
-              HomeItem(tab: TabType.tab_recent,),
-              HomeItem(tab: TabType.tab_new,),
+              HomeTab(tab: TabType.tab_near,),
+              HomeTab(tab: TabType.tab_recent,),
+              HomeTab(tab: TabType.tab_new,),
             ]
         ),
         TabBar(
