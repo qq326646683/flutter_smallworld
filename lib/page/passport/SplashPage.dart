@@ -34,7 +34,8 @@ class _SplashPageState extends State<SplashPage> {
       }
     } else {
       Future.delayed(Duration(seconds: 2), () {
-        NavigatorUtils.getInstance().pushReplacementNamed(context, LoginPage.sName);
+//        NavigatorUtils.getInstance().pushReplacementNamed(context, LoginPage.sName);
+        NavigatorUtils.getInstance().pushReplacementNamed(context, MainPage.sName);
       });
     }
   }

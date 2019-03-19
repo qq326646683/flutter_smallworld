@@ -27,6 +27,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
         userStore: UserStore.initStore(),
         taskHallStore: TaskhallStore.initStore(),
         smPhotoStore: SmPhotoStore.initStore(),
+        homeTabStore: HomeTabStore.initStore(),
       ));
 
   @override

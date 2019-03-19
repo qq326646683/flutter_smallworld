@@ -36,11 +36,12 @@ class _HomePageState extends State<HomePage>
     return Stack(
       children: <Widget>[
         TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: [
-              HomeTab(tab: TabType.tab_near,),
-              HomeTab(tab: TabType.tab_recent,),
-              HomeTab(tab: TabType.tab_new,),
+              HomeTab(tab: HomeTabType.tab_near,),
+              HomeTab(tab: HomeTabType.tab_recent,),
+              HomeTab(tab: HomeTabType.tab_new,),
             ]
         ),
         TabBar(

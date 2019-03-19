@@ -16,12 +16,14 @@ class SMPullLoadWidget extends StatefulWidget {
   ///控制器，比如数据和一些配置
   final SMPullLoadWidgetControl control;
 
+  final ScrollController _scrollController;
+
   final Key refreshKey;
 
-  SMPullLoadWidget(this.control, this.itemBuilder, this.onRefresh, this.onLoadMore, {this.refreshKey});
+  SMPullLoadWidget(this._scrollController, this.control, this.itemBuilder, this.onRefresh, this.onLoadMore, {this.refreshKey});
 
   @override
-  _SMPullLoadWidgetState createState() => _SMPullLoadWidgetState(this.control, this.itemBuilder, this.onRefresh, this.onLoadMore, this.refreshKey);
+  _SMPullLoadWidgetState createState() => _SMPullLoadWidgetState(this._scrollController, this.control, this.itemBuilder, this.onRefresh, this.onLoadMore, this.refreshKey);
 }
 
 class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
@@ -33,11 +35,11 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
 
   final Key refreshKey;
 
+  final ScrollController _scrollController;
+
   SMPullLoadWidgetControl control;
 
-  _SMPullLoadWidgetState(this.control, this.itemBuilder, this.onRefresh, this.onLoadMore, this.refreshKey);
-
-  final ScrollController _scrollController = new ScrollController();
+  _SMPullLoadWidgetState(this._scrollController, this.control, this.itemBuilder, this.onRefresh, this.onLoadMore, this.refreshKey);
 
   @override
   void initState() {
@@ -92,13 +94,26 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return new RefreshIndicator(
-      ///GlobalKey，用户外部获取RefreshIndicator的State，做显示刷新
-      key: refreshKey,
+    Widget child;
+    if (this._scrollController.runtimeType == PageController) {
+      child = PageView.builder(
+        scrollDirection: Axis.vertical,
+        ///保持ListView任何情况都能滚动，解决在RefreshIndicator的兼容问题。
+        physics: const ClampingScrollPhysics(),
 
-      ///下拉刷新触发，返回的是一个Future
-      onRefresh: onRefresh,
-      child: new ListView.builder(
+        ///根据状态返回子孔健
+        itemBuilder: (context, index) {
+          return _getItem(index);
+        },
+
+        ///根据状态返回数量
+        itemCount: _getListCount(),
+
+        ///滑动监听
+        controller: _scrollController,
+      );
+    } else {
+      child = ListView.builder(
         ///保持ListView任何情况都能滚动，解决在RefreshIndicator的兼容问题。
         physics: const AlwaysScrollableScrollPhysics(),
 
@@ -112,7 +127,16 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
 
         ///滑动监听
         controller: _scrollController,
-      ),
+      );
+    }
+
+    return new RefreshIndicator(
+      ///GlobalKey，用户外部获取RefreshIndicator的State，做显示刷新
+      key: refreshKey,
+
+      ///下拉刷新触发，返回的是一个Future
+      onRefresh: onRefresh,
+      child: child,
     );
   }
 

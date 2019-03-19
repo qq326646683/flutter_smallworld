@@ -17,8 +17,8 @@ class TaskhallStore {
 
 final TaskhallReducer = combineReducers<TaskhallStore>([
   TypedReducer<TaskhallStore, setTaskhallInfoAction>(_setTaskhallInfo),
-  TypedReducer<TaskhallStore, RefreshAction>(_refresh),
-  TypedReducer<TaskhallStore, LoadMoreAction>(_loadMore),
+  TypedReducer<TaskhallStore, RefreshTaskhallAction>(_refresh),
+  TypedReducer<TaskhallStore, LoadMoreTaskhallAction>(_loadMore),
 ]);
 
 TaskhallStore _setTaskhallInfo(TaskhallStore taskhallStore, action){
@@ -51,14 +51,14 @@ TaskhallStore _loadMore(TaskhallStore taskhallStore, action) {
   }
 }
 
-class RefreshAction {
+class RefreshTaskhallAction {
   final List<Taskhall> list;
 
-  RefreshAction(this.list);
+  RefreshTaskhallAction(this.list);
 }
 
-class LoadMoreAction {
+class LoadMoreTaskhallAction {
   final List<Taskhall> list;
 
-  LoadMoreAction(this.list);
+  LoadMoreTaskhallAction(this.list);
 }

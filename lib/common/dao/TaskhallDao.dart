@@ -21,9 +21,9 @@ class TaskhallDao{
       TaskhallResult taskhallResult = TaskhallResult.fromJson(res.data);
       print(taskhallResult.toJson().toString());
       if (page == 1) {
-        store.dispatch(new RefreshAction(taskhallResult.list));
+        store.dispatch(new RefreshTaskhallAction(taskhallResult.list));
       } else {
-        store.dispatch(new LoadMoreAction(taskhallResult.list));
+        store.dispatch(new LoadMoreTaskhallAction(taskhallResult.list));
       }
       return taskhallResult.list;
     } else {

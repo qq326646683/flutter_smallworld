@@ -1,15 +1,22 @@
-import 'dart:math' as Math;
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_smallworld/common/config/Config.dart';
+import 'package:flutter_smallworld/common/dao/index.dart';
+import 'package:flutter_smallworld/common/model/index.dart';
+import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/page/discover/TaskhallItem.dart';
+import 'package:flutter_smallworld/widget/index.dart';
+import 'package:redux/redux.dart';
 
-enum TabType {
+enum HomeTabType {
   tab_near,
   tab_recent,
   tab_new,
 }
 
 class HomeTab extends StatefulWidget {
-  final TabType tab;
+  final HomeTabType tab;
 
   HomeTab({@required this.tab});
 
@@ -17,116 +24,91 @@ class HomeTab extends StatefulWidget {
   _HomeTabState createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin {
-  final ScrollController _scrollController = new ScrollController();
-  double startY;
-  int startTime;
-  double endY;
-  int endTime;
-  bool isCheck;
-  int currentIndex = 0;
-
+class _HomeTabState extends State<HomeTab>
+    with SMListState<HomeTab>, AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(() {
-//      debugPrint(_scrollController.position.pixels.toString());
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return NotificationListener(
-      onNotification: (ScrollNotification note) {
-        print(note);
-        switch (note.runtimeType) {
-          case ScrollStartNotification:
-            if ((note as ScrollStartNotification).dragDetails != null) {
-              this.isCheck = true;
-//              print((note as ScrollStartNotification)
-//                  .dragDetails
-//                  .globalPosition
-//                  .dy);
-              this.startY = (note as ScrollStartNotification)
-                  .dragDetails
-                  .globalPosition
-                  .dy;
-              this.startTime = DateTime.now().millisecondsSinceEpoch;
-            }
-            break;
-          case ScrollUpdateNotification:
-            if ((note as ScrollUpdateNotification).dragDetails != null) {
-//              print((note as ScrollUpdateNotification)
-//                  .dragDetails
-//                  .globalPosition.dy);
-              this.endY = (note as ScrollUpdateNotification)
-                  .dragDetails
-                  .globalPosition
-                  .dy;
-            } else {
-              if (isCheck) {
-                print('dragDetails:isnull:' + 'isCheck:' + isCheck.toString());
-                // 滑动
-                this.isCheck = false;
-                autoScroll();
-              }
-//              print(DateTime.now().millisecondsSinceEpoch);
-            }
-            break;
-          case ScrollEndNotification:
-            if (isCheck) {
-              autoScroll();
-            }
-            break;
-        }
-      },
-      child: ListView.builder(
-        controller: _scrollController,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            decoration: BoxDecoration(border: SMCommonStyle.borderBottom03Gray),
-            height: ScreenUtil.getInstance().screenHeight,
-            child: GestureDetector(
-              onTap: (){
-                _scrollController
-                    .animateTo(2 * ScreenUtil.getInstance().screenHeight, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-              },
-              child: Text('跳转到 $index'),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  autoScroll() {
-    double dy = startY - endY;
-    this.endTime = DateTime.now().millisecondsSinceEpoch;
-    double v = dy.abs() / (this.endTime - this.startTime);
-
-    if (dy.abs() > ScreenUtil.getInstance().screenHeight / 3 || v > 0.5) {
-      print('移动');
-      if (dy > 0) {
-        currentIndex = currentIndex + 1;
-        _scrollController
-            .animateTo(currentIndex * ScreenUtil.getInstance().screenHeight, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-      } else {
-        currentIndex = currentIndex - 1;
-        if (currentIndex < 0) {
-          currentIndex = 0;
-        }
-        _scrollController
-            .animateTo(currentIndex * ScreenUtil.getInstance().screenHeight, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-      }
-    } else {
-      print('归位');
-      _scrollController
-          .animateTo(0 * ScreenUtil.getInstance().screenHeight, duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-    }
-
-
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  bool get isRefreshFirst => false;
+
+  @override
+  bool get needHeader => false;
+
+  @override
+  Future<Null> handleRefresh() async {
+    if (isLoading) {
+      return null;
+    }
+    isLoading = true;
+    page = 1;
+
+    var res = await HomeTabDao.getHomeTabList(_getStore(), widget.tab, page: this.page);
+    setState(() {
+      pullLoadWidgetControl.needLoadMore =
+      (res != null && res.length == Config.PAGE_SIZE);
+    });
+    isLoading = false;
+    return null;
+  }
+
+  @override
+  Future<Null> onLoadMore() async {
+    if (isLoading) {
+      return null;
+    }
+    isLoading = true;
+    page++;
+    var res = await HomeTabDao.getHomeTabList(_getStore(), widget.tab, page: this.page);
+    setState(() {
+      pullLoadWidgetControl.needLoadMore = (res != null);
+    });
+    isLoading = false;
+    return null;
+  }
+
+  @override
+  requestRefresh() {}
+
+  @override
+  requestLoadMore() {}
+
+  @override
+  void didChangeDependencies() {
+    pullLoadWidgetControl.dataList =
+        _getStore().state.homeTabStore.homeTabDataMap[widget.tab].homeTabList;
+    if (pullLoadWidgetControl.dataList.length == 0) {
+      showRefreshLoading();
+    }
+    super.didChangeDependencies();
+  }
+
+  _renderItem(HomeTabModel item) {
+    return Center(
+      child: Text(item.nickname),
+    );
+  }
+
+  Store<MainStore> _getStore() {
+    return StoreProvider.of<MainStore>(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SMPullLoadWidget(
+      new PageController(),
+      pullLoadWidgetControl,
+          (BuildContext context, int index) =>
+          _renderItem(pullLoadWidgetControl.dataList[index]),
+      handleRefresh,
+      onLoadMore,
+      refreshKey: refreshIndicatorKey,
+    );
+  }
+
 }

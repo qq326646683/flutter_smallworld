@@ -117,6 +117,7 @@ class _TaskhallPageState extends State<TaskhallPage>
               color: SMColors.opacity75Cover,
             ),
             SMPullLoadWidget(
+              new ScrollController(),
               pullLoadWidgetControl,
                   (BuildContext context, int index) =>
                   _renderItem(pullLoadWidgetControl.dataList[index]),
