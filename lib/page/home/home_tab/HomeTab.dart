@@ -6,6 +6,7 @@ import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/discover/TaskhallItem.dart';
+import 'package:flutter_smallworld/page/home/home_tab_item/HomeTabItem.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:redux/redux.dart';
 
@@ -89,9 +90,7 @@ class _HomeTabState extends State<HomeTab>
   }
 
   _renderItem(HomeTabModel item) {
-    return Center(
-      child: Text(item.nickname),
-    );
+    return HomeTabItem(homeTabModel: item);
   }
 
   Store<MainStore> _getStore() {

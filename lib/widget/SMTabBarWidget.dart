@@ -30,7 +30,7 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
     with TickerProviderStateMixin {
   PageController _pageController;
   List<BottomNavigationBarItem> _bottomNavigationBarItems =
-      new List<BottomNavigationBarItem>();
+  new List<BottomNavigationBarItem>();
   int _currentIndex = 0;
 
   @override
@@ -44,7 +44,7 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
           icon: currentTabItem.icon,
           activeIcon: currentTabItem.activeIcon,
           title: Container(),
-          backgroundColor: widget.backgroundColor));
+          backgroundColor: Color(0x00000000)));
     }
   }
 
@@ -56,29 +56,40 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
   @override
   Widget build(BuildContext context) {
     if (widget.type == SMTabBarWidget.BOTTOM_TAB) {
-      return Scaffold(
-        body: PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: widget.tabViews,
-          onPageChanged: (index) {
-            this.setState(() {
-              _currentIndex = index;
-            });
-            widget.onPageChanged?.call(index);
-          },
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: _bottomNavigationBarItems,
-          currentIndex: _currentIndex,
-          type: BottomNavigationBarType.fixed,
-          onTap: (int index) {
-            this.setState(() {
-              _currentIndex = index;
-            });
-            _pageController.animateToPage(_currentIndex,
-                duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
-          },
+      return Material(
+        child: Stack(
+          children: <Widget>[
+            PageView(
+              physics: NeverScrollableScrollPhysics(),
+              controller: _pageController,
+              children: widget.tabViews,
+              onPageChanged: (index) {
+                this.setState(() {
+                  _currentIndex = index;
+                });
+                widget.onPageChanged?.call(index);
+              },
+            ),
+            Positioned(
+              bottom: 0,
+              child: Container(
+                color: SMColors.opacity60Cover,
+                width: ScreenUtil.getInstance().screenWidth,
+                child: BottomNavigationBar(
+                  items: _bottomNavigationBarItems,
+                  currentIndex: _currentIndex,
+                  type: BottomNavigationBarType.fixed,
+                  onTap: (int index) {
+                    this.setState(() {
+                      _currentIndex = index;
+                    });
+                    _pageController.animateToPage(_currentIndex,
+                        duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }
