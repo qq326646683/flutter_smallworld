@@ -9,3 +9,5 @@ export 'PermissionUtil.dart';
 export 'OverlayUtil.dart';
 export 'ConfirmUtil.dart';
 export 'TimeUtil.dart';
+export 'CacheFileUtil.dart';
+export 'UUIDUtil.dart';

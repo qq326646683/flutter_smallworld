@@ -38,7 +38,7 @@ HomeTabModel _$HomeTabModelFromJson(Map<String, dynamic> json) {
               json['certify_video'] as Map<String, dynamic>),
       json['flag_invisible'] as int,
       json['offline_at'] as String,
-      json['flag_online'] as dynamic,
+      json['flag_online'],
       json['age'],
       json['distance'] as String);
 }

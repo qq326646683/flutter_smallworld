@@ -301,4 +301,5 @@ class SMIcons {
   static const String COMMON_BACK = 'static/images/common/icon_back.png';
   static const String COMMON_RIGHT = 'static/images/common/icon_right.png';
   static const String PLACE_NODATA = 'static/images/common/place_nodata.png';
+  static const String EARTH = 'static/images/common/earth.png';
 }

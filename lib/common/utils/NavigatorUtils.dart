@@ -125,6 +125,7 @@ class NavigatorUtils extends NavigatorObserver {
     print(_mRoutes);
     print('&&currentRoute&&');
     print(_mRoutes[_mRoutes.length - 1]);
+
     StatusBarUtil.setupStatusBar(_mRoutes[_mRoutes.length - 1]);
   }
 }

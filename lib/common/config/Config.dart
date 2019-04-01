@@ -5,6 +5,8 @@ class Config {
 
   /// //////////////////////////////////////常量////////////////////////////////////// ///
   static const TOKEN_KEY = "token";
+  static const USERINFO_KEY = "userinfo";
+  static const DB_NAME = "smallworld_zh.db";
 
 }
 

@@ -144,7 +144,7 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
       );
     }
 
-    return new RefreshIndicator(
+    return new SMPullLogoWidget(
 
       ///GlobalKey，用户外部获取RefreshIndicator的State，做显示刷新
       key: refreshKey,

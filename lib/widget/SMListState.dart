@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/config/Config.dart';
 import 'SMPullLoadWidget.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 /**
  * 上下拉刷新列表的通用State
@@ -21,8 +22,8 @@ mixin SMListState<T extends StatefulWidget> on State<T>{
   final SMPullLoadWidgetControl pullLoadWidgetControl =
       new SMPullLoadWidgetControl();
 
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
-      new GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<SMPullLogoWidgetState> refreshIndicatorKey =
+      new GlobalKey<SMPullLogoWidgetState>();
 
   showRefreshLoading() {
     new Future.delayed(const Duration(seconds: 0), () {

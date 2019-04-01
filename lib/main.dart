@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_smallworld/common/dao/index.dart';
 import 'package:redux/redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_smallworld/page/index.dart';
@@ -69,7 +70,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
         break;
       case 401:
         ToastUtil.showRed('[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]');
-        HttpManager.clearToken();
+        UserDao.clearAll(store);
         NavigatorUtils.getInstance().pushNamedAndRemoveUntil(NavigatorUtils.getInstance().getContext(), LoginPage.sName);
         break;
       case 403:
