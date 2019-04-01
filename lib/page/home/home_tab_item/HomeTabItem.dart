@@ -27,9 +27,12 @@ class _HomeTabItemState extends State<HomeTabItem> with AutomaticKeepAliveClient
           Center(
             child: GestureDetector(
               onTap: () async {
-//                CacheFile cacheFile = await CacheFileUtil.setCacheFile(CacheFileType.IMAGE, imgUrl, cacheType: CacheType.COMMON);
-//                print(cacheFile.toJson());
-                DbManager.initDb();
+                CacheFile cacheFile = await CacheFileUtil.setCacheFile(CacheFileType.IMAGE, imgUrl, cacheType: CacheType.COMMON);
+                print('cacheFile.toJson()');
+                print(cacheFile.toJson());
+                CacheFile findCacheFile = await CacheFileUtil.getCacheFile(imgUrl);
+                print('findCacheFile.toJson()');
+                print(findCacheFile.toJson());
               },
               child: Image.network(
                   imgUrl,

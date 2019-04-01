@@ -21,7 +21,7 @@ abstract class BaseProvider {
 
   open() async {
     if (!isTableExits) {
-      isTableExits = DbManager.isTableExist(tableName());
+      isTableExits = await DbManager.isTableExist(tableName());
       if (!isTableExits) {
         Database db = await DbManager.getCurrentDatabase();
         await db.execute(tableSqlString());

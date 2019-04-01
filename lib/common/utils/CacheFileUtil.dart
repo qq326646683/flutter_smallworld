@@ -46,6 +46,7 @@ class CacheFileUtil {
       if (response.statusCode == 200) {
         CacheFile cacheFile = new CacheFile(cacheFileType, url, cacheType, savePath, DateTime.now());
 
+
         //下载成功，存入数据库
         await FileCacheProvider.getInstance().insert(cacheFile);
 
@@ -57,7 +58,10 @@ class CacheFileUtil {
     }
   }
 
-  static getCacheFile(String remoteUrl) {}
+  static getCacheFile(String remoteUrl) async {
+    CacheFile findCacheFile = await FileCacheProvider.getInstance().getCacheFileByFileUrl(remoteUrl);
+    return findCacheFile;
+  }
 
   static initDirection() async {
     Directory appDocDir = await getApplicationDocumentsDirectory();

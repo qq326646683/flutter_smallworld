@@ -34,7 +34,7 @@ class FileCacheProvider extends BaseProvider {
       $columnCacheFileType text not null,
       $columnFileUrl text not null,
       $columnFilePath text not null,
-      $columnCreateTime text not null
+      $columnCreateTime text not null)
       '''
     ;
   }
