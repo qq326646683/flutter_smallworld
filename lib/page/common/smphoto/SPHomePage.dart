@@ -24,9 +24,7 @@ class _SPHomePageState extends State<SPHomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 300), () {
-      this.getAsset();
-    });
+    this.getAsset();
   }
 
   Future getAsset() async {
