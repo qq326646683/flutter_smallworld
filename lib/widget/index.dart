@@ -12,3 +12,5 @@ export 'AlbumNumCheckBox.dart';
 export 'SMZoomWidget.dart';
 export 'SMVideoPlayer.dart';
 export 'SMPullLogoWidget.dart';
+export 'wheel/SMCommonWheelWidget.dart';
+export 'wheel/SMYearWheelWidget.dart';

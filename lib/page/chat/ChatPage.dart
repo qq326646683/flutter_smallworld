@@ -15,13 +15,12 @@ class _ChatPageState extends State<ChatPage>
   Map siseMap = {"width": 0.0, "height": 0.0};
   Map positionMap = {"left": 0.0, "top": 0.0};
   List monthsOfTheYear = new List();
-  int currentIndex;
 
   @override
   void initState() {
     super.initState();
-    for(int i=0;i <10;i++) {
-      monthsOfTheYear.add(i);
+    for (int i = 0; i < 10; i++) {
+      monthsOfTheYear.add('aaaaaa' + i.toString());
     }
   }
 
@@ -29,7 +28,6 @@ class _ChatPageState extends State<ChatPage>
   Widget build(BuildContext context) {
     super.build(context);
     print('render:ChatPage');
-    print('this.currentIndex:' + this.currentIndex.toString());
     return Container(
       color: Colors.blueAccent,
       child: Column(
@@ -72,62 +70,29 @@ class _ChatPageState extends State<ChatPage>
             },
             child: Text('修改userinfoStore为null'),
           ),
-          FlatButton(onPressed: () {
-
-            ConfirmUtil.showConfirm(
-                ConfirmParam(
+          FlatButton(
+              onPressed: () {
+                ConfirmUtil.showConfirm(ConfirmParam(
                     type: 2,
                     title: '权限未开',
                     content: '请前往设置打开权限',
                     sureText: '前往设置',
-                    surePress: () {
-                    }
-                )
-            );
-
-          }, child: Text('showConfirm')),
-          FlatButton(onPressed: () {
-            OverlayUtil.showPull(
-                Container(
-                  color: Colors.white,
-                  height: 200,
-                  width: ScreenUtil.getInstance().screenWidth,
-                  child: ListWheelScrollView(
-                    diameterRatio: 1,
-                    controller: new FixedExtentScrollController(initialItem: 2),
-                    physics: FixedExtentScrollPhysics(),
-                    onSelectedItemChanged: (index) {
-                      this.setState(() {
-                       currentIndex = index;
-                      });
+                    surePress: () {}));
+              },
+              child: Text('showConfirm')),
+          FlatButton(
+              onPressed: () {
+                OverlayUtil.showPull(
+                  SMYearWheelWidget(
+                    context: context,
+                    initalText: '2015',
+                    onSureText: (String text) {
+                      print('onSureText:' + text);
                     },
-                    children: monthsOfTheYear.map((i) {
-                      print('iiiiii:');
-                      print(i);
-                      return Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                border: this.currentIndex == i ? SMCommonStyle.borderBottom03Gray : null
-                              ),
-                              child: Text(
-                                'hahhahaha' + this.currentIndex.toString(),
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    }).toList(),
-                    itemExtent: 30.0,
                   ),
-                )
-            );
-
-          }, child: Text('showPull')
-          )
+                );
+              },
+              child: Text('showPull'))
         ],
       ),
     );

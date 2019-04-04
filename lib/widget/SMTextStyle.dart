@@ -20,7 +20,7 @@ class SMTextStyle extends TextStyle {
     Paint foreground,
     Paint background,
     List<ui.Shadow> shadows,
-    TextDecoration decoration,
+    TextDecoration decoration = TextDecoration.none,
     Color decorationColor,
     TextDecorationStyle decorationStyle,
     String debugLabel,
