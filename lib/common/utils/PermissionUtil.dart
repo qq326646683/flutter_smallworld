@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 export 'package:permission_handler/permission_handler.dart';
 
-
 class PermissionUtil {
-  static Future<bool> deal(List<PermissionGroup> permissions) async {
-    Map<PermissionGroup, PermissionStatus> statusMap = await PermissionHandler()
-        .requestPermissions(permissions);
+  static Future<bool> deal(BuildContext context, List<PermissionGroup> permissions) async {
+    Map<PermissionGroup, PermissionStatus> statusMap =
+        await PermissionHandler().requestPermissions(permissions);
     print('statusMap');
     print(statusMap);
 
@@ -24,6 +23,7 @@ class PermissionUtil {
 
     if (!result) {
       ConfirmUtil.showConfirm(
+          context,
           ConfirmParam(
               type: 2,
               title: '权限未开',
@@ -31,14 +31,10 @@ class PermissionUtil {
               sureText: '前往设置',
               surePress: () {
                 PermissionHandler().openAppSettings();
-              }
-          )
-      );
+              }));
     }
     return result;
-
   }
-
 
   static Map<PermissionGroup, String> configMap = {
     PermissionGroup.photos: '相册',
@@ -50,4 +46,3 @@ class PermissionUtil {
     PermissionGroup.speech: '讲话',
   };
 }
-

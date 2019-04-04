@@ -4,9 +4,9 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 
 
 class OverlayUtil {
-  static showPop({@required Widget child, barrierDismissible = false, barrierColor = SMColors.opacity60CoverWhite}) {
+  static showPop({@required BuildContext context, @required Widget child, barrierDismissible = false, barrierColor = SMColors.opacity60CoverWhite}) {
     showGeneralDialog(
-        context: NavigatorUtils.getInstance().getContext(),
+        context: context,
         pageBuilder: (context, animation, secondaryAnimation) {
           return Dialog(
             child: child,
@@ -22,9 +22,9 @@ class OverlayUtil {
     );
   }
 
-  static showPull(Widget child) {
+  static showPull(@required BuildContext context, @required Widget child) {
     showCupertinoModalPopup(
-        context: NavigatorUtils.getInstance().getContext(),
+        context: context,
         builder: (BuildContext context) {
           return child;
         }

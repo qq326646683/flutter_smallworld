@@ -4,7 +4,7 @@ import 'package:flutter_smallworld/widget/index.dart';
 
 // http://note.youdao.com/noteshare?id=0e660f7b7c0c323d1ca646c7e1ce7471
 class ConfirmUtil {
-  static showConfirm(ConfirmParam param) {
+  static showConfirm(BuildContext context, ConfirmParam param) {
     assert(param.type != null);
     Widget widget;
     switch (param.type) {
@@ -41,8 +41,7 @@ class ConfirmUtil {
                         ),
                       ),
                       onTap: () {
-                        Navigator.pop(
-                            NavigatorUtils.getInstance().getContext());
+                        NavigatorUtils.getInstance().pop(context);
                         param.cancelPress?.call();
                       },
                     ),
@@ -58,8 +57,7 @@ class ConfirmUtil {
                       ],
                       textStyle: SMTxtStyle.normalText,
                       onPress: () {
-                        Navigator.pop(
-                            NavigatorUtils.getInstance().getContext());
+                        NavigatorUtils.getInstance().pop(context);
                         param.surePress?.call();
                       },
                     ),
@@ -75,6 +73,7 @@ class ConfirmUtil {
     }
 
     OverlayUtil.showPop(
+      context: context,
       child: widget,
     );
   }

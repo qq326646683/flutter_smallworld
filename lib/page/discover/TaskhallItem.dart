@@ -188,7 +188,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
   }
 
   doTask() async {
-    bool result = await PermissionUtil.deal([PermissionGroup.photos]);
+    bool result = await PermissionUtil.deal(context, [PermissionGroup.photos]);
     if (result) {
       NavigatorUtils.getInstance().pushNamed(
           context,

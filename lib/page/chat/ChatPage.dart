@@ -72,17 +72,21 @@ class _ChatPageState extends State<ChatPage>
           ),
           FlatButton(
               onPressed: () {
-                ConfirmUtil.showConfirm(ConfirmParam(
-                    type: 2,
-                    title: '权限未开',
-                    content: '请前往设置打开权限',
-                    sureText: '前往设置',
-                    surePress: () {}));
+                ConfirmUtil.showConfirm(
+                  context,
+                  ConfirmParam(
+                      type: 2,
+                      title: '权限未开',
+                      content: '请前往设置打开权限',
+                      sureText: '前往设置',
+                      surePress: () {}),
+                );
               },
               child: Text('showConfirm')),
           FlatButton(
               onPressed: () {
                 OverlayUtil.showPull(
+                  context,
                   SMYearWheelWidget(
                     context: context,
                     initalText: '2015',
