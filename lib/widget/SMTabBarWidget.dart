@@ -83,8 +83,7 @@ class _SMTabBarWidgetState extends State<SMTabBarWidget>
                     this.setState(() {
                       _currentIndex = index;
                     });
-                    _pageController.animateToPage(_currentIndex,
-                        duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+                    _pageController.jumpToPage(_currentIndex);
                   },
                 ),
               ),

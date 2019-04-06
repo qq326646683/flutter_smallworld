@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/config/Config.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
+import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/db/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 
 class HomeTabItem extends StatefulWidget {
   final HomeTabModel homeTabModel;
@@ -13,7 +16,7 @@ class HomeTabItem extends StatefulWidget {
   _HomeTabItemState createState() => new _HomeTabItemState();
 }
 
-class _HomeTabItemState extends State<HomeTabItem> with AutomaticKeepAliveClientMixin{
+class _HomeTabItemState extends State<HomeTabItem> {
   @override
   Widget build(BuildContext context) {
     HomeTabModel homeTabModel = widget.homeTabModel;
@@ -26,27 +29,21 @@ class _HomeTabItemState extends State<HomeTabItem> with AutomaticKeepAliveClient
           /// 图片
           Center(
             child: GestureDetector(
-              onTap: () async {
-                CacheFile cacheFile = await CacheFileUtil.setCacheFile(CacheFileType.IMAGE, imgUrl, cacheType: CacheType.COMMON);
-                print('cacheFile.toJson()');
-                print(cacheFile.toJson());
-                CacheFile findCacheFile = await CacheFileUtil.getCacheFile(imgUrl);
-                print('findCacheFile.toJson()');
-                print(findCacheFile.toJson());
+              onTap: () {
+                StoreProvider.of<MainStore>(context).state.homeTabStore.homeToDetailController.animateToPage(1,
+                    duration: Duration(milliseconds: 200), curve: Curves.easeOut);
               },
-              child: Image.network(
+              child: SMCacheImageWidget(
                   imgUrl,
                   width: ScreenUtil.getInstance().screenWidth,
                   fit: BoxFit.contain
               ),
             ),
           ),
+//          Text(homeTabModel.avatar, style: SMTxtStyle.normalTextWhite,)
           /// 用户信息
         ],
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

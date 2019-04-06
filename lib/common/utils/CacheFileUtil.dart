@@ -58,7 +58,7 @@ class CacheFileUtil {
     }
   }
 
-  static getCacheFile(String remoteUrl) async {
+  static Future<CacheFile> getCacheFile(String remoteUrl) async {
     CacheFile findCacheFile = await FileCacheProvider.getInstance().getCacheFileByFileUrl(remoteUrl);
     return findCacheFile;
   }

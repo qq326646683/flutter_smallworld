@@ -14,3 +14,4 @@ export 'SMVideoPlayer.dart';
 export 'SMPullLogoWidget.dart';
 export 'wheel/SMCommonWheelWidget.dart';
 export 'wheel/SMYearWheelWidget.dart';
+export 'SMCacheImageWidget.dart';

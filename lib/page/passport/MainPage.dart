@@ -68,6 +68,7 @@ class _MainPageState extends State<MainPage> {
     print('render:MainPage');
     return StoreBuilder<MainStore>(builder: (context, store) {
       return PageView(
+        controller: StoreProvider.of<MainStore>(context).state.homeTabStore.homeToDetailController,
         physics: this.index == 0 ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
         children: <Widget>[
           SMTabBarWidget(
@@ -87,7 +88,11 @@ class _MainPageState extends State<MainPage> {
               });
             },
           ),
-          Container(color: Colors.pink),
+          Container(
+            color: Colors.pink,
+            child: FlatButton(onPressed: () {
+            }, child: Text('clickclickclick')),
+          ),
         ],
       );
     });

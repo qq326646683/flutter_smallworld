@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/page/home/home_tab/HomeTab.dart';
 
 class HomeTabStore {
   Map<HomeTabType, HomeTabData> homeTabDataMap;
+  PageController homeToDetailController;
 
-  HomeTabStore(this.homeTabDataMap);
+  HomeTabStore(this.homeTabDataMap, this.homeToDetailController);
 
   static initStore() {
     Map<HomeTabType, HomeTabData> homeTabDataMap = new Map<HomeTabType, HomeTabData>();
@@ -15,6 +17,7 @@ class HomeTabStore {
 
     return HomeTabStore(
       homeTabDataMap,
+      new PageController(),
     );
   }
 }
