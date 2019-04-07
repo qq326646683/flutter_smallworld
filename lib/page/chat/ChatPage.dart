@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/page/index.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
@@ -84,19 +85,26 @@ class _ChatPageState extends State<ChatPage>
               },
               child: Text('showConfirm')),
           FlatButton(
-              onPressed: () {
-                OverlayUtil.showPull(
-                  context,
-                  SMYearWheelWidget(
-                    context: context,
-                    initalText: '2015',
-                    onSureText: (String text) {
-                      print('onSureText:' + text);
-                    },
-                  ),
-                );
-              },
-              child: Text('showPull'))
+            onPressed: () {
+              OverlayUtil.showPull(
+                context,
+                SMYearWheelWidget(
+                  context: context,
+                  initalText: '2015',
+                  onSureText: (String text) {
+                    print('onSureText:' + text);
+                  },
+                ),
+              );
+            },
+            child: Text('showPull'),
+          ),
+          FlatButton(
+            onPressed: () {
+              NavigatorUtils.getInstance().pushNamed(context, DragSwipeDemo.sName);
+            },
+            child: Text('dragswipe_demo'),
+          ),
         ],
       ),
     );

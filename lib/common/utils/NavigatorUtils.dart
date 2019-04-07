@@ -11,6 +11,7 @@ class NavigatorUtils extends NavigatorObserver {
     MainPage.sName: (context) => MainPage(),
     TaskhallPage.sName: (context) => TaskhallPage(),
     SPHomePage.sName: (context) => SPHomePage(),
+    DragSwipeDemo.sName: (context) => DragSwipeDemo(),
   };
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;

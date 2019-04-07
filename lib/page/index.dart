@@ -12,3 +12,5 @@ export 'package:flutter_smallworld/page/discover/TaskhallPage.dart';
 export 'package:flutter_smallworld/page/common/smphoto/SPHomePage.dart';
 export 'package:flutter_smallworld/page/common/smphoto/SPGridViewPage.dart';
 export 'package:flutter_smallworld/page/common/smphoto/SPMediaPreviewPage.dart';
+
+export 'package:flutter_smallworld/page/common/demo/DragSwipeDemo.dart';
