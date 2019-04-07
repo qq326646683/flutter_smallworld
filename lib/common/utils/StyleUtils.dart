@@ -56,6 +56,7 @@ class SMSize {
 class SMCommonStyle {
   static BorderRadius borderRadius5 = BorderRadius.all(Radius.circular(5.0));
   static BorderRadius borderRadius10 = BorderRadius.all(Radius.circular(10.0));
+  static BorderRadius borderRadius20 = BorderRadius.all(Radius.circular(20.0));
   static EdgeInsets padding5 = EdgeInsets.all(5.0);
   static EdgeInsets padding10 = EdgeInsets.all(10.0);
   static EdgeInsets btnPadding =

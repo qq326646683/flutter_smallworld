@@ -19,6 +19,7 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
   static String TAG = "SMCacheImageWidget:";
   File imgFile;
   CurrentShow currentShow = CurrentShow.Default;
+
   @override
   void initState() {
     super.initState();
@@ -31,8 +32,9 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
       CacheFile cacheFile = await CacheFileUtil.getCacheFile(widget.url);
       if (cacheFile != null) {
         // a.有本地显示
-        print(TAG + '找本地-有本地显示' + widget.url);
-        setLocalImgFile(cacheFile.filePath);
+        print(TAG + '找本地-有本地显示' + cacheFile.filePath);
+//        print(CacheFileUtil.appDirection);
+        setLocalImgFile(CacheFileUtil.appDirection + cacheFile.filePath);
       } else {
         // b.无本地下载,并显示远程
         currentShow = CurrentShow.Remote;
@@ -64,12 +66,12 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
   Widget build(BuildContext context) {
     if (currentShow == CurrentShow.Remote) {
       print('Image.network:' + widget.url);
-      return Image.network(widget.url);
+      return Image.network(widget.url, width: widget.width, height: widget.height, fit: widget.fit);
     } else if (currentShow == CurrentShow.Local){
       print('Image.file:' + widget.url);
       return Image.file(imgFile, width: widget.width, height: widget.height, fit: widget.fit);
     } else if (currentShow == CurrentShow.Default){
-      return Container();
+      return Image.asset(SMIcons.EARTH, width: widget.width, height: widget.height, fit: widget.fit);
     }
   }
 }

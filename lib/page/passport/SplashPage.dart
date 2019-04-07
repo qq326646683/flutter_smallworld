@@ -19,6 +19,10 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    // 文件保存路径
+    if (CacheFileUtil.appDirection == null) {
+      CacheFileUtil.initDirection();
+    }
   }
 
   @override

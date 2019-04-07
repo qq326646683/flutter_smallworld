@@ -26,10 +26,6 @@ class CacheFileUtil {
         break;
     }
 
-    // 文件保存路径
-    if (appDirection == null) {
-      await initDirection();
-    }
     String savePath;
     switch (cacheType) {
       case CacheType.CACHE:
@@ -44,7 +40,7 @@ class CacheFileUtil {
       Response response = await HttpManager.dio.download(url, savePath,
           onReceiveProgress: onReceiveProgress, cancelToken: cancelToken);
       if (response.statusCode == 200) {
-        CacheFile cacheFile = new CacheFile(cacheFileType, url, cacheType, savePath, DateTime.now());
+        CacheFile cacheFile = new CacheFile(cacheFileType, url, cacheType, savePath.replaceAll(appDirection, ""), DateTime.now());
 
 
         //下载成功，存入数据库

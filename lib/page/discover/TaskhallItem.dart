@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/common/config/Config.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
@@ -43,9 +44,8 @@ class _TaskhallItemState extends State<TaskhallItem> {
               Stack(
                 overflow: Overflow.visible,
                 children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(user.avatar),
-                    backgroundColor: Colors.black,
+                  ClipOval(
+                    child: SMCacheImageWidget(user.avatar + ThumbImgSize.avatarImgScaleSize_100_100, width: 40, height: 40,),
                   ),
                   Positioned(
                       bottom: TaskhallPageStyle.itemVipContainerBottom,
