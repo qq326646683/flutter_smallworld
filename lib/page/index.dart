@@ -1,16 +1,16 @@
-export 'package:flutter_smallworld/page/passport/SplashPage.dart';
-export 'package:flutter_smallworld/page/passport/LoginPage.dart';
-export 'package:flutter_smallworld/page/passport/MainPage.dart';
+export 'package:flutter_smallworld/page/passport/splash_page.dart';
+export 'package:flutter_smallworld/page/passport/login_page.dart';
+export 'package:flutter_smallworld/page/passport/main_page.dart';
 
-export 'package:flutter_smallworld/page/home/HomePage.dart';
-export 'package:flutter_smallworld/page/chat/ChatPage.dart';
-export 'package:flutter_smallworld/page/club/ClubPage.dart';
-export 'package:flutter_smallworld/page/discover/DiscoverPage.dart';
-export 'package:flutter_smallworld/page/profile/ProfilePage.dart';
-export 'package:flutter_smallworld/page/discover/TaskhallPage.dart';
+export 'package:flutter_smallworld/page/home/home_page.dart';
+export 'package:flutter_smallworld/page/chat/chat_page.dart';
+export 'package:flutter_smallworld/page/club/club_page.dart';
+export 'package:flutter_smallworld/page/discover/discover_page.dart';
+export 'package:flutter_smallworld/page/profile/profile_page.dart';
+export 'package:flutter_smallworld/page/discover/taskhall_page.dart';
 
-export 'package:flutter_smallworld/page/common/smphoto/SPHomePage.dart';
-export 'package:flutter_smallworld/page/common/smphoto/SPGridViewPage.dart';
-export 'package:flutter_smallworld/page/common/smphoto/SPMediaPreviewPage.dart';
+export 'package:flutter_smallworld/page/common/smphoto/sp_home_page.dart';
+export 'package:flutter_smallworld/page/common/smphoto/sp_gridview_page.dart';
+export 'package:flutter_smallworld/page/common/smphoto/sp_mediapreview_page.dart';
 
-export 'package:flutter_smallworld/page/common/demo/DragSwipeDemo.dart';
+export 'package:flutter_smallworld/page/common/demo/drag_swipe_demo.dart';

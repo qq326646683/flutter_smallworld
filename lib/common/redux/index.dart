@@ -1,5 +1,5 @@
-export 'MainStore.dart';
-export 'UserRedux.dart';
-export 'TaskhallRedux.dart';
-export 'SmPhotoRedux.dart';
-export 'HomeTabRedux.dart';
+export 'main_store.dart';
+export 'user_redux.dart';
+export 'taskhall_redux.dart';
+export 'sm_photo_redux.dart';
+export 'hometab_redux.dart';

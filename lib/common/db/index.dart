@@ -1,3 +1,3 @@
-export 'DbManager.dart';
-export 'BaseProvider.dart';
-export 'file_cache/FileCacheProvider.dart';
+export 'db_manager.dart';
+export 'base_provider.dart';
+export 'file_cache/filecache_provider.dart';

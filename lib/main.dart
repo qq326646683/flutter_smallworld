@@ -6,9 +6,9 @@ import 'package:redux/redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_smallworld/page/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
-import 'package:flutter_smallworld/common/net/Code.dart';
+import 'package:flutter_smallworld/common/net/code.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
-import 'package:flutter_smallworld/common/net/HttpManager.dart';
+import 'package:flutter_smallworld/common/net/http_manager.dart';
 
 void main() {
   runApp(FlutterReduxApp());
