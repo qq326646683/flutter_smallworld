@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_smallworld/common/config/config.dart';
+import 'package:flutter_smallworld/common/db/index.dart';
 import 'package:flutter_smallworld/common/redux/user_redux.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
@@ -25,7 +26,8 @@ class UserDao {
     if (res != null && res.result) {
       UserInfo currentUserInfo = LoginResult.fromJson(res.data).userInfo;
       await StorageUtil.save(Config.USERINFO_KEY, json.encode(currentUserInfo.toJson()));
-
+      // 创建数据库
+      await FileCacheProvider.getInstance().getDatabase();
       store.dispatch(updateUserAction(currentUserInfo));
 
     }

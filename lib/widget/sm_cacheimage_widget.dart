@@ -33,12 +33,15 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
       if (cacheFile != null) {
         // a.有本地显示
         print(TAG + '找本地-有本地显示' + cacheFile.filePath);
-//        print(CacheFileUtil.appDirection);
         setLocalImgFile(CacheFileUtil.appDirection + cacheFile.filePath);
       } else {
         // b.无本地下载,并显示远程
-        currentShow = CurrentShow.Remote;
-        this.setState((){});
+        if (mounted) {
+          this.setState((){
+            currentShow = CurrentShow.Remote;
+          });
+        }
+
         print(TAG + '找本地-无本地下载' + widget.url);
         CacheFileUtil.setCacheFile(CacheFileType.IMAGE, widget.url);
       }
@@ -55,9 +58,12 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
     if (!isExists) {
       throw new FileSystemException("localFile is not exist", path);
     } else {
-      imgFile = tmpImgFile;
-      currentShow = CurrentShow.Local;
-      this.setState((){});
+      if (mounted) {
+        this.setState((){
+          imgFile = tmpImgFile;
+          currentShow = CurrentShow.Local;
+        });
+      }
     }
   }
   
