@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SMZoomWidget extends StatefulWidget {
   final Widget child;
+  final ValueChanged<double> onScaleChange;
 
-  const SMZoomWidget({Key key, this.child}) : super(key: key);
+  const SMZoomWidget({Key key, this.child, this.onScaleChange}) : super(key: key);
 
   @override
   _SMZoomWidgetState createState() => new _SMZoomWidgetState();
@@ -33,18 +34,21 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
   }
 
   Offset _clampOffset(Offset offset) {
+
     final Size size = context.size;
     final Offset minOffset = Offset(size.width, size.height) * (1.0 - _scale);
     return Offset(offset.dx.clamp(minOffset.dx, 0.0), offset.dy.clamp(minOffset.dy, 0.0));
   }
 
   void _handleFlingAnimation() {
+
     setState(() {
       _offset = _flingAnimation.value;
     });
   }
 
   void _handleOnScaleStart(ScaleStartDetails details) {
+
     setState(() {
       _previousScale = _scale;
       _normalizedOffset = (details.focalPoint - _offset) / _scale;
@@ -54,11 +58,15 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
   }
 
   void _handleOnScaleUpdate(ScaleUpdateDetails details) {
+    print(details.focalPoint.dx * _scale);
     setState(() {
       _scale = (_previousScale * details.scale).clamp(1.0, 4.0);
       // Ensure that image location under the focal point stays in the same place despite scaling.
       _offset = _clampOffset(details.focalPoint - _normalizedOffset * _scale);
     });
+
+    widget.onScaleChange?.call(_scale);
+
   }
 
   void _handleOnScaleEnd(ScaleEndDetails details) {

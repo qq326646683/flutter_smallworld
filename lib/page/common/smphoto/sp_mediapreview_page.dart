@@ -19,9 +19,14 @@ class SPMediaPreviewPage extends StatefulWidget {
 }
 
 class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
+  bool isToParent = true;
+
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      physics: isToParent
+          ? PageScrollPhysics()
+          : NeverScrollableScrollPhysics(),
       controller: PageController(initialPage: widget.currentIndex),
       itemBuilder: this._itemBuilder,
       itemCount: widget.assetList.length,
@@ -55,34 +60,53 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
                 snapshot.data != null) {
               AssetLruCache.setData(
                   entity, ScreenUtil().screenWidth.floor(), snapshot.data);
-              return Scaffold(
-                body: Container(
-                    child: SMZoomWidget(
-                      child: Image.memory(
-                        snapshot.data,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    )),
-              );
+              return _buildBody(snapshot.data);
             } else {
               return Container();
             }
           });
     } else {
-      return Scaffold(
-        body: Container(
-          child: SMZoomWidget(
-            child: Image.memory(
-              data,
-              fit: BoxFit.contain,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
-        ),
-      );
+      return _buildBody(data);
     }
+  }
+
+  Widget _buildBody(Uint8List uint8List) {
+    return Scaffold(
+        body: Stack(
+          children: <Widget>[
+            Container(
+              child: SMZoomWidget(
+                onScaleChange: (scale) {
+//                  print('scale:' + scale.toString());
+                  if (scale <=1.0) {
+                    if (isToParent == false) {
+                      this.setState(() {
+                        isToParent = true;
+                      });
+                    }
+                  } else {
+                    if (isToParent == true) {
+                      this.setState(() {
+                        isToParent = false;
+                      });
+                    }
+                  }
+                },
+                child: Image.memory(
+                  uint8List,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
+            ),
+            RaisedButton(onPressed: () {
+              this.setState(() {
+                isToParent = !isToParent;
+              });
+            }, child: Text('switch'),),
+          ],
+        )
+    );
   }
 }
