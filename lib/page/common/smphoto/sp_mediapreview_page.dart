@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_smallworld/page/common/smphoto/sm_preview_pageview_widget.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_smallworld/widget/index.dart';
@@ -20,18 +19,17 @@ class SPMediaPreviewPage extends StatefulWidget {
 }
 
 class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
+  bool isToParent = true;
+
   @override
   Widget build(BuildContext context) {
-//    return PageView.builder(
-//      controller: PageController(initialPage: widget.currentIndex),
-//      itemBuilder: this._itemBuilder,
-//      itemCount: widget.assetList.length,
-//    );
-    return SMPreviewPageViewWidget.builder(
+    return PageView.builder(
+      physics: isToParent
+          ? PageScrollPhysics()
+          : NeverScrollableScrollPhysics(),
       controller: PageController(initialPage: widget.currentIndex),
       itemBuilder: this._itemBuilder,
       itemCount: widget.assetList.length,
-      scrollDirection: Axis.horizontal,
     );
   }
 
@@ -51,52 +49,64 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
     }
 
     Uint8List data =
-    AssetLruCache.getData(entity, ScreenUtil.getInstance().screenWidth.floor());
+    AssetLruCache.getData(entity, ScreenUtil().screenWidth.floor());
 
     if (data == null) {
       return FutureBuilder(
-          future: entity.thumbDataWithSize(ScreenUtil.getInstance().screenWidth.floor(),
-              ScreenUtil.getInstance().screenHeight.floor()),
+          future: entity.thumbDataWithSize(ScreenUtil().screenWidth.floor(),
+              ScreenUtil().screenHeight.floor()),
           builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.data != null) {
               AssetLruCache.setData(
-                  entity, ScreenUtil.getInstance().screenWidth.floor(), snapshot.data);
-              return Scaffold(
-                body: Container(
-//                  child: Image.memory(
-//                        snapshot.data,
-//                        fit: BoxFit.contain,
-//                        width: double.infinity,
-//                        height: double.infinity,
-//                      ),
-                    child: SMZoomWidget(
-                      child: Image.memory(
-                        snapshot.data,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    ),
-                ),
-              );
+                  entity, ScreenUtil().screenWidth.floor(), snapshot.data);
+              return _buildBody(snapshot.data);
             } else {
               return Container();
             }
           });
     } else {
-      return Scaffold(
-        body: Container(
-          child: SMZoomWidget(
-            child: Image.memory(
-              data,
-              fit: BoxFit.contain,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-          ),
-        ),
-      );
+      return _buildBody(data);
     }
+  }
+
+  Widget _buildBody(Uint8List uint8List) {
+    return Scaffold(
+        body: Stack(
+          children: <Widget>[
+            Container(
+              child: SMZoomWidget(
+                onScaleChange: (scale) {
+//                  print('scale:' + scale.toString());
+                  if (scale <=1.0) {
+                    if (isToParent == false) {
+                      this.setState(() {
+                        isToParent = true;
+                      });
+                    }
+                  } else {
+                    if (isToParent == true) {
+                      this.setState(() {
+                        isToParent = false;
+                      });
+                    }
+                  }
+                },
+                child: Image.memory(
+                  uint8List,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+              ),
+            ),
+            RaisedButton(onPressed: () {
+              this.setState(() {
+                isToParent = !isToParent;
+              });
+            }, child: Text('switch'),),
+          ],
+        )
+    );
   }
 }

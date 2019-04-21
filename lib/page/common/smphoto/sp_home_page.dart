@@ -7,7 +7,7 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/index.dart';
 
 class SPHomePage extends StatefulWidget {
-  static final String sName = "smphoto_home";
+  static final String sName = "/";
 
   SPType spType;
   ValueChanged<List<AssetEntity>> backRes;
