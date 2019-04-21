@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 
 class SMZoomWidget extends StatefulWidget {
   final Widget child;
@@ -15,6 +16,7 @@ const double _kMinFlingVelocity = 800.0;
 class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<Offset> _flingAnimation;
+  Animation<double> _scaleAnimation;
   Offset _offset = Offset.zero;
   double _scale = 1.0;
   Offset _normalizedOffset;
@@ -24,7 +26,8 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this)
-      ..addListener(_handleFlingAnimation);
+      ..addListener(_handleFlingAnimation)
+      ..addListener(_handleScaleAnimation);
   }
 
   @override
@@ -46,9 +49,14 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
       _offset = _flingAnimation.value;
     });
   }
+  void _handleScaleAnimation() {
+
+    setState(() {
+      _scale = _scaleAnimation.value;
+    });
+  }
 
   void _handleOnScaleStart(ScaleStartDetails details) {
-
     setState(() {
       _previousScale = _scale;
       _normalizedOffset = (details.focalPoint - _offset) / _scale;
@@ -58,7 +66,7 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
   }
 
   void _handleOnScaleUpdate(ScaleUpdateDetails details) {
-    print(details.focalPoint.dx * _scale);
+    print(details.focalPoint.toString() + ':' +_scale.toString());
     setState(() {
       _scale = (_previousScale * details.scale).clamp(1.0, 4.0);
       // Ensure that image location under the focal point stays in the same place despite scaling.
@@ -69,6 +77,37 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
 
   }
 
+  void _handleDoubleTap() {
+    Offset tartgetOffset;
+    double tartgetScale;
+    if (_scale == 1.0 || (_scale > 2.0 && _scale <= 4.0)) {
+      tartgetOffset = Offset(-200, -300);
+      tartgetScale = 2.0;
+    } else {
+      tartgetOffset = Offset(0, 0);
+      tartgetScale = 1.0;
+    }
+
+    _flingAnimation = _controller.drive(Tween<Offset>(
+        begin: _offset,
+        end: tartgetOffset
+    ));
+    _scaleAnimation = _controller.drive(Tween<double>(
+      begin: _scale,
+      end: tartgetScale
+    ));
+    _controller
+      ..value = 0.0
+      ..fling();
+    _offset = tartgetOffset;
+    _scale = tartgetScale;
+    widget.onScaleChange?.call(_scale);
+
+  }
+
+
+
+
   void _handleOnScaleEnd(ScaleEndDetails details) {
     final double magnitude = details.velocity.pixelsPerSecond.distance;
     if (magnitude < _kMinFlingVelocity)
@@ -78,6 +117,10 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
     _flingAnimation = _controller.drive(Tween<Offset>(
         begin: _offset,
         end: _clampOffset(_offset + direction * distance)
+    ));
+    _scaleAnimation = _controller.drive(Tween<double>(
+        begin: _scale,
+        end: _scale
     ));
     _controller
       ..value = 0.0
@@ -90,6 +133,7 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
       onScaleStart: _handleOnScaleStart,
       onScaleUpdate: _handleOnScaleUpdate,
       onScaleEnd: _handleOnScaleEnd,
+      onDoubleTap: _handleDoubleTap,
       child: ClipRect(
         child: Transform(
           transform: Matrix4.identity()

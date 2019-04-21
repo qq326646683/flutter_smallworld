@@ -49,17 +49,17 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
     }
 
     Uint8List data =
-    AssetLruCache.getData(entity, ScreenUtil().screenWidth.floor());
+    AssetLruCache.getData(entity, ScreenUtil.getInstance().screenWidth.floor());
 
     if (data == null) {
       return FutureBuilder(
-          future: entity.thumbDataWithSize(ScreenUtil().screenWidth.floor(),
-              ScreenUtil().screenHeight.floor()),
+          future: entity.thumbDataWithSize(ScreenUtil.getInstance().screenWidth.floor(),
+              ScreenUtil.getInstance().screenHeight.floor()),
           builder: (BuildContext context, AsyncSnapshot<Uint8List> snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 snapshot.data != null) {
               AssetLruCache.setData(
-                  entity, ScreenUtil().screenWidth.floor(), snapshot.data);
+                  entity, ScreenUtil.getInstance().screenWidth.floor(), snapshot.data);
               return _buildBody(snapshot.data);
             } else {
               return Container();
@@ -72,6 +72,7 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
 
   Widget _buildBody(Uint8List uint8List) {
     return Scaffold(
+        backgroundColor: SMColors.black,
         body: Stack(
           children: <Widget>[
             Container(
@@ -100,11 +101,11 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
                 ),
               ),
             ),
-            RaisedButton(onPressed: () {
-              this.setState(() {
-                isToParent = !isToParent;
-              });
-            }, child: Text('switch'),),
+//            RaisedButton(onPressed: () {
+//              this.setState(() {
+//                isToParent = !isToParent;
+//              });
+//            }, child: Text('switch'),),
           ],
         )
     );
