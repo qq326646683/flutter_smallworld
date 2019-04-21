@@ -56,7 +56,7 @@ class UserDao {
   
   static getUserInfoLocal({store}) async {
     String userTxt = await StorageUtil.get(Config.USERINFO_KEY);
-    if (userTxt != null) {
+    if (userTxt.isNotEmpty) {
       var userMap = json.decode(userTxt);
       UserInfo userInfo = UserInfo.fromJson(userMap);
       

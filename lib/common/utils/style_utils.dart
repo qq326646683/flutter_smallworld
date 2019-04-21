@@ -50,7 +50,7 @@ class SMColors {
 }
 
 class SMSize {
-  static double dp5 = ScreenUtil().getWidth(5.0);
+  static double dp5 = ScreenUtil.getInstance().getWidth(5.0);
 }
 
 class SMCommonStyle {

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/dao/index.dart';
+import 'package:flutter_smallworld/common/localization/my_localization.dart';
+import 'package:flutter_smallworld/common/localization/my_localizations_delegate.dart';
 import 'package:redux/redux.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_smallworld/page/index.dart';
@@ -9,6 +11,8 @@ import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/net/code.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/common/net/http_manager.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() {
   runApp(FlutterReduxApp());
@@ -52,12 +56,20 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
+    return StoreProvider(
         store: store,
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           navigatorObservers: [
             NavigatorUtils.getInstance(),
           ],
+          ///多语言实现代理
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            MyLocalizationsDelegate.delegate,
+          ],
+          supportedLocales: MyLocalization.getSupportedLanguages(),
           routes: NavigatorUtils.configRoutes,
         )
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/common/localization/localization_wrap.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_smallworld/page/index.dart';
@@ -6,12 +7,12 @@ import 'package:flutter_smallworld/page/index.dart';
 class NavigatorUtils extends NavigatorObserver {
   /*配置routes*/
   static Map<String, WidgetBuilder> configRoutes = {
-    SplashPage.sName: (context) => SplashPage(),
-    LoginPage.sName: (context) => LoginPage(),
-    MainPage.sName: (context) => MainPage(),
-    TaskhallPage.sName: (context) => TaskhallPage(),
-    SPHomePage.sName: (context) => SPHomePage(),
-    DragSwipeDemo.sName: (context) => DragSwipeDemo(),
+    SplashPage.sName: (context) => LocalizationWrap(child: SplashPage()),
+    LoginPage.sName: (context) => LocalizationWrap(child: LoginPage()),
+    MainPage.sName: (context) => LocalizationWrap(child: MainPage()),
+    TaskhallPage.sName: (context) => LocalizationWrap(child: TaskhallPage()),
+    SPHomePage.sName: (context) => LocalizationWrap(child: SPHomePage()),
+    DragSwipeDemo.sName: (context) => LocalizationWrap(child: DragSwipeDemo()),
   };
   static NavigatorUtils navigatorUtils;
   BuildContext mContext;

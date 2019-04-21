@@ -29,11 +29,11 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
   init() async {
     if (widget.url.startsWith('http')) {
       // 网络图片 1.找本地是否有
-      CacheFile cacheFile = await CacheFileUtil.getCacheFile(widget.url);
+      CacheFile cacheFile = CacheFileUtil.getCacheFile(widget.url);
       if (cacheFile != null) {
         // a.有本地显示
         print(TAG + '找本地-有本地显示' + cacheFile.filePath);
-        setLocalImgFile(CacheFileUtil.appDirection + cacheFile.filePath);
+        setLocalImgFile(cacheFile.filePath);
       } else {
         // b.无本地下载,并显示远程
         if (mounted) {
@@ -41,7 +41,6 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
             currentShow = CurrentShow.Remote;
           });
         }
-
         print(TAG + '找本地-无本地下载' + widget.url);
         CacheFileUtil.setCacheFile(CacheFileType.IMAGE, widget.url);
       }
@@ -51,7 +50,7 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
       setLocalImgFile(widget.url);
     }
   }
-  
+
   setLocalImgFile(String path) async {
     File tmpImgFile = new File(path);
     bool isExists = await tmpImgFile.exists();
@@ -66,7 +65,7 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
       }
     }
   }
-  
+
 
   @override
   Widget build(BuildContext context) {

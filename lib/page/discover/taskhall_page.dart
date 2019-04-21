@@ -112,8 +112,8 @@ class _TaskhallPageState extends State<TaskhallPage>
           children: <Widget>[
             /*蒙层*/
             Container(
-              width: ScreenUtil().screenWidth,
-              height: ScreenUtil().screenHeight,
+              width: ScreenUtil.getInstance().screenWidth,
+              height: ScreenUtil.getInstance().screenHeight,
               color: SMColors.opacity75Cover,
             ),
             SMPullLoadWidget(

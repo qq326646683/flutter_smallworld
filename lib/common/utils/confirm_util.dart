@@ -80,9 +80,9 @@ class ConfirmUtil {
 }
 
 class _Style {
-  static double type2Height = ScreenUtil().getWidth(180.0);
-  static double containPad = ScreenUtil().getWidth(15.0);
-  static double cancelHeight = ScreenUtil().getWidth(40.0);
+  static double type2Height = ScreenUtil.getInstance().getWidth(180.0);
+  static double containPad = ScreenUtil.getInstance().getWidth(15.0);
+  static double cancelHeight = ScreenUtil.getInstance().getWidth(40.0);
 }
 
 class ConfirmParam {

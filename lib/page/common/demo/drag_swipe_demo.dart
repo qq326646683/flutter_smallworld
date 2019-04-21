@@ -1,6 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
-import 'package:flutter_smallworld/page/common/demo/sm_reorderable_listview.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 
 class DragSwipeDemo extends StatefulWidget {
@@ -11,122 +11,120 @@ class DragSwipeDemo extends StatefulWidget {
 }
 
 class _DragSwipeDemoState extends State<DragSwipeDemo> {
-  List<ItemData> data = new List();
   static final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<
       ScaffoldState>();
+  bool _gestureToParent = true;
+  Map<Type, GestureRecognizerFactory> pageviewGesture;
+  Map<Type, GestureRecognizerFactory> imageviewGesture;
 
+  Map<Type, GestureRecognizerFactory> commonPageViewGesture;
+  Map<Type, GestureRecognizerFactory> commonImageViewGesture;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    data.add(new ItemData(DataType.timeline, content: '今日任务  03-19  周二'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面1'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面2'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面3'));
-    data.add(new ItemData(DataType.addBtn, content: '添加'));
-
-    data.add(new ItemData(DataType.timeline, content: '今日任务  03-18  周一'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面4'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面5'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面6'));
-    data.add(new ItemData(DataType.addBtn, content: '添加'));
-
-    data.add(new ItemData(DataType.timeline, content: '今日任务  03-17  周日'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面7'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面8'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面9'));
-    data.add(new ItemData(DataType.addBtn, content: '添加'));
-
-    data.add(new ItemData(DataType.timeline, content: '今日任务  03-16  周六'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面10'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面11'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面12'));
-    data.add(new ItemData(DataType.addBtn, content: '添加'));
-
-    data.add(new ItemData(DataType.timeline, content: '今日任务  03-15  周五'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面13'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面14'));
-    data.add(new ItemData(DataType.task, content: '整理拉蜂改版需求并确认最终界面15'));
-    data.add(new ItemData(DataType.addBtn, content: '添加'));
+    pageviewGesture = {
+      PageViewGestureRecognizer: GestureRecognizerFactoryWithHandlers<
+          PageViewGestureRecognizer>(
+            () => PageViewGestureRecognizer(),
+            (PageViewGestureRecognizer instance) {
+          instance.onTap = () => print('click:pageview');
+        },
+      )
+    };
+    commonPageViewGesture = {
+      TapGestureRecognizer: GestureRecognizerFactoryWithHandlers<
+          TapGestureRecognizer>(
+            () => TapGestureRecognizer(),
+            (TapGestureRecognizer instance) {
+          instance.onTap = () => print('click:pageview');
+        },
+      )
+    };
+    imageviewGesture = {
+      ImageViewGestureRecongnizer: GestureRecognizerFactoryWithHandlers<
+          ImageViewGestureRecongnizer>(
+            () => ImageViewGestureRecongnizer(),
+            (ImageViewGestureRecongnizer instance) {
+          instance.onTap = () => print('click:imageview');
+        },
+      )
+    };
+    commonImageViewGesture = {
+      TapGestureRecognizer: GestureRecognizerFactoryWithHandlers<
+          TapGestureRecognizer>(
+            () => TapGestureRecognizer(),
+            (TapGestureRecognizer instance) {
+          instance.onTap = () => print('click:imageview');
+        },
+      )
+    };
   }
 
-  void _onReorder(int oldIndex, int newIndex) {
-    print('oldIndex:' + oldIndex.toString());
-    print('newIndex:' + newIndex.toString());
-
-    setState(() {
-      if (newIndex > oldIndex) {
-        newIndex -= 1;
-      }
-      final ItemData item = data.removeAt(oldIndex);
-      data.insert(newIndex, item);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      body: Scrollbar(
-        child: SMReorderableListView(
-          children: data.map<Widget>((ItemData itemData) {
-            return DragItem(
-              key: UniqueKey(),
-              itemData: itemData,
-            );
-          }).toList(),
-          onReorder: _onReorder,
+    print('_gestureToParent:' + _gestureToParent.toString());
+    return RawGestureDetector(
+      gestures: _gestureToParent ? pageviewGesture : commonPageViewGesture,
+      child: Container(
+        color: SMColors.actionBlue,
+        child: RawGestureDetector(
+          behavior: HitTestBehavior.translucent,
+          gestures: _gestureToParent ? imageviewGesture : commonImageViewGesture,
+          child: Container(
+            color: SMColors.darkGolden,
+            child: Column(
+              children: <Widget>[
+                RaisedButton(onPressed: () {
+                  this.setState(() {
+                    _gestureToParent = !_gestureToParent;
+                  });
+                }, child: Text('switch'),)
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
-
-
-class DragItem extends StatefulWidget {
-  final ItemData itemData;
-
-  const DragItem({Key key, this.itemData}) : super(key: key);
-
-//  bool get canDrag => itemData.dataType == DataType.task;
-
+class PageViewGestureRecognizer extends TapGestureRecognizer {
+//  bool get toParent => _gestureToParent;
+//  bool _gestureToParent = true;
+//  /// The [gestureToParent] can only be set once.
+//  set gestureToParent(bool value) {
+//    assert(value != null);
+//    assert(_gestureToParent == null);
+//    _gestureToParent = value;
+//  }
   @override
-  _DragItemState createState() => _DragItemState();
-}
-
-class _DragItemState extends State<DragItem> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: ScreenUtil
-          .getInstance()
-          .screenWidth,
-      decoration: BoxDecoration(
-        border: SMCommonStyle.borderBottom03Gray,
-        color: widget.itemData.dataType == DataType.timeline
-            ? Colors.pink
-            : Colors.white,
-      ),
-      child: Text(
-        widget.itemData.content.toString(),
-        style: SMTextStyle(fontSize: 20),
-      ),
-    );
+  void rejectGesture(int pointer) {
+//    if (_gestureToParent) {
+      super.acceptGesture(pointer);
+//    } else {
+//      super.rejectGesture(pointer);
+//    }
   }
+
 }
 
-
-enum DataType {
-  task,
-  timeline,
-  addBtn
-}
-
-class ItemData {
-  final DataType dataType;
-  final String content;
-
-  ItemData(this.dataType, {this.content});
-
+class ImageViewGestureRecongnizer extends TapGestureRecognizer {
+//  bool get toParent => _gestureToParent;
+//  bool _gestureToParent = true;
+//  /// The [gestureToParent] can only be set once.
+//  set gestureToParent(bool value) {
+//    assert(value != null);
+//    assert(_gestureToParent == null);
+//    _gestureToParent = value;
+//  }
+  @override
+  void acceptGesture(int pointer) {
+//    if (_gestureToParent) {
+      super.rejectGesture(pointer);
+//    } else {
+//      super.acceptGesture(pointer);
+//    }
+  }
 }

@@ -71,8 +71,9 @@ class _MainPageState extends State<MainPage> {
         controller: StoreProvider.of<MainStore>(context).state.homeTabStore.homeToDetailController,
         physics: this.index == 0 ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
         children: <Widget>[
-          SMTabBarWidget(
-            type: SMTabBarWidget.BOTTOM_TAB,
+          SMTabBarPageViewWidget(
+            type: SMTabBarPageViewWidget.BOTTOM_TAB,
+            physics: NeverScrollableScrollPhysics(),
             tabViews: <Widget>[
               HomePage(),
               ChatPage(),

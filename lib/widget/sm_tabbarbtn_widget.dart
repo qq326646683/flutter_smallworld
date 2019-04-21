@@ -4,7 +4,7 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 class SMTabBarBtnWidget extends StatelessWidget {
   final Widget icon;
   final bool showDot;
-  final cirWidth = ScreenUtil().getWidth(10.0);
+  final cirWidth = ScreenUtil.getInstance().getWidth(10.0);
 
   SMTabBarBtnWidget({this.icon, this.showDot});
 

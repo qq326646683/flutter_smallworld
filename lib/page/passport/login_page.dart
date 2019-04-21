@@ -59,9 +59,9 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: ScreenUtil().getWidth(160.0),
-                        left: ScreenUtil().getWidth(35.0),
-                        right: ScreenUtil().getWidth(35.0)),
+                        top: ScreenUtil.getInstance().getWidth(160.0),
+                        left: ScreenUtil.getInstance().getWidth(35.0),
+                        right: ScreenUtil.getInstance().getWidth(35.0)),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -71,8 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                             Padding(padding: EdgeInsets.all(4.0)),
                             Flexible(
                                 child: SMInputWidget(
+                                  contentPadding: SMCommonStyle.padding10,
                                   keyboardType: TextInputType.number,
-                                  textStyle: SMTxtStyle.normalTextWhite,
+                                  style: SMTxtStyle.normalTextWhite,
                                   hintTextStyle: SMTxtStyle
                                       .normalTextHolderWhite,
                                   controller: _mobileController,
@@ -84,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                         SMInputWidget(
-                          textStyle: SMTxtStyle.normalTextWhite,
+                          style: SMTxtStyle.normalTextWhite,
                           hintTextStyle: SMTxtStyle.normalTextHolderWhite,
                           controller: _passwordController,
                           onChanged: (String value) {
@@ -93,11 +94,11 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "输入密码",
                         ),
                         Padding(
-                          padding: EdgeInsets.all(ScreenUtil().getWidth(20.0)),
+                          padding: EdgeInsets.all(ScreenUtil.getInstance().getWidth(20.0)),
                         ),
                         SMButtonWidget(
-                            text: '登陆',
-                            height: ScreenUtil().getWidth(50.0),
+                            text: CommonUtils.getLocaleStr(context).login_btn,
+                            height: ScreenUtil.getInstance().getWidth(50.0),
                             onPress: () {
                               print("mobile" + _mobile + "psd" + _password);
                               UserDao.login(_mobile, _password, "android", store)

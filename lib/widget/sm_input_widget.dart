@@ -1,49 +1,91 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 
-class SMInputWidget extends StatefulWidget {
-  final SMTextStyle textStyle;
-
-  final String hintText;
-
-  final SMTextStyle hintTextStyle;
-
-  final TextInputType keyboardType;
-
-  final ValueChanged<String> onChanged;
-
-  final TextEditingController controller;
-
-  SMInputWidget(
-      {Key key,
-      this.textStyle,
-      this.hintText,
-      this.hintTextStyle = SMTxtStyle.middleSubLightText,
-      this.keyboardType,
-      this.onChanged,
-      this.controller})
-      : super(key: key);
-
-  @override
-  _SMInputWidgetState createState() => _SMInputWidgetState();
-}
-
-class _SMInputWidgetState extends State<SMInputWidget> {
-  _SMInputWidgetState() : super();
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      style: widget.textStyle,
-      controller: widget.controller,
-      onChanged: widget.onChanged,
-      keyboardType: widget.keyboardType,
-      decoration: InputDecoration(
-          hintText: widget.hintText,
-          hintStyle: widget.hintTextStyle,
-          border: InputBorder.none
-      ),
-    );
-  }
+class SMInputWidget extends TextField {
+  SMInputWidget({
+    Key key,
+    TextEditingController controller,
+    FocusNode focusNode,
+    String hintText,
+    SMTextStyle hintTextStyle = SMTxtStyle.middleSubLightText,
+    InputDecoration decoration,
+    TextInputType keyboardType,
+    TextInputAction textInputAction,
+    TextCapitalization textCapitalization = TextCapitalization.none,
+    SMTextStyle style,
+    TextAlign textAlign = TextAlign.start,
+    TextDirection textDirection,
+    bool autofocus = false,
+    bool obscureText = false,
+    bool autocorrect = true,
+    int maxLines = 1,
+    int maxLength,
+    bool maxLengthEnforced = true,
+    ValueChanged<String> onChanged,
+    VoidCallback onEditingComplete,
+    ValueChanged<String> onSubmitted,
+    List<TextInputFormatter> inputFormatters,
+    bool enabled,
+    double cursorWidth = 1.0,
+    Radius cursorRadius,
+    Color cursorColor,
+    Brightness keyboardAppearance,
+    EdgeInsets scrollPadding = const EdgeInsets.all(20.0),
+    DragStartBehavior dragStartBehavior = DragStartBehavior.down,
+    bool enableInteractiveSelection,
+    GestureTapCallback onTap,
+    InputCounterWidgetBuilder buildCounter,
+    EdgeInsetsGeometry contentPadding,
+  })  : assert(textAlign != null),
+        assert(autofocus != null),
+        assert(obscureText != null),
+        assert(autocorrect != null),
+        assert(maxLengthEnforced != null),
+        assert(scrollPadding != null),
+        assert(dragStartBehavior != null),
+        assert(maxLines == null || maxLines > 0),
+        assert(maxLength == null ||
+            maxLength == TextField.noMaxLength ||
+            maxLength > 0),
+        super(
+        key: key,
+        keyboardType: keyboardType ??
+            (maxLines == 1 ? TextInputType.text : TextInputType.multiline),
+        controller: controller,
+        focusNode: focusNode,
+        decoration: decoration ?? InputDecoration(
+            contentPadding: contentPadding ?? EdgeInsets.all(0.0),
+            hintText: hintText,
+            hintStyle: hintTextStyle,
+            border: InputBorder.none
+        ),
+        textInputAction: textInputAction,
+        textCapitalization: textCapitalization,
+        style: style,
+        textAlign: textAlign,
+        textDirection: textDirection,
+        autofocus: autofocus,
+        obscureText: obscureText,
+        autocorrect: autocorrect,
+        maxLines: maxLines,
+        maxLength: maxLength,
+        maxLengthEnforced: maxLengthEnforced,
+        onChanged: onChanged,
+        onEditingComplete: onEditingComplete,
+        onSubmitted: onSubmitted,
+        inputFormatters: inputFormatters,
+        enabled: enabled,
+        cursorWidth: cursorWidth,
+        cursorRadius: cursorRadius,
+        cursorColor: cursorColor,
+        keyboardAppearance: keyboardAppearance,
+        scrollPadding: scrollPadding,
+        dragStartBehavior: dragStartBehavior,
+        enableInteractiveSelection: enableInteractiveSelection,
+        onTap: onTap,
+        buildCounter: buildCounter,
+      );
 }

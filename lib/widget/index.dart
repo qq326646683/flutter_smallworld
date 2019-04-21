@@ -1,6 +1,6 @@
 export 'sm_input_widget.dart';
 export 'sm_button_widget.dart';
-export 'sm_tabbar_widget.dart';
+export 'sm_tabbar_pageview_widget.dart';
 export 'sm_tabbarbtn_widget.dart';
 export 'sm_pullload_widget.dart';
 export 'sm_list_state.dart';
@@ -15,3 +15,5 @@ export 'sm_pulllogo_widget.dart';
 export 'wheel/sm_common_wheel_widget.dart';
 export 'wheel/sm_year_wheel_widget.dart';
 export 'sm_cacheimage_widget.dart';
+export 'sm_tabbar_pageview_widget.dart';
+export 'sm_tabbar_widget.dart';

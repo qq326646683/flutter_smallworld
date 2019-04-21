@@ -24,5 +24,5 @@ class AlbumNumCheckBox extends StatelessWidget {
 
 
 class _Style {
-  static double containerSize = ScreenUtil().getWidth(20.0);
+  static double containerSize = ScreenUtil.getInstance().getWidth(20.0);
 }

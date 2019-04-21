@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui show window;
 
-///默认设计稿尺寸
-double _designW = 375.0;
-double _designH = 667.0;
+
+
 
 class ScreenUtil {
   double _screenWidth;
@@ -13,19 +12,21 @@ class ScreenUtil {
   double _appBarHeight;
   double _textScaleFactor;
   MediaQueryData _mediaQueryData;
+  ///默认设计稿尺寸
+  double designW = 375;
+  double designH = 667;
 
-  static final ScreenUtil _singleton = ScreenUtil.init();
+  static ScreenUtil instance;
 
   static ScreenUtil getInstance() {
-    return _singleton;
+    if (instance == null) {
+      instance = new ScreenUtil();
+    }
+    return instance;
   }
 
-  factory ScreenUtil() {
-    return _singleton;
-  }
-
-  ScreenUtil.init() {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+  init(BuildContext context) {
+    MediaQueryData mediaQuery = MediaQuery.of(context);
 
     _mediaQueryData = mediaQuery;
     _screenWidth = mediaQuery.size.width;
@@ -76,13 +77,13 @@ class ScreenUtil {
   /// 返回根据屏幕宽适配后尺寸（单位 dp or pt）
   /// size 单位 dp or pt
   double getWidth(double size) {
-    return size * _screenWidth / _designW;
+    return size * _screenWidth / designW;
   }
 
   /// 返回根据屏幕高适配后尺寸 （单位 dp or pt）
   /// size 单位 dp or pt
   double getHeight(double size) {
-    return size * _screenHeight / _designH;
+    return size * _screenHeight / designH;
   }
 
   /// 返回根据屏幕宽适配后字体尺寸
@@ -92,6 +93,6 @@ class ScreenUtil {
     return (sySystem ? _textScaleFactor : 1.0) *
         fontSize *
         _screenWidth /
-        _designW;
+        designW;
   }
 }

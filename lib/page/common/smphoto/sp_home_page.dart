@@ -160,9 +160,9 @@ class _SPHomePageState extends State<SPHomePage> {
 }
 
 class _Style {
-  static double previewImgSize = ScreenUtil().getWidth(60);
-  static double marginLeft = ScreenUtil().getWidth(5);
-  static double rightIconSize = ScreenUtil().getWidth(15);
+  static double previewImgSize = ScreenUtil.getInstance().getWidth(60);
+  static double marginLeft = ScreenUtil.getInstance().getWidth(5);
+  static double rightIconSize = ScreenUtil.getInstance().getWidth(15);
 }
 
 class _Album {

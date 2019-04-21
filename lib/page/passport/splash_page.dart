@@ -29,9 +29,10 @@ class _SplashPageState extends State<SplashPage> {
   void didChangeDependencies() async{
     super.didChangeDependencies();
     NavigatorUtils.getInstance().setContext(context);
+    ScreenUtil.getInstance().init(context);
 
     String token = await StorageUtil.get(Config.TOKEN_KEY);
-    if (token != null) {
+    if (token.isNotEmpty) {
       _getUserInfo();
     } else {
       Future.delayed(Duration(seconds: 2), () {
@@ -46,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
     var res = await UserDao.getUserInfo(store);
     if (res != null && res.result) {
       NavigatorUtils.getInstance().pushReplacementNamed(context, MainPage.sName);
-    } else {
+    } else if (!(res.data == 'Http status error [401]')){
       // 网络取不到，取本地
       DataResult dataResult = await UserDao.getUserInfoLocal(store: store);
       if (dataResult != null && dataResult.result) {
@@ -72,8 +73,8 @@ class _SplashPageState extends State<SplashPage> {
           children: <Widget>[
             Image.asset(
               SMIcons.HOT_TIP,
-              width: ScreenUtil().getWidth(156.0),
-              height: ScreenUtil().getWidth(70.0),
+              width: ScreenUtil.getInstance().getWidth(156.0),
+              height: ScreenUtil.getInstance().getWidth(70.0),
               fit: BoxFit.cover,
             ),
           ],

@@ -3,28 +3,28 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 
 class TaskhallPageStyle {
-  static double itemContainerHeight = ScreenUtil().getWidth(170.0);
-  static double itemContainerPaddingVertical = ScreenUtil().getWidth(7.0);
+  static double itemContainerHeight = ScreenUtil.getInstance().getWidth(170.0);
+  static double itemContainerPaddingVertical = ScreenUtil.getInstance().getWidth(7.0);
   static final vipText = SMTextStyle(
-      color: SMColors.white, fontSize: ScreenUtil().getSp(10.0));
-  static double itemVipContainerPaddingHorizontal = ScreenUtil().getWidth(3.0);
-  static double itemVipContainerRadius = ScreenUtil().getWidth(8.0);
-  static double itemVipContainerBorder = ScreenUtil().getWidth(1.5);
-  static double itemVipContainerBottom = ScreenUtil().getWidth(0.0);
-  static double itemVipContainerRight = ScreenUtil().getWidth(-10.0);
-  static double itemNicknamePaddingLeft = ScreenUtil().getWidth(15.0);
+      color: SMColors.white, fontSize: ScreenUtil.getInstance().getSp(10.0));
+  static double itemVipContainerPaddingHorizontal = ScreenUtil.getInstance().getWidth(3.0);
+  static double itemVipContainerRadius = ScreenUtil.getInstance().getWidth(8.0);
+  static double itemVipContainerBorder = ScreenUtil.getInstance().getWidth(1.5);
+  static double itemVipContainerBottom = ScreenUtil.getInstance().getWidth(0.0);
+  static double itemVipContainerRight = ScreenUtil.getInstance().getWidth(-10.0);
+  static double itemNicknamePaddingLeft = ScreenUtil.getInstance().getWidth(15.0);
   static final nicknameText = SMTextStyle(
     color: SMColors.white,
-    fontSize: ScreenUtil().getSp(14.0),
+    fontSize: ScreenUtil.getInstance().getSp(14.0),
   );
-  static double itemBorderRadius = ScreenUtil().getWidth(10.0);
+  static double itemBorderRadius = ScreenUtil.getInstance().getWidth(10.0);
 
-  static double itemLeftImgPicWid = ScreenUtil().getWidth(75.0);
-  static double itemLeftImgPicHei = ScreenUtil().getWidth(75.0);
-  static double itemLeftImgVideoWid = ScreenUtil().getWidth(75.0);
-  static double itemLeftImgVideoHei = ScreenUtil().getWidth(69.0);
+  static double itemLeftImgPicWid = ScreenUtil.getInstance().getWidth(75.0);
+  static double itemLeftImgPicHei = ScreenUtil.getInstance().getWidth(75.0);
+  static double itemLeftImgVideoWid = ScreenUtil.getInstance().getWidth(75.0);
+  static double itemLeftImgVideoHei = ScreenUtil.getInstance().getWidth(69.0);
 
-  static double itemRightButtonH = ScreenUtil().getWidth(32.0);
+  static double itemRightButtonH = ScreenUtil.getInstance().getWidth(32.0);
   static const toCompleteText = SMTextStyle(
     color: SMColors.darkGolden,
     fontSize: SMTxtStyle.smallTextSize,
@@ -32,7 +32,7 @@ class TaskhallPageStyle {
 
   static final microTextStyle = SMTextStyle(
     color: SMColors.white,
-    fontSize: ScreenUtil().getSp(9.0),
+    fontSize: ScreenUtil.getInstance().getSp(9.0),
   );
 
   static final contextTextStyle = SMTextStyle(

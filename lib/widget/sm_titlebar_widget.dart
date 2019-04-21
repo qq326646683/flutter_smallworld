@@ -36,8 +36,8 @@ class _SMTitleBarWidgetState extends State<SMTitleBarWidget>{
 
     return Container(
       color: containBg,
-      height: Style.containH + ScreenUtil().statusBarHeight,
-      padding: EdgeInsets.only(top: ScreenUtil().statusBarHeight, left: Style.containPadHori, right: Style.containPadHori),
+      height: Style.containH + ScreenUtil.getInstance().statusBarHeight,
+      padding: EdgeInsets.only(top: ScreenUtil.getInstance().statusBarHeight, left: Style.containPadHori, right: Style.containPadHori),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -87,11 +87,11 @@ class _SMTitleBarWidgetState extends State<SMTitleBarWidget>{
 }
 
 class Style {
-  static double containH = ScreenUtil().getWidth(44.0);
-  static double containPadBott = ScreenUtil().getWidth(5.0);
-  static double containPadHori = ScreenUtil().getWidth(10.0);
-  static double leftImgSize = ScreenUtil().getWidth(20.0);
-  static double leftRightContainW = ScreenUtil().getWidth(100.0);
+  static double containH = ScreenUtil.getInstance().getWidth(44.0);
+  static double containPadBott = ScreenUtil.getInstance().getWidth(5.0);
+  static double containPadHori = ScreenUtil.getInstance().getWidth(10.0);
+  static double leftImgSize = ScreenUtil.getInstance().getWidth(20.0);
+  static double leftRightContainW = ScreenUtil.getInstance().getWidth(100.0);
 
 
 }

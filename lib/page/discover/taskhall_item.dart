@@ -29,7 +29,7 @@ class _TaskhallItemState extends State<TaskhallItem> {
     isPicTask = taskhall.content_type == 1;
     isFullTask = int.parse(taskhall.complete_num) >= taskhall.num;
     return Container(
-      width: ScreenUtil().screenWidth,
+      width: ScreenUtil.getInstance().screenWidth,
       height: TaskhallPageStyle.itemContainerHeight,
       padding: EdgeInsets.only(
           top: TaskhallPageStyle.itemContainerPaddingVertical,

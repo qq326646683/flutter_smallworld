@@ -234,8 +234,8 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
 }
 
 class _Style {
-  static double previewImgSize = ScreenUtil().screenWidth / 4;
-  static double bottomContainH = ScreenUtil().getWidth(40.0);
+  static double previewImgSize = ScreenUtil.getInstance().screenWidth / 4;
+  static double bottomContainH = ScreenUtil.getInstance().getWidth(40.0);
   static const smallTextGray = SMTextStyle(
     color: SMColors.grayLineColor,
     fontSize: SMTxtStyle.smallTextSize,
