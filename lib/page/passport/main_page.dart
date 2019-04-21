@@ -16,7 +16,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List<TabItem> _tabItems = new List<TabItem>();
-  int index = 0;
 
   @override
   void initState() {
@@ -67,34 +66,20 @@ class _MainPageState extends State<MainPage> {
     _tabItems = _renderTabItems();
     print('render:MainPage');
     return StoreBuilder<MainStore>(builder: (context, store) {
-      return PageView(
-        controller: StoreProvider.of<MainStore>(context).state.homeTabStore.homeToDetailController,
-        physics: this.index == 0 ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          SMTabBarPageViewWidget(
-            type: SMTabBarPageViewWidget.BOTTOM_TAB,
-            physics: NeverScrollableScrollPhysics(),
-            tabViews: <Widget>[
-              HomePage(),
-              ChatPage(),
-              ClubPage(),
-              DiscoverPage(),
-              ProfilePage()
-            ],
-            tabItems: _tabItems,
-            backgroundColor: SMColors.primaryDarkValue,
-            onPageChanged: (int index) {
-              this.setState(() {
-                this.index = index;
-              });
-            },
-          ),
-          Container(
-            color: Colors.pink,
-            child: FlatButton(onPressed: () {
-            }, child: Text('clickclickclick')),
-          ),
+      return SMTabBarPageViewWidget(
+        type: SMTabBarPageViewWidget.BOTTOM_TAB,
+        physics: NeverScrollableScrollPhysics(),
+        tabViews: <Widget>[
+          HomePage(),
+          ChatPage(),
+          ClubPage(),
+          DiscoverPage(),
+          ProfilePage()
         ],
+        tabItems: _tabItems,
+        backgroundColor: SMColors.primaryDarkValue,
+        onPageChanged: (int index) {
+        },
       );
     });
   }

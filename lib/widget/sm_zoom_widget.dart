@@ -81,7 +81,7 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
     Offset tartgetOffset;
     double tartgetScale;
     if (_scale == 1.0 || (_scale > 2.0 && _scale <= 4.0)) {
-      tartgetOffset = Offset(-200, -300);
+      tartgetOffset = Offset(-ScreenUtil.getInstance().screenWidth / 2, -ScreenUtil.getInstance().screenHeight / 2);
       tartgetScale = 2.0;
     } else {
       tartgetOffset = Offset(0, 0);
