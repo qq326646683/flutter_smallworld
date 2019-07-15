@@ -1,21 +1,21 @@
 import 'index.dart';
 
 class MainStore {
-  UserStore userStore;
-  TaskhallStore taskHallStore;
-  SmPhotoStore smPhotoStore;
-  HomeTabStore homeTabStore;
+  UserState userState;
+  TaskhallState taskHallState;
+  SmPhotoState smPhotoState;
+  HomeTabState homeTabState;
 
 
-  MainStore({this.userStore, this.taskHallStore, this.smPhotoStore, this.homeTabStore});
+  MainStore({this.userState, this.taskHallState, this.smPhotoState, this.homeTabState});
 
 }
 
 MainStore appReducer(MainStore store, dynamic action) {
   return MainStore(
-    userStore: UserReducer(store.userStore, action),
-    taskHallStore: TaskhallReducer(store.taskHallStore, action),
-    smPhotoStore: SmPhotoReducer(store.smPhotoStore, action),
-    homeTabStore: HomeTabReducer(store.homeTabStore, action),
+    userState: UserReducer(store.userState, action),
+    taskHallState: TaskhallReducer(store.taskHallState, action),
+    smPhotoState: SmPhotoReducer(store.smPhotoState, action),
+    homeTabState: HomeTabReducer(store.homeTabState, action),
   );
 }

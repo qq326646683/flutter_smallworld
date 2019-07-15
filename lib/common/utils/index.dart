@@ -12,3 +12,5 @@ export 'time_util.dart';
 export 'cachefile_util.dart';
 export 'uuid_util.dart';
 export 'common_util.dart';
+export 'log_util.dart';
+export 'init_utils.dart';

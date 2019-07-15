@@ -108,9 +108,7 @@ class _SMTabBarPageViewWidgetState extends State<SMTabBarPageViewWidget>
               bottom: 0,
               child: Container(
                 color: SMColors.opacity60Cover,
-                width: ScreenUtil
-                    .getInstance()
-                    .screenWidth,
+                width: ScreenUtil.getInstance().screenWidth,
                 child: BottomNavigationBar(
                   items: _bottomNavigationBarItems,
                   currentIndex: _currentIndex,

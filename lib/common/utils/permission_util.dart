@@ -5,11 +5,13 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 export 'package:permission_handler/permission_handler.dart';
 
 class PermissionUtil {
+  static final String sName = "PermissionUtil";
+
   static Future<bool> deal(BuildContext context, List<PermissionGroup> permissions) async {
     Map<PermissionGroup, PermissionStatus> statusMap =
         await PermissionHandler().requestPermissions(permissions);
-    print('statusMap');
-    print(statusMap);
+    LogUtil.i(sName,'statusMap');
+    LogUtil.i(sName,statusMap);
 
     String tipContent = ' ';
 

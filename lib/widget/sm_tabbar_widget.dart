@@ -634,7 +634,7 @@ class _TabBarState extends State<SMTabBarWidget> {
     // the same share of the tab bar's overall width.
     final int tabCount = widget.tabs.length;
     for (int index = 0; index < tabCount; index += 1) {
-      wrappedTabs[index] = InkWell(
+      wrappedTabs[index] = GestureDetector(
         onTap: () { _handleTap(index); },
         child: Padding(
 //          padding: EdgeInsets.only(bottom: widget.indicatorWeight),

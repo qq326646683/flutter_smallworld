@@ -13,6 +13,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage>
     with AutomaticKeepAliveClientMixin<ChatPage> {
+  static final String sName = "_ChatPageState";
+
   Map siseMap = {"width": 0.0, "height": 0.0};
   Map positionMap = {"left": 0.0, "top": 0.0};
   List monthsOfTheYear = new List();
@@ -28,7 +30,7 @@ class _ChatPageState extends State<ChatPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print('render:ChatPage');
+    LogUtil.i(sName,'render:ChatPage');
     return Container(
       color: Colors.blueAccent,
       child: Column(
@@ -50,7 +52,7 @@ class _ChatPageState extends State<ChatPage>
               child: Text('获取我的位置'),
               onPressed: () {
                 Offset offset = WidgetUtil.getWidgetLocalToGlobal(mContext);
-                print('获取位置');
+                LogUtil.i(sName,'获取位置');
                 this.setState(() {
                   positionMap = {
                     "left": offset.dx,
@@ -67,7 +69,7 @@ class _ChatPageState extends State<ChatPage>
           RaisedButton(
             onPressed: () {
               Store<MainStore> store = StoreProvider.of(context);
-              store.dispatch(updateUserAction(null));
+              store.dispatch(UpdateUserAction(null));
             },
             child: Text('修改userinfoStore为null'),
           ),
@@ -92,18 +94,12 @@ class _ChatPageState extends State<ChatPage>
                   context: context,
                   initalText: '2015',
                   onSureText: (String text) {
-                    print('onSureText:' + text);
+                    LogUtil.i(sName,'onSureText:' + text);
                   },
                 ),
               );
             },
             child: Text('showPull'),
-          ),
-          FlatButton(
-            onPressed: () {
-              NavigatorUtils.getInstance().pushNamed(context, DragSwipeDemo.sName);
-            },
-            child: Text('dragswipe_demo'),
           ),
         ],
       ),

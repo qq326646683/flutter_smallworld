@@ -1,9 +1,10 @@
+import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'userinfo.g.dart';
 
 @JsonSerializable()
-class UserInfo {
+class UserInfo extends BaseEntity{
   // 用户id
   String id;
 

@@ -2,9 +2,12 @@ import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
 import 'package:flutter_smallworld/common/net/http_manager.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CacheFileUtil {
+  static final String sName = "CacheFileUtil";
+
   static String cacheDirection;
   static String commonDirection;
   static String appDirection;
@@ -25,8 +28,8 @@ class CacheFileUtil {
         return cacheFile;
       }
     } catch (e) {
-      print('CacheUtil失败');
-      print(e);
+      LogUtil.i(sName,'CacheUtil失败');
+      LogUtil.i(sName,e);
     }
   }
 

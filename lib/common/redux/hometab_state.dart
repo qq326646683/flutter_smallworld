@@ -3,11 +3,11 @@ import 'package:redux/redux.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/page/home/home_tab/home_tab.dart';
 
-class HomeTabStore {
+class HomeTabState {
   Map<HomeTabType, HomeTabData> homeTabDataMap;
   PageController homeToDetailController;
 
-  HomeTabStore(this.homeTabDataMap, this.homeToDetailController);
+  HomeTabState(this.homeTabDataMap, this.homeToDetailController);
 
   static initStore() {
     Map<HomeTabType, HomeTabData> homeTabDataMap = new Map<HomeTabType, HomeTabData>();
@@ -15,7 +15,7 @@ class HomeTabStore {
     homeTabDataMap[HomeTabType.tab_recent] = new HomeTabData([]);
     homeTabDataMap[HomeTabType.tab_new] = new HomeTabData([]);
 
-    return HomeTabStore(
+    return HomeTabState(
       homeTabDataMap,
       new PageController(),
     );
@@ -29,28 +29,28 @@ class HomeTabData {
 
 }
 
-final HomeTabReducer = combineReducers<HomeTabStore>([
-  TypedReducer<HomeTabStore,  RefreshHomeTabAction>(_refresh),
-  TypedReducer<HomeTabStore, LoadMoreHomeTabAction>(_loadMore),
+final HomeTabReducer = combineReducers<HomeTabState>([
+  TypedReducer<HomeTabState,  RefreshHomeTabAction>(_refresh),
+  TypedReducer<HomeTabState, LoadMoreHomeTabAction>(_loadMore),
 ]);
 
 
-HomeTabStore _refresh(HomeTabStore homeTabStore, RefreshHomeTabAction action) {
-  homeTabStore.homeTabDataMap[action.type].homeTabList.clear();
+HomeTabState _refresh(HomeTabState homeTabState, RefreshHomeTabAction action) {
+  homeTabState.homeTabDataMap[action.type].homeTabList.clear();
   if (action.list == null) {
-    return homeTabStore;
+    return homeTabState;
   } else {
-    homeTabStore.homeTabDataMap[action.type].homeTabList.addAll(action.list);
-    return homeTabStore;
+    homeTabState.homeTabDataMap[action.type].homeTabList.addAll(action.list);
+    return homeTabState;
   }
 }
 
-HomeTabStore _loadMore(HomeTabStore homeTabStore, LoadMoreHomeTabAction action) {
+HomeTabState _loadMore(HomeTabState homeTabState, LoadMoreHomeTabAction action) {
   if (action.list == null) {
-    return homeTabStore;
+    return homeTabState;
   } else {
-    homeTabStore.homeTabDataMap[action.type].homeTabList.addAll(action.list);
-    return homeTabStore;
+    homeTabState.homeTabDataMap[action.type].homeTabList.addAll(action.list);
+    return homeTabState;
   }
 }
 

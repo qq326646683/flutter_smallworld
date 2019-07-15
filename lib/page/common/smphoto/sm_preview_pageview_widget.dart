@@ -226,7 +226,6 @@ class SMPreviewPageViewWidgetState
   ScrollHoldController _hold;
 
   void _handleDragDown(DragDownDetails details) {
-    //print(details);
     _gestureAnimation.stop();
     assert(_drag == null);
     assert(_hold == null);

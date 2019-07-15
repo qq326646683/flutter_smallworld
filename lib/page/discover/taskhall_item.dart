@@ -17,6 +17,8 @@ class TaskhallItem extends StatefulWidget {
 }
 
 class _TaskhallItemState extends State<TaskhallItem> {
+  static final String sName = "_TaskhallItemState";
+
   UserInfo user;
   Taskhall taskhall;
   bool isPicTask;
@@ -196,9 +198,9 @@ class _TaskhallItemState extends State<TaskhallItem> {
           (context) => SPHomePage(
               spType: isPicTask ? SPType.IMAGE : SPType.VIDEO,
               backRes: (res) {
-                print('res:nell');
-                print(res);
-                print(res[0].toString());
+                LogUtil.i(sName,'res:nell');
+                LogUtil.i(sName,res);
+                LogUtil.i(sName,res[0].toString());
               }));
     }
   }

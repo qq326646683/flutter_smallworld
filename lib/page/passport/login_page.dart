@@ -5,7 +5,7 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:flutter_smallworld/common/dao/user_dao.dart';
 import 'package:flutter_smallworld/common/redux/main_store.dart';
-import 'package:flutter_smallworld/common/redux/user_redux.dart';
+import 'package:flutter_smallworld/common/redux/user_state.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/page/index.dart';
 
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("render: LoginPage");
+    LogUtil.i(LoginPage.sName,"render: LoginPage");
     return StoreBuilder<MainStore>(builder: (context, store) {
       return GestureDetector(
         onTap: () {
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: CommonUtils.getLocaleStr(context).login_btn,
                             height: ScreenUtil.getInstance().getWidth(50.0),
                             onPress: () {
-                              print("mobile" + _mobile + "psd" + _password);
+                              LogUtil.i(LoginPage.sName,"mobile" + _mobile + "psd" + _password);
                               UserDao.login(_mobile, _password, "android", store)
                                 .then((res) {
                                   if (res != null && res.result) {

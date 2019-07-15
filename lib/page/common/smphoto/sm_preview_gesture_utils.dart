@@ -297,7 +297,6 @@ class GestureAnimation {
     if (offsetCallBack != null) {
       _offsetController = AnimationController(vsync: vsync);
       _offsetController.addListener(() {
-        //print(_animation.value);
         offsetCallBack(_offsetAnimation.value);
       });
     }

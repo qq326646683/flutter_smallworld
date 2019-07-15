@@ -1,10 +1,11 @@
+import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'hometab_result.g.dart';
 
 
 @JsonSerializable()
-class HomeTabResult extends Object {
+class HomeTabResult extends BaseEntity {
 
   @JsonKey(name: 'total')
   int total;

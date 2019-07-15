@@ -1,3 +1,4 @@
+import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'taskhall.dart';
 import 'taskhall_progress.dart';
@@ -5,7 +6,7 @@ import 'taskhall_progress.dart';
 part 'taskhall_result.g.dart';
 
 @JsonSerializable()
-class TaskhallResult {
+class TaskhallResult extends BaseEntity{
   TaskhallProgress progress;
 
   List<Taskhall> list;

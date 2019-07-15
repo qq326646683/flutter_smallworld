@@ -44,8 +44,13 @@ class SMColors {
 
   static const Color opacity75CoverWhite = Color(0xccffffff);
 
+  static const Color transparent = Color(0x00000000);
+
   // 消息提示点颜色
   static const Color msgTipColor = Color(0xFFF44336);
+
+  static const Color toastRed = Color(0xEEFF223A);
+  static const Color toastGreen = Color(0xEE1BBE4C);
 
 }
 
@@ -57,6 +62,7 @@ class SMCommonStyle {
   static BorderRadius borderRadius5 = BorderRadius.all(Radius.circular(5.0));
   static BorderRadius borderRadius10 = BorderRadius.all(Radius.circular(10.0));
   static BorderRadius borderRadius20 = BorderRadius.all(Radius.circular(20.0));
+  static EdgeInsets paddingHori10Vert5 = EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0);
   static EdgeInsets padding5 = EdgeInsets.all(5.0);
   static EdgeInsets padding10 = EdgeInsets.all(10.0);
   static EdgeInsets btnPadding =
@@ -74,6 +80,9 @@ class SMTxtStyle {
   static const middleTextWhiteSize = 16.0;
   static const smallTextSize = 14.0;
   static const minTextSize = 12.0;
+  static const normalTextSize20 = 20.0;
+  static const normalTextSize17 = 17.0;
+  static const normalTextSize15 = 15.0;
 
   static const minText = SMTextStyle(
     color: SMColors.subLightTextColor,
@@ -164,6 +173,11 @@ class SMTxtStyle {
     fontWeight: FontWeight.bold,
   );
 
+  static const middleTextRed = SMTextStyle(
+    color: SMColors.msgTipColor,
+    fontSize: middleTextWhiteSize,
+  );
+
   static const normalText = SMTextStyle(
     color: SMColors.mainTextColor,
     fontSize: normalTextSize,
@@ -211,6 +225,11 @@ class SMTxtStyle {
   static const normalTextLight = SMTextStyle(
     color: SMColors.primaryLightValue,
     fontSize: normalTextSize,
+  );
+
+  static const normalTextBlack = SMTextStyle(
+    color: SMColors.black,
+    fontSize: normalTextSize20,
   );
 
   static const largeText = SMTextStyle(

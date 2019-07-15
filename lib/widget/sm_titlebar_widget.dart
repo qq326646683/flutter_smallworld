@@ -8,7 +8,7 @@ class SMTitleBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final String title;
   final String rightTitle;
   final Widget rightWidget;
-  final VoidCallback rightLick;
+  final VoidCallback rightClick;
   final bool needLeftBack;
   // 样式
   final bool isDefault; // 默认白底黑字
@@ -16,7 +16,7 @@ class SMTitleBarWidget extends StatefulWidget implements PreferredSizeWidget{
   final Color backIconColor;
 
 
-  SMTitleBarWidget({this.leftWidget, this.leftLick, this.title, this.rightTitle, this.rightWidget, this.rightLick, this.isDefault = true, this.bgColor, this.backIconColor, this.needLeftBack = true});
+  SMTitleBarWidget({this.leftWidget, this.leftLick, this.title, this.rightTitle, this.rightWidget, this.rightClick, this.isDefault = true, this.bgColor, this.backIconColor, this.needLeftBack = true});
 
   @override
   _SMTitleBarWidgetState createState() => _SMTitleBarWidgetState();
@@ -70,7 +70,7 @@ class _SMTitleBarWidgetState extends State<SMTitleBarWidget>{
             child: GestureDetector(
               onTap: () {
                 if (widget.rightWidget != null || widget.rightTitle != null) {
-                  widget.rightLick?.call();
+                  widget.rightClick?.call();
                 }
               },
               child: Container(

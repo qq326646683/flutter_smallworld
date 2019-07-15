@@ -14,6 +14,8 @@ class SMZoomWidget extends StatefulWidget {
 const double _kMinFlingVelocity = 800.0;
 
 class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderStateMixin {
+  static final String sName = "_SMZoomWidgetState";
+
   AnimationController _controller;
   Animation<Offset> _flingAnimation;
   Animation<double> _scaleAnimation;
@@ -66,7 +68,7 @@ class _SMZoomWidgetState extends State<SMZoomWidget> with SingleTickerProviderSt
   }
 
   void _handleOnScaleUpdate(ScaleUpdateDetails details) {
-    print(details.focalPoint.toString() + ':' +_scale.toString());
+    LogUtil.i(sName,details.focalPoint.toString() + ':' +_scale.toString());
     setState(() {
       _scale = (_previousScale * details.scale).clamp(1.0, 4.0);
       // Ensure that image location under the focal point stays in the same place despite scaling.

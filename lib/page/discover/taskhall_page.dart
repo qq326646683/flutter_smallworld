@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smallworld/common/service/index.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/widget/index.dart';
@@ -44,12 +45,9 @@ class _TaskhallPageState extends State<TaskhallPage>
     isLoading = true;
     page = 1;
 
-    var res = await TaskhallDao.getTaskhallInfo(
-        StoreProvider.of<MainStore>(context),
-        page: this.page);
+    ResponseResult<TaskhallResult> res = await TaskhallService.getInstance().fetchList(page: this.page);
     setState(() {
-      pullLoadWidgetControl.needLoadMore =
-      (res != null && res.length == Config.PAGE_SIZE);
+      pullLoadWidgetControl.needLoadMore = (res != null && res.data.list.length == Config.PAGE_SIZE);
     });
     isLoading = false;
     return null;
@@ -62,7 +60,7 @@ class _TaskhallPageState extends State<TaskhallPage>
     }
     isLoading = true;
     page++;
-    var res = await TaskhallDao.getTaskhallInfo(_getStore(), page: this.page);
+    ResponseResult<TaskhallResult> res = await TaskhallService.getInstance().fetchList(page: this.page);
     setState(() {
       pullLoadWidgetControl.needLoadMore = (res != null);
     });
@@ -79,7 +77,7 @@ class _TaskhallPageState extends State<TaskhallPage>
   @override
   void didChangeDependencies() {
     pullLoadWidgetControl.dataList =
-        _getStore().state.taskHallStore.taskhallList;
+        _getStore().state.taskHallState.taskhallList;
     if (pullLoadWidgetControl.dataList.length == 0) {
       showRefreshLoading();
     }

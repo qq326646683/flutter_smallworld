@@ -1,7 +1,9 @@
 import 'package:flutter_smallworld/common/db/index.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class BaseProvider {
+  static final String sName = "BaseProvider";
   bool isTableExits = false;
 
   tableSqlString();
@@ -22,8 +24,8 @@ abstract class BaseProvider {
   open() async {
     if (!isTableExits) {
       isTableExits = await DbManager.isTableExist(tableName());
-      print('isTableExist');
-      print(isTableExits);
+      LogUtil.i(sName,'isTableExist');
+      LogUtil.i(sName,isTableExits);
       if (!isTableExits) {
         Database db = await DbManager.getCurrentDatabase();
         await db.execute(tableSqlString());

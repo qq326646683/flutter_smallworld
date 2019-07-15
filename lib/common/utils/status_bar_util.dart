@@ -13,11 +13,11 @@ class StatusBarUtil {
   static List<String> lightRouteNameList = [
     TaskhallPage.sName,
     SPHomePage.sName,
+    MainPage.sName,
   ];
   static List darkRoutNameList = [
     SplashPage.sName,
     LoginPage.sName,
-    MainPage.sName,
   ];
 
   static StatusColor currentColor = StatusColor.Light;
@@ -26,6 +26,14 @@ class StatusBarUtil {
     if (lightRouteNameList.contains(currentRoute.settings.name)) {
       setLight();
     } else if (darkRoutNameList.contains(currentRoute.settings.name)) {
+      setDart();
+    }
+  }
+
+  static setupMainPage(int index) {
+    if (index == 0) {
+      setLight();
+    } else {
       setDart();
     }
   }

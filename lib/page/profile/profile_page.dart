@@ -13,12 +13,14 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage>
     with AutomaticKeepAliveClientMixin<ProfilePage> {
+  static final String sName = "_ChatPageState";
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print('render:ProfilePage');
-    UserInfo userInfo = StoreProvider.of<MainStore>(context).state.userStore.userInfo;
-    print(userInfo.toString());
+    LogUtil.i(sName,'render:ProfilePage');
+    UserInfo userInfo = StoreProvider.of<MainStore>(context).state.userState.userInfo;
+    LogUtil.i(sName,userInfo.toString());
     return Container(
       color: Colors.purpleAccent,
       child: Column(
@@ -32,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage>
                 Padding(padding: EdgeInsets.all(10),),
                 GestureDetector(
                   onTap: () {
-                    print('aaa');
+                    LogUtil.i(sName,'aaa');
                   },
                   child: Image.asset(SMIcons.TAB_CLUB_ACTIVE),
                 ),

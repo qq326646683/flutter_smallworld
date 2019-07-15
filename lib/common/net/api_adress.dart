@@ -1,8 +1,32 @@
 import 'package:flutter_smallworld/common/config/config.dart';
 
+enum APIType {
+  // 局域网
+  DEV,
+  // 外侧
+  STAGING,
+  // 线上
+  PRODUCTION
+}
+
+Map<APIType, String> apiMap = {
+  APIType.DEV : 'http://10.0.0.17:4000',
+  APIType.STAGING : 'http://106.75.11.161:8082',
+  APIType.PRODUCTION : 'http://47.100.103.110:3000',
+};
+
 class ApiAddress {
-  static const HOST = 'http://106.75.29.87:8082';
-//  static const HOST = 'https://api.onemicroworld.com';
+  static final HOST = apiMap[Config.API_SETTING];
+  static final API_HOST = '$HOST/api';
+
+  // 登录
+  static login() {
+    return '/users/login';
+  }
+  // 用户信息
+  static userInfo() {
+    return '/users/info';
+  }
 
   // 任务大厅
   static getTashhall() {
@@ -26,4 +50,5 @@ class ApiAddress {
       return '';
     }
   }
+
 }

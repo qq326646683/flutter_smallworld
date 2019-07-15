@@ -16,14 +16,16 @@ class SMCacheImageWidget extends StatefulWidget {
 }
 
 class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
-  static String TAG = "SMCacheImageWidget:";
+  static String sName = "SMCacheImageWidget";
   File imgFile;
   CurrentShow currentShow = CurrentShow.Default;
 
   @override
   void initState() {
     super.initState();
-    init();
+    if (widget.url != null) {
+      init();
+    }
   }
 
   init() async {
@@ -32,21 +34,21 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
       CacheFile cacheFile = CacheFileUtil.getCacheFile(widget.url);
       if (cacheFile != null) {
         // a.有本地显示
-        print(TAG + '找本地-有本地显示' + cacheFile.filePath);
+        LogUtil.i(sName, '找本地-有本地显示' + cacheFile.filePath);
         setLocalImgFile(cacheFile.filePath);
       } else {
-        // b.无本地下载,并显示远程
-        if (mounted) {
-          this.setState((){
-            currentShow = CurrentShow.Remote;
-          });
+        // b.无本地下载,等待下载
+        LogUtil.i(sName, '找本地-无本地下载' + widget.url);
+        CacheFile completeCacheFile = await CacheFileUtil.setCacheFile(CacheFileType.IMAGE, widget.url);
+        if (completeCacheFile != null) {
+          LogUtil.i(sName, '下载完成' + widget.url);
+          // c.下载完成替换
+          setLocalImgFile(completeCacheFile.filePath);
         }
-        print(TAG + '找本地-无本地下载' + widget.url);
-        CacheFileUtil.setCacheFile(CacheFileType.IMAGE, widget.url);
       }
     } else {
       //源为本地图片
-      print(TAG + '本地图片' + widget.url);
+      LogUtil.i(sName, '本地图片' + widget.url);
       setLocalImgFile(widget.url);
     }
   }
@@ -69,20 +71,17 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (currentShow == CurrentShow.Remote) {
-      print('Image.network:' + widget.url);
-      return Image.network(widget.url, width: widget.width, height: widget.height, fit: widget.fit);
-    } else if (currentShow == CurrentShow.Local){
-      print('Image.file:' + widget.url);
-      return Image.file(imgFile, width: widget.width, height: widget.height, fit: widget.fit);
+    if (currentShow == CurrentShow.Local){
+      LogUtil.i(sName,'Image.file:' + widget.url);
+      return Image.file(imgFile, width: widget.width, height: widget.height, fit: widget.fit, scale: imgFile.existsSync() ? imgFile.lengthSync() / 1000 : 1);
     } else if (currentShow == CurrentShow.Default){
-      return Image.asset(SMIcons.EARTH, width: widget.width, height: widget.height, fit: widget.fit);
+      LogUtil.i(sName,'Image.asset:' + widget.url);
+      return Image.asset(SMIcons.HOT_TIP, width: widget.width, height: widget.height, fit: widget.fit);
     }
   }
 }
 
 enum CurrentShow {
   Default,
-  Local,
-  Remote
+  Local
 }

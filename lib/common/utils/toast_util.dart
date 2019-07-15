@@ -1,26 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
+import 'package:oktoast/oktoast.dart';
+const int toastDuration = 1500;
 
 class ToastUtil {
-  static showRed(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIos: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
+  static ToastFuture showRed(String msg) {
+    return showToastWidget(
+      SMToastWidget(
+        color: SMColors.toastRed,
+        content: msg,
+      ),
+      duration: Duration(milliseconds: toastDuration),
     );
+
   }
 
-  static showGreen(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIos: 1,
-      backgroundColor: Colors.green,
-      textColor: Colors.white,
+  static ToastFuture showGreen(String msg) {
+    return showToastWidget(
+      SMToastWidget(
+        color: SMColors.toastGreen,
+        content: msg,
+      ),
+      duration: Duration(milliseconds: toastDuration),
     );
   }
 }

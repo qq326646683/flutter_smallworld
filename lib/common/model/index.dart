@@ -1,9 +1,10 @@
 export 'user/login_result.dart';
 export 'user/userinfo.dart';
-export 'http/result_data.dart';
-export 'http/data_result.dart';
 export 'taskhall/taskhall.dart';
 export 'taskhall/taskhall_progress.dart';
 export 'taskhall/taskhall_result.dart';
 export 'home_tab/hometab_result.dart';
 export 'cache_file/cachefile.dart';
+export 'http/net_log_entity.dart';
+export 'http/response_result.dart';
+export 'entity_factory.dart';

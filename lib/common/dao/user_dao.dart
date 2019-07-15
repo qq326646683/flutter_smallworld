@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:flutter_smallworld/common/config/config.dart';
 import 'package:flutter_smallworld/common/db/index.dart';
-import 'package:flutter_smallworld/common/redux/user_redux.dart';
+import 'package:flutter_smallworld/common/net/index.dart';
+import 'package:flutter_smallworld/common/redux/user_state.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 
@@ -22,16 +23,13 @@ class UserDao {
 
     HttpManager.clearToken();
 
-    var res = await HttpManager.netFetch('/users/login', json.encode(requestParams), Options(method: "post"));
-    if (res != null && res.result) {
-      UserInfo currentUserInfo = LoginResult.fromJson(res.data).userInfo;
-      await StorageUtil.save(Config.USERINFO_KEY, json.encode(currentUserInfo.toJson()));
-      // 创建数据库
-      await FileCacheProvider.getInstance().getDatabase();
-      store.dispatch(updateUserAction(currentUserInfo));
-
+    ResponseResult<LoginResult> response = await HttpManager.netFetch(ApiAddress.login(), json.encode(requestParams), NetMethod.POST);
+    if (response.isSuccess) {
+      LoginResult loginResult = response.data;
+      await StorageManager.getInstance().save(Config.TOKEN_KEY, loginResult.token);
+      await _onMyselfInfoReceived(store, loginResult.userInfo);
     }
-    return DataResult(res.data, res.result);
+    return response;
   }
 
   static getUserInfo(store, {userId}) async{
@@ -42,35 +40,36 @@ class UserDao {
       };
     }
 
-    var res = await HttpManager.netFetch('/users/info', requestParams, Options(method: "get"));
-    if (res != null && res.result) {
-      UserInfo currentUserInfo = UserInfo.fromJson(res.data);
-      await StorageUtil.save(Config.USERINFO_KEY, json.encode(currentUserInfo.toJson()));
-      store.dispatch(updateUserAction(currentUserInfo));
+    ResponseResult<UserInfo> response = await HttpManager.netFetch<UserInfo>(ApiAddress.userInfo(), requestParams, NetMethod.GET);
+    if (response.isSuccess && userId == null) {
+      await _onMyselfInfoReceived(store, response.data);
     }
 
-    return DataResult(res.data, res.result);
+    return response;
 
   }
-  
-  
+
+
   static getUserInfoLocal({store}) async {
-    String userTxt = await StorageUtil.get(Config.USERINFO_KEY);
-    if (userTxt.isNotEmpty) {
+    String userTxt = await StorageManager.getInstance().get(Config.USERINFO_KEY);
+    if (!userTxt.isEmpty) {
       var userMap = json.decode(userTxt);
       UserInfo userInfo = UserInfo.fromJson(userMap);
-      
-      store?.dispatch(updateUserAction(userInfo));
-      return DataResult(userInfo, true);
-    } else {
-      return DataResult(null, false);
+      _onMyselfInfoReceived(store, userInfo, false);
+      return userInfo;
     }
+  }
+
+  static _onMyselfInfoReceived(store, UserInfo userInfo, [bool fromServer = true]) async {
+    if (fromServer) {
+      await StorageManager.getInstance().save(
+          Config.USERINFO_KEY, json.encode(userInfo.toJson()));
+    }
+    store?.dispatch(UpdateUserAction(userInfo));
   }
   
 
-  static clearAll(Store store) async {
-    HttpManager.clearToken();
-    StorageUtil.remove(Config.USERINFO_KEY);
-    store.dispatch(new updateUserAction(UserInfo.empty()));
+  static clearAll() async {
+    InitUtils.onUserLogout();
   }
 }

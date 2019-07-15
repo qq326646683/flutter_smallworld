@@ -1,10 +1,11 @@
+import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'userinfo.dart';
 
 part 'login_result.g.dart';
 
 @JsonSerializable()
-class LoginResult {
+class LoginResult extends BaseEntity{
   String token;
 
   @JsonKey(name: "user_info")

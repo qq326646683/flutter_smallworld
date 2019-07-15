@@ -4,6 +4,7 @@ import 'package:flutter_smallworld/common/config/config.dart';
 import 'package:flutter_smallworld/common/dao/index.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
+import 'package:flutter_smallworld/common/service/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/discover/taskhall_item.dart';
 import 'package:flutter_smallworld/page/home/home_tab_item/home_tab_item.dart';
@@ -49,10 +50,11 @@ class _HomeTabState extends State<HomeTab>
     isLoading = true;
     page = 1;
 
-    var res = await HomeTabDao.getHomeTabList(_getStore(), widget.tab, page: this.page);
+    ResponseResult<HomeTabResult> res = await HomeTabService.getInstance().fetchList(homeTabType: widget.tab, page: this.page);
+
     setState(() {
       pullLoadWidgetControl.needLoadMore =
-      (res != null && res.length == Config.PAGE_SIZE);
+      (res != null && res.data.list.length == Config.PAGE_SIZE);
     });
     isLoading = false;
     return null;
@@ -65,7 +67,7 @@ class _HomeTabState extends State<HomeTab>
     }
     isLoading = true;
     page++;
-    var res = await HomeTabDao.getHomeTabList(_getStore(), widget.tab, page: this.page);
+    ResponseResult<HomeTabResult> res = await HomeTabService.getInstance().fetchList(homeTabType: widget.tab, page: this.page);
     setState(() {
       pullLoadWidgetControl.needLoadMore = (res != null);
     });
@@ -82,7 +84,7 @@ class _HomeTabState extends State<HomeTab>
   @override
   void didChangeDependencies() {
     pullLoadWidgetControl.dataList =
-        _getStore().state.homeTabStore.homeTabDataMap[widget.tab].homeTabList;
+        _getStore().state.homeTabState.homeTabDataMap[widget.tab].homeTabList;
     if (pullLoadWidgetControl.dataList.length == 0) {
       showRefreshLoading();
     }

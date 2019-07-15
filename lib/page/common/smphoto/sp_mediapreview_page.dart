@@ -78,7 +78,6 @@ class _SPMediaPreviewPageState extends State<SPMediaPreviewPage> {
             Container(
               child: SMZoomWidget(
                 onScaleChange: (scale) {
-//                  print('scale:' + scale.toString());
                   if (scale <=1.0) {
                     if (isToParent == false) {
                       this.setState(() {

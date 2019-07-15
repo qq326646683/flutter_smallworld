@@ -9,10 +9,12 @@ class ClubPage extends StatefulWidget {
 
 class _ClubPageState extends State<ClubPage>
     with AutomaticKeepAliveClientMixin<ClubPage> {
+  static final String sName = "_ClubPageState";
+
   @override
   void initState() {
     super.initState();
-    print('_ClubPageState');
+    LogUtil.i(sName,'_ClubPageState');
   }
 
   @override
@@ -32,7 +34,7 @@ class _ClubPageState extends State<ClubPage>
                   ),
                   GestureDetector(
                     onTap: () {
-                      print('aaa');
+                      LogUtil.i(sName,'aaa');
                     },
                     child: Image.asset(SMIcons.TAB_CLUB_ACTIVE),
                   ),

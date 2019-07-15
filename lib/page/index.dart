@@ -13,4 +13,9 @@ export 'package:flutter_smallworld/page/common/smphoto/sp_home_page.dart';
 export 'package:flutter_smallworld/page/common/smphoto/sp_gridview_page.dart';
 export 'package:flutter_smallworld/page/common/smphoto/sp_mediapreview_page.dart';
 
-export 'package:flutter_smallworld/page/common/demo/drag_swipe_demo.dart';
+export 'package:flutter_smallworld/page/common/debug/debug_page.dart';
+export 'package:flutter_smallworld/page/common/debug/net_log_page.dart';
+export 'package:flutter_smallworld/page/common/debug/net_log_detail_page.dart';
+export 'package:flutter_smallworld/page/common/debug/print_log_page.dart';
+export 'package:flutter_smallworld/page/common/debug/package_info_page.dart';
+

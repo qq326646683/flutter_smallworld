@@ -30,7 +30,7 @@ class _SPGridViewPageState extends State<SPGridViewPage> {
   @override
   Widget build(BuildContext context) {
     indexList =
-        StoreProvider.of<MainStore>(context).state.smPhotoStore.indexList;
+        StoreProvider.of<MainStore>(context).state.smPhotoState.indexList;
 
     return StoreBuilder<MainStore>(builder: (context, store) {
       return Scaffold(

@@ -30,7 +30,7 @@ class _HomeTabItemState extends State<HomeTabItem> {
           Center(
             child: GestureDetector(
               onTap: () {
-                StoreProvider.of<MainStore>(context).state.homeTabStore.homeToDetailController.animateToPage(1,
+                StoreProvider.of<MainStore>(context).state.homeTabState.homeToDetailController.animateToPage(1,
                     duration: Duration(milliseconds: 200), curve: Curves.easeOut);
               },
               child: SMCacheImageWidget(

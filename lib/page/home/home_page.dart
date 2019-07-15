@@ -12,6 +12,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  static final String sName = "_HomePageState";
+
   TabController _tabController;
   int currentIndex = 0;
   AnimationController animationController;
@@ -130,54 +132,57 @@ class _HomePageState extends State<HomePage>
                   tab: HomeTabType.tab_new,
                 ),
               ]),
-          SMTabBarWidget(
-            width: _Style.tabbarContainW,
-            controller: _tabController,
-            tabs: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: ScreenUtil.getInstance().statusBarHeight,
-                  bottom: _Style.tabbarBottom,
+          Positioned(
+            top: ScreenUtil.getInstance().statusBarHeight,
+            child: SMTabBarWidget(
+              width: _Style.tabbarContainW,
+              controller: _tabController,
+              tabs: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: ScreenUtil.getInstance().statusBarHeight,
+                    bottom: _Style.tabbarBottom,
+                  ),
+                  child: Text(
+                    '附近',
+                    style: currentIndex == 0
+                        ? SMTxtStyle.normalTextGolden
+                        : SMTxtStyle.normalTextWhite,
+                  ),
                 ),
-                child: Text(
-                  '附近',
-                  style: currentIndex == 0
-                      ? SMTxtStyle.normalTextGolden
-                      : SMTxtStyle.normalTextWhite,
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: ScreenUtil.getInstance().statusBarHeight,
+                    bottom: _Style.tabbarBottom,
+                  ),
+                  child: Text(
+                    '活跃',
+                    style: currentIndex == 1
+                        ? SMTxtStyle.normalTextGolden
+                        : SMTxtStyle.normalTextWhite,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: ScreenUtil.getInstance().statusBarHeight,
-                  bottom: _Style.tabbarBottom,
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: ScreenUtil.getInstance().statusBarHeight,
+                    bottom: _Style.tabbarBottom,
+                  ),
+                  child: Text(
+                    '最新',
+                    style: currentIndex == 2
+                        ? SMTxtStyle.normalTextGolden
+                        : SMTxtStyle.normalTextWhite,
+                  ),
                 ),
-                child: Text(
-                  '活跃',
-                  style: currentIndex == 1
-                      ? SMTxtStyle.normalTextGolden
-                      : SMTxtStyle.normalTextWhite,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: ScreenUtil.getInstance().statusBarHeight,
-                  bottom: _Style.tabbarBottom,
-                ),
-                child: Text(
-                  '最新',
-                  style: currentIndex == 2
-                      ? SMTxtStyle.normalTextGolden
-                      : SMTxtStyle.normalTextWhite,
-                ),
-              ),
-            ],
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: SMColors.lightGolden,
-            onTap: (int index) {
-              this.setState(() {
-                currentIndex = index;
-              });
-            },
+              ],
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorColor: SMColors.lightGolden,
+              onTap: (int index) {
+                this.setState(() {
+                  currentIndex = index;
+                });
+              },
+            ),
           )
         ],
       ),
@@ -191,8 +196,8 @@ class _HomePageState extends State<HomePage>
         parent: animationController, curve: Curves.easeOutCubic);
     animation = Tween(begin: offsetX, end: targetOffsetX).animate(curve)
       ..addListener(() {
-        print('animation.value');
-        print(animation.value);
+        LogUtil.i(sName,'animation.value');
+        LogUtil.i(sName,animation.value);
         setState(() {
           offsetX = animation.value;
         });
@@ -202,6 +207,6 @@ class _HomePageState extends State<HomePage>
 }
 
 class _Style {
-  static double tabbarContainW = ScreenUtil.getInstance().getWidth(300);
+  static double tabbarContainW = ScreenUtil.getInstance().getWidth(220);
   static double tabbarBottom = ScreenUtil.getInstance().getWidth(5);
 }

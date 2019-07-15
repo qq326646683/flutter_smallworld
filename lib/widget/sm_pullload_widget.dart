@@ -48,7 +48,7 @@ class _SMPullLoadWidgetState extends State<SMPullLoadWidget> {
 
   @override
   void initState() {
-    ///增加滑动监听
+    ///增加滑动监听t
     _scrollController.addListener(() {
       ///判断当前滑动位置是不是到达底部，触发加载更多回调
       if (_scrollController.position.pixels ==

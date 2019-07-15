@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     _tabItems = _renderTabItems();
-    print('render:MainPage');
+    LogUtil.i(MainPage.sName,'render:MainPage');
     return StoreBuilder<MainStore>(builder: (context, store) {
       return SMTabBarPageViewWidget(
         type: SMTabBarPageViewWidget.BOTTOM_TAB,
@@ -79,6 +79,7 @@ class _MainPageState extends State<MainPage> {
         tabItems: _tabItems,
         backgroundColor: SMColors.primaryDarkValue,
         onPageChanged: (int index) {
+          StatusBarUtil.setupMainPage(index);
         },
       );
     });

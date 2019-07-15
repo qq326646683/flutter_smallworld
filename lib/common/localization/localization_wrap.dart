@@ -1,17 +1,22 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class LocalizationWrap extends StatefulWidget {
+class LocalizationsWidget extends StatefulWidget {
   final Widget child;
 
-  LocalizationWrap({Key key, this.child}) : super(key: key);
+  LocalizationsWidget({Key key, this.child}) : super(key: key);
 
   @override
-  _LocalizationWrapState createState() => _LocalizationWrapState();
+  State<LocalizationsWidget> createState() {
+    return new _LocalizationsState();
+  }
 }
 
-class _LocalizationWrapState extends State<LocalizationWrap> {
+class _LocalizationsState extends State<LocalizationsWidget> {
+
   @override
   Widget build(BuildContext context) {
     return widget.child;
   }
+
+
 }
