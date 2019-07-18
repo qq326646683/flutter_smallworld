@@ -99,14 +99,12 @@ class _LoginPageState extends State<LoginPage> {
                         SMButtonWidget(
                             text: CommonUtils.getLocaleStr(context).login_btn,
                             height: ScreenUtil.getInstance().getWidth(50.0),
-                            onPress: () {
+                            onPress: () async {
                               LogUtil.i(LoginPage.sName,"mobile" + _mobile + "psd" + _password);
-                              UserDao.login(_mobile, _password, "android", store)
-                                .then((res) {
-                                  if (res != null && res.result) {
-                                    NavigatorUtils.getInstance().pushReplacementNamed(context, MainPage.sName);
-                                  }
-                              });
+                              ResponseResult<LoginResult> response = await UserDao.login(_mobile, _password, "android", store);
+                              if (response.isSuccess) {
+                                NavigatorUtils.getInstance().pushReplacementNamed(context, MainPage.sName);
+                              }
                             }
                         ),
                       ],

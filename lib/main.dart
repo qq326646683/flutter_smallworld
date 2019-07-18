@@ -61,7 +61,6 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
 
   @override
   Widget build(BuildContext context) {
-    mContext = context;
     return StoreProvider(
         store: store,
         child: OKToast(
@@ -79,6 +78,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
             supportedLocales: MyLocalization.getSupportedLanguages(),
             routes: NavigatorUtils.configRoutes,
             builder: (BuildContext context, Widget child) {
+              mContext = context;
               return Listener(
                 onPointerDown: (PointerDownEvent event) {
                   DragDebugWidget.myController.lookAt(event.position);

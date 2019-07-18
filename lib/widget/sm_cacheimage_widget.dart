@@ -73,7 +73,7 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
   Widget build(BuildContext context) {
     if (currentShow == CurrentShow.Local){
       LogUtil.i(sName,'Image.file:' + widget.url);
-      return Image.file(imgFile, width: widget.width, height: widget.height, fit: widget.fit, scale: imgFile.existsSync() ? imgFile.lengthSync() / 1000 : 1);
+      return Image.file(imgFile, width: widget.width, height: widget.height, fit: widget.fit);
     } else if (currentShow == CurrentShow.Default){
       LogUtil.i(sName,'Image.asset:' + widget.url);
       return Image.asset(SMIcons.HOT_TIP, width: widget.width, height: widget.height, fit: widget.fit);

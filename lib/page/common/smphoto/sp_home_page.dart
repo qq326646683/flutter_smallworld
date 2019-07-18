@@ -12,7 +12,7 @@ class SPHomePage extends StatefulWidget {
   SPType spType;
   ValueChanged<List<AssetEntity>> backRes;
 
-  SPHomePage({this.spType = SPType.ALL, @required this.backRes});
+  SPHomePage({this.spType = SPType.ALL, this.backRes});
 
   @override
   _SPHomePageState createState() => _SPHomePageState();

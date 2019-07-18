@@ -8,5 +8,9 @@ class Zh {
   String network_error_unknown = "Http unknown error";
   String network_error = "network error";
   String network_error_dio = "Dio报错";
+  // 首页
+  String home_page_header_title1 = "附近";
+  String home_page_header_title2 = "活跃";
+  String home_page_header_title3 = "最新";
 
 }

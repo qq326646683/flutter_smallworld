@@ -6,7 +6,7 @@ class Config {
   // bugly上报
   static const REPORT_CRASH = false;
   // Debug入口
-  static const DEBUG_ENTER = true;
+  static const DEBUG_ENTER = false;
   // 请求超时时间
   static const HTTP_TIMEOUT = 5000;
   // 分页数量

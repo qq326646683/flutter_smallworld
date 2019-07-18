@@ -20,6 +20,13 @@ class En extends Zh {
   String network_error = "network error";
   @override
   String network_error_dio = "Dio报错";
+  // 首页
+  @override
+  String home_page_header_title1 = "附近";
+  @override
+  String home_page_header_title2 = "活跃";
+  @override
+  String home_page_header_title3 = "最新";
 
 
 }

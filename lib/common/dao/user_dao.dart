@@ -23,7 +23,7 @@ class UserDao {
 
     HttpManager.clearToken();
 
-    ResponseResult<LoginResult> response = await HttpManager.netFetch(ApiAddress.login(), json.encode(requestParams), NetMethod.POST);
+    ResponseResult<LoginResult> response = await HttpManager.netFetch<LoginResult>(ApiAddress.login(), json.encode(requestParams), NetMethod.POST);
     if (response.isSuccess) {
       LoginResult loginResult = response.data;
       await StorageManager.getInstance().save(Config.TOKEN_KEY, loginResult.token);

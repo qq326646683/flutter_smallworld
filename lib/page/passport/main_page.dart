@@ -16,6 +16,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List<TabItem> _tabItems = new List<TabItem>();
+  int index = 0;
 
   @override
   void initState() {
@@ -64,23 +65,36 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     _tabItems = _renderTabItems();
-    LogUtil.i(MainPage.sName,'render:MainPage');
+    print('render:MainPage');
     return StoreBuilder<MainStore>(builder: (context, store) {
-      return SMTabBarPageViewWidget(
-        type: SMTabBarPageViewWidget.BOTTOM_TAB,
-        physics: NeverScrollableScrollPhysics(),
-        tabViews: <Widget>[
-          HomePage(),
-          ChatPage(),
-          ClubPage(),
-          DiscoverPage(),
-          ProfilePage()
+      return PageView(
+        controller: StoreProvider.of<MainStore>(context).state.homeTabState.homeToDetailController,
+        physics: this.index == 0 ? ClampingScrollPhysics() : NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          SMTabBarPageViewWidget(
+            type: SMTabBarPageViewWidget.BOTTOM_TAB,
+            physics: NeverScrollableScrollPhysics(),
+            tabViews: <Widget>[
+              HomePage(),
+              ChatPage(),
+              ClubPage(),
+              DiscoverPage(),
+              ProfilePage()
+            ],
+            tabItems: _tabItems,
+            backgroundColor: SMColors.primaryDarkValue,
+            onPageChanged: (int index) {
+              this.setState(() {
+                this.index = index;
+              });
+            },
+          ),
+          Container(
+            color: Colors.pink,
+            child: FlatButton(onPressed: () {
+            }, child: Text('clickclickclick')),
+          ),
         ],
-        tabItems: _tabItems,
-        backgroundColor: SMColors.primaryDarkValue,
-        onPageChanged: (int index) {
-          StatusBarUtil.setupMainPage(index);
-        },
       );
     });
   }
