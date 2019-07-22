@@ -39,7 +39,14 @@ class _DebugPageState extends State<DebugPage> {
               NavigatorUtils.getInstance()
                   .pushNamed(context, PackageInfoPage.sName);
             },
-          )
+          ),
+          ListTile(
+            title: Text('视频demo'),
+            onTap: () {
+              NavigatorUtils.getInstance()
+                  .pushNamed(context, VideoDemoPage.sName);
+            },
+          ),
         ],
       ),
     );

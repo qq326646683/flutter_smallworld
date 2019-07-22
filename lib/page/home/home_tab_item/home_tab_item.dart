@@ -4,7 +4,6 @@ import 'package:flutter_smallworld/common/config/config.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
-import 'package:flutter_smallworld/common/db/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 
 class HomeTabItem extends StatefulWidget {
@@ -26,6 +25,7 @@ class _HomeTabItemState extends State<HomeTabItem> {
       child: Stack(
         children: <Widget>[
           /// 视频
+
           /// 图片
           Center(
             child: GestureDetector(

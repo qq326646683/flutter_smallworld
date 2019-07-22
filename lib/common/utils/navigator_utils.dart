@@ -20,6 +20,7 @@ class NavigatorUtils extends NavigatorObserver {
     PrintLogPage.sName: (context) => LocalizationsWidget(child: PrintLogPage()),
     NetLogDetailPage.sName: (context) => LocalizationsWidget(child: NetLogDetailPage()),
     PackageInfoPage.sName: (context) => LocalizationsWidget(child: PackageInfoPage()),
+    VideoDemoPage.sName: (context) => LocalizationsWidget(child: VideoDemoPage()),
   };
   static NavigatorUtils navigatorUtils;
   static NavigatorState currentNavigator;

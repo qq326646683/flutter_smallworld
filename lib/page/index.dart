@@ -18,4 +18,5 @@ export 'package:flutter_smallworld/page/common/debug/net_log_page.dart';
 export 'package:flutter_smallworld/page/common/debug/net_log_detail_page.dart';
 export 'package:flutter_smallworld/page/common/debug/print_log_page.dart';
 export 'package:flutter_smallworld/page/common/debug/package_info_page.dart';
+export 'package:flutter_smallworld/page/common/debug/demo/video_demo_page.dart';
 
