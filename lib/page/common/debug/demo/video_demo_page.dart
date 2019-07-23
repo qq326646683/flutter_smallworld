@@ -2,12 +2,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 /// An example of using the plugin, controlling lifecycle and playback of the
 /// video.
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
+import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/widget/index.dart';
 import 'package:video_player/video_player.dart';
 
 /// Controls play and pause of [controller].
@@ -27,6 +32,7 @@ class VideoPlayPause extends StatefulWidget {
 }
 
 class _VideoPlayPauseState extends State<VideoPlayPause> {
+  VoidCallback listener;
   _VideoPlayPauseState() {
     listener = () {
       setState(() {});
@@ -35,7 +41,6 @@ class _VideoPlayPauseState extends State<VideoPlayPause> {
 
   FadeAnimation imageFadeAnim =
   FadeAnimation(child: const Icon(Icons.play_arrow, size: 100.0));
-  VoidCallback listener;
 
   VideoPlayerController get controller => widget.controller;
 
@@ -367,17 +372,47 @@ class VideoDemoPage extends StatefulWidget {
 }
 
 class _VideoDemoPageState extends State<VideoDemoPage> {
+  IjkMediaController ijkController = IjkMediaController();
+  String source4 = 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D';
+//  String source4 = 'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4';
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  init() async {
+    String source1 = 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D';
+    String source2 = 'rtmp://live.hkstv.hk.lxdns.com/live/hks';
+    String source3 = 'rtmp://172.16.100.245/live1';
+    String savaPath = CacheFileUtil.calculateCacheFilePath(source4, cacheFileType: CacheFileType.VIDEO);
+    print('savePath');
+    print(savaPath);
+    await ijkController.setNetworkDataSource(source4, savaPath, autoPlay: true);
+//    ijkController.setAssetDataSource(SMIcons.LOGIN_BG_MP4, autoPlay: true);
+  }
+  
+  @override
+  void dispose() {
+    super.dispose();
+    ijkController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    return     MaterialApp(
+    return MaterialApp(
       home: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Video player example'),
             bottom: const TabBar(
               isScrollable: true,
               tabs: <Widget>[
+                Tab(
+                  icon: Icon(Icons.cloud),
+                  text: "ijk",
+                ),
                 Tab(
                   icon: Icon(Icons.cloud),
                   text: "Remote",
@@ -388,7 +423,31 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
             ),
           ),
           body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    IjkPlayer(
+                      mediaController: ijkController,
+                      statusWidgetBuilder: buildStatusWidget,
+//                      controllerWidgetBuilder: (controller) {
+//                        return DefaultIJKControllerWidget(controller: controller, doubleTapPlay: true,);
+//                      },
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        CacheFile cacheFile = CacheFileUtil.getCacheFile(source4, cacheFileType: CacheFileType.VIDEO);
+                        print('cacheFile');
+                        print(cacheFile);
+                        File tmpImgFile = new File('/sdcard/0000.mp4');
+                        print('文件是否存在:' + tmpImgFile.existsSync().toString());
+                      },
+                      child: Text('获取文件路径，判断是否存在'),
+                    )
+                  ],
+                ),
+              ),
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -399,7 +458,7 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
                     Container(
                       padding: const EdgeInsets.all(20),
                       child: NetworkPlayerLifeCycle(
-                        'http://184.72.239.149/vod/smil:BigBuckBunny.smil/playlist.m3u8',
+                        'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D',
                             (BuildContext context,
                             VideoPlayerController controller) =>
                             AspectRatioVideo(controller),
@@ -436,4 +495,87 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
       ),
     );
   }
+
+
+  Widget buildStatusWidget(BuildContext context, IjkMediaController controller, IjkStatus status) {
+    switch (status) {
+      case IjkStatus.noDatasource:
+      case IjkStatus.error:
+        return _buildImgHolder();
+      case IjkStatus.pause:
+        return _buildImgHolder(Icons.play_arrow, controller.play);
+      case IjkStatus.complete:
+        return _buildImgHolder(Icons.replay, () async {
+          await controller?.seekTo(0);
+          await controller?.play();
+        });
+      case IjkStatus.preparing:
+        return _buildProgressWidget(context);
+      case IjkStatus.playing:
+        return _buildPauseBtn(Icons.pause, controller.pause);
+      case IjkStatus.prepared:
+      default:
+        return SizedBox();
+
+
+    }
+  }
+
+  Widget _buildImgHolder([IconData iconData, Function onTap]) {
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        SMCacheImageWidget('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563879170471&di=c3c5109d8a12d11f449fb03840fa7082&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fnote%2Flarge%2Fpublic%2Fp27390391.jpg'),
+        iconData != null ? Center(
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.75),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: IconButton(
+              iconSize: 30,
+              color: Colors.black,
+              icon: Icon(iconData),
+              onPressed: onTap,
+            ),
+          ),
+        ): SizedBox()
+      ],
+    );
+  }
+
+  Widget _buildPauseBtn(IconData iconData, Function onTap) {
+    return Center(
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.75),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: IconButton(
+          iconSize: 30,
+          color: Colors.black,
+          icon: Icon(iconData),
+          onPressed: onTap,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProgressWidget(BuildContext context) {
+    return Center(
+      child: Container(
+        width: 60,
+        height: 60,
+        child: RefreshProgressIndicator(
+          backgroundColor: Colors.transparent,
+          valueColor: AlwaysStoppedAnimation(Colors.white),
+        ),
+      ),
+    );
+  }
 }
+

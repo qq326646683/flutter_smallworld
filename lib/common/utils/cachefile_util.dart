@@ -17,7 +17,7 @@ class CacheFileUtil {
         ProgressCallback onReceiveProgress,
         CancelToken cancelToken}) async {
 
-    String savePath = _calculateCacheFilePath(url, cacheFileType: cacheFileType, cacheType: cacheType);
+    String savePath = calculateCacheFilePath(url, cacheFileType: cacheFileType, cacheType: cacheType);
 
     try {
       Response response = await HttpManager.dio.download(url, savePath,
@@ -34,7 +34,7 @@ class CacheFileUtil {
   }
 
   static CacheFile getCacheFile(String remoteUrl, { CacheFileType cacheFileType = CacheFileType.IMAGE,  CacheType cacheType = CacheType.CACHE }) {
-    String filePath = _calculateCacheFilePath(remoteUrl, cacheFileType: cacheFileType, cacheType: cacheType);
+    String filePath = calculateCacheFilePath(remoteUrl, cacheFileType: cacheFileType, cacheType: cacheType);
     File file = new File(filePath);
     if (!file.existsSync()) {
       return null;
@@ -47,7 +47,7 @@ class CacheFileUtil {
   }
 
   /// 根据url计算并拼接本地缓存文件路径，不判断文件是否存在
-  static String _calculateCacheFilePath(String url, { CacheFileType cacheFileType = CacheFileType.IMAGE, CacheType cacheType = CacheType.CACHE }) {
+  static String calculateCacheFilePath(String url, { CacheFileType cacheFileType = CacheFileType.IMAGE, CacheType cacheType = CacheType.CACHE }) {
     String fileNameAndSuffix = _calculateFileName(url);
     switch (cacheFileType) {
       case CacheFileType.IMAGE:
