@@ -436,9 +436,9 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
                     SMCacheVideoWidget(
                       width: ScreenUtil.getInstance().screenWidth,
                       height: 500,
-                      mediaController: ijkController,
+//                      mediaController: ijkController,
                       url: source4,
-                      doubleTapPlay: true,
+//                      doubleTapPlay: true,
                       placeImgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563879170471&di=c3c5109d8a12d11f449fb03840fa7082&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fnote%2Flarge%2Fpublic%2Fp27390391.jpg',
                     ),
                     RaisedButton(

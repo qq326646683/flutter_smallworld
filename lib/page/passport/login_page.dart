@@ -37,6 +37,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     LogUtil.i(LoginPage.sName,"render: LoginPage");
     return StoreBuilder<MainStore>(builder: (context, store) {

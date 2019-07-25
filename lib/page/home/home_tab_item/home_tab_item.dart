@@ -39,14 +39,10 @@ class _HomeTabItemState extends State<HomeTabItem> {
               ? SMCacheVideoWidget(
                   width: ScreenUtil.getInstance().screenWidth,
                   height: ScreenUtil.getInstance().screenHeight,
-                  mediaController: mediaController,
                   url: homeTabModel.certifyVideo.video,
                   placeImgUrl: imgUrl,
-                  verticalGesture: false,
-                  horizontalGesture: false,
-                  showFullScreenButton: false,
-                  showBottomBar: false,
                   loop: true,
+                  autoPlay: true,
                 )
               :
               /// 图片

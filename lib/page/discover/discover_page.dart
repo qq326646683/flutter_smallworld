@@ -33,6 +33,12 @@ class _DiscoverPageState extends State<DiscoverPage>
               NavigatorUtils.getInstance().pushNamed(context, TaskhallPage.sName);
             },
             child: Text('任务大厅'),
+          ),
+          RaisedButton(
+            onPressed: () {
+              NavigatorUtils.getInstance().pushNamed(context, DebugPage.sName);
+            },
+            child: Text('Debug'),
           )
         ],
       ),
