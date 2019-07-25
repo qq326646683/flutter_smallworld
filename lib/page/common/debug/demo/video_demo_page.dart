@@ -373,7 +373,8 @@ class VideoDemoPage extends StatefulWidget {
 
 class _VideoDemoPageState extends State<VideoDemoPage> {
   IjkMediaController ijkController = IjkMediaController();
-  String source4 = 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D';
+//  String source4 = 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D';
+  String source4 = 'http://file.jinxianyun.com/2018-06-12_16_58_22.mp4';
 //  String source4 = 'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4';
 
   @override
@@ -389,26 +390,30 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
     String savaPath = CacheFileUtil.calculateCacheFilePath(source4, cacheFileType: CacheFileType.VIDEO);
     print('savePath');
     print(savaPath);
-    await ijkController.setNetworkDataSource(source4, savaPath, autoPlay: true);
+//    await ijkController.setNetworkDataSource(source4, autoPlay: true);
 //    ijkController.setAssetDataSource(SMIcons.LOGIN_BG_MP4, autoPlay: true);
   }
   
   @override
   void dispose() {
     super.dispose();
-    ijkController.dispose();
+//    ijkController.dispose();
   }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 4,
+        length: 5,
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Video player example'),
             bottom: const TabBar(
               isScrollable: true,
               tabs: <Widget>[
+                Tab(
+                  icon: Icon(Icons.cloud),
+                  text: "cachevideo",
+                ),
                 Tab(
                   icon: Icon(Icons.cloud),
                   text: "ijk",
@@ -428,6 +433,35 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    SMCacheVideoWidget(
+                      width: ScreenUtil.getInstance().screenWidth,
+                      height: 500,
+                      mediaController: ijkController,
+                      url: source4,
+                      doubleTapPlay: true,
+                      placeImgUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563879170471&di=c3c5109d8a12d11f449fb03840fa7082&imgtype=0&src=http%3A%2F%2Fimg3.doubanio.com%2Fview%2Fnote%2Flarge%2Fpublic%2Fp27390391.jpg',
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        File tmpImgFile = new File('/data/user/0/com.example.fluttersmallworld/app_flutter/file/cache/826281028608891033.tmp');
+                        print('文件是否存在:' + tmpImgFile.existsSync().toString());
+                      },
+                      child: Text('tmp，判断是否存在'),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        File tmpImgFile = new File('/data/user/0/com.example.fluttersmallworld/app_flutter/file/cache/826281028608891033.mp4');
+                        print('文件是否存在:' + tmpImgFile.existsSync().toString());
+                      },
+                      child: Text('mp4，判断是否存在'),
+                    )
+
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
                     IjkPlayer(
                       mediaController: ijkController,
                       statusWidgetBuilder: buildStatusWidget,
@@ -437,14 +471,19 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
                     ),
                     RaisedButton(
                       onPressed: () {
-                        CacheFile cacheFile = CacheFileUtil.getCacheFile(source4, cacheFileType: CacheFileType.VIDEO);
-                        print('cacheFile');
-                        print(cacheFile);
-                        File tmpImgFile = new File('/sdcard/0000.mp4');
+                        File tmpImgFile = new File('/data/user/0/com.example.fluttersmallworld/app_flutter/file/cache/826281028608891033.tmp');
                         print('文件是否存在:' + tmpImgFile.existsSync().toString());
                       },
-                      child: Text('获取文件路径，判断是否存在'),
+                      child: Text('tmp，判断是否存在'),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        File tmpImgFile = new File('/data/user/0/com.example.fluttersmallworld/app_flutter/file/cache/826281028608891033.mp4');
+                        print('文件是否存在:' + tmpImgFile.existsSync().toString());
+                      },
+                      child: Text('mp4，判断是否存在'),
                     )
+
                   ],
                 ),
               ),

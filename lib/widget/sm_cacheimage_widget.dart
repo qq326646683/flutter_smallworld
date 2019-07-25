@@ -39,7 +39,8 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
       } else {
         // b.无本地下载,等待下载
         LogUtil.i(sName, '找本地-无本地下载' + widget.url);
-        CacheFile completeCacheFile = await CacheFileUtil.setCacheFile(CacheFileType.IMAGE, widget.url);
+        CacheFile completeCacheFile =
+            await CacheFileUtil.setCacheFile(CacheFileType.IMAGE, widget.url);
         if (completeCacheFile != null) {
           LogUtil.i(sName, '下载完成' + widget.url);
           // c.下载完成替换
@@ -57,10 +58,10 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
     File tmpImgFile = new File(path);
     bool isExists = await tmpImgFile.exists();
     if (!isExists) {
-      throw new FileSystemException("localFile is not exist", path);
+      throw new FileSystemException("localImgFile is not exist", path);
     } else {
       if (mounted) {
-        this.setState((){
+        this.setState(() {
           imgFile = tmpImgFile;
           currentShow = CurrentShow.Local;
         });
@@ -68,20 +69,32 @@ class _SMCacheImageWidgetState extends State<SMCacheImageWidget> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    if (currentShow == CurrentShow.Local){
-      LogUtil.i(sName,'Image.file:' + widget.url);
-      return Image.file(imgFile, width: widget.width, height: widget.height, fit: widget.fit);
-    } else if (currentShow == CurrentShow.Default){
-      LogUtil.i(sName,'Image.asset:' + widget.url);
-      return Image.asset(SMIcons.HOT_TIP, width: widget.width, height: widget.height, fit: widget.fit);
+    if (currentShow == CurrentShow.Local) {
+      LogUtil.i(sName, 'Image.file:' + widget.url);
+      return Image.file(imgFile,
+          width: widget.width, height: widget.height, fit: widget.fit);
+    } else if (currentShow == CurrentShow.Default) {
+      LogUtil.i(sName, 'Image.asset:' + widget.url);
+//      return Image.asset(SMIcons.HOT_TIP, width: widget.width, height: widget.height, fit: widget.fit);
+      return Container(
+        color: SMColors.black,
+        width: widget.width,
+        height: widget.height,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Image.asset(SMIcons.HOT_TIP, width: 100, fit: widget.fit),
+            Container(
+                color: SMColors.opacity75Cover,
+                width: widget.width,
+                height: widget.height)
+          ],
+        ),
+      );
     }
   }
 }
 
-enum CurrentShow {
-  Default,
-  Local
-}
+enum CurrentShow { Default, Local }

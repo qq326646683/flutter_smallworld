@@ -20,3 +20,5 @@ export 'sm_tabbar_widget.dart';
 export 'sm_toast_widget.dart';
 export 'drag_debug_widget.dart';
 export 'sm_card_container_widget.dart';
+export 'sm_cachevideo_widget.dart';
+export 'sm_loading_widget.dart';

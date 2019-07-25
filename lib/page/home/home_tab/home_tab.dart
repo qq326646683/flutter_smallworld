@@ -28,9 +28,11 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab>
     with SMListState<HomeTab>, AutomaticKeepAliveClientMixin {
+  PageController pageController;
   @override
   void initState() {
     super.initState();
+    pageController = new PageController();
   }
 
   @override
@@ -102,7 +104,7 @@ class _HomeTabState extends State<HomeTab>
   @override
   Widget build(BuildContext context) {
     return SMPullLoadWidget(
-      new PageController(),
+      pageController,
       pullLoadWidgetControl,
           (BuildContext context, int index) =>
           _renderItem(pullLoadWidgetControl.dataList[index]),

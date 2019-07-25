@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/config/config.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
@@ -16,30 +17,44 @@ class HomeTabItem extends StatefulWidget {
 }
 
 class _HomeTabItemState extends State<HomeTabItem> {
+  IjkMediaController mediaController;
+
+  @override
+  void initState() {
+    super.initState();
+    mediaController = IjkMediaController();
+  }
+
   @override
   Widget build(BuildContext context) {
     HomeTabModel homeTabModel = widget.homeTabModel;
-    String imgUrl = homeTabModel.avatar + ThumbImgSize.homeItemImgScaleSize_414_414;
+    String imgUrl =
+        homeTabModel.avatar + ThumbImgSize.homeItemImgScaleSize_414_414;
     return Container(
       color: SMColors.black,
       child: Stack(
         children: <Widget>[
           /// 视频
-
-          /// 图片
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                StoreProvider.of<MainStore>(context).state.homeTabState.homeToDetailController.animateToPage(1,
-                    duration: Duration(milliseconds: 200), curve: Curves.easeOut);
-              },
-              child: SMCacheImageWidget(
-                  imgUrl,
+          homeTabModel.certifyVideo != null
+              ? SMCacheVideoWidget(
                   width: ScreenUtil.getInstance().screenWidth,
-                  fit: BoxFit.contain
-              ),
-            ),
-          ),
+                  height: ScreenUtil.getInstance().screenHeight,
+                  mediaController: mediaController,
+                  url: homeTabModel.certifyVideo.video,
+                  placeImgUrl: imgUrl,
+                  verticalGesture: false,
+                  horizontalGesture: false,
+                  showFullScreenButton: false,
+                  showBottomBar: false,
+                  loop: true,
+                )
+              :
+              /// 图片
+              Center(
+                  child: SMCacheImageWidget(imgUrl,
+                      width: ScreenUtil.getInstance().screenWidth,
+                      fit: BoxFit.contain),
+                ),
 //          Text(homeTabModel.avatar, style: SMTxtStyle.normalTextWhite,)
           /// 用户信息
         ],

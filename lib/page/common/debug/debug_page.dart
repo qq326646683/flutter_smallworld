@@ -12,6 +12,13 @@ class DebugPage extends StatefulWidget {
 
 class _DebugPageState extends State<DebugPage> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    PermissionUtil.deal(context, [PermissionGroup.storage]);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SMTitleBarWidget(
