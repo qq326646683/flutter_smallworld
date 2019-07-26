@@ -56,7 +56,7 @@ class _HomeTabState extends State<HomeTab>
 
     setState(() {
       pullLoadWidgetControl.needLoadMore =
-      (res != null && res.data.list.length == Config.PAGE_SIZE);
+      (res != null && res.data != null && res.data.list.length == Config.PAGE_SIZE);
     });
     isLoading = false;
     return null;

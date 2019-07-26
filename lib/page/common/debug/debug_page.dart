@@ -21,13 +21,17 @@ class _DebugPageState extends State<DebugPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SMCacheVideoWidget(
-        width: ScreenUtil.getInstance().screenWidth,
-        height: ScreenUtil.getInstance().screenHeight,
-        url: 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D',
-        placeImgUrl: 'https://www.baidu.com/img/bd_logo1.png?where=super',
-        loop: true,
-        autoPlay: true,
+      backgroundColor: SMColors.grayLineColor,
+      body: Stack(
+        children: <Widget>[
+          SMCacheVideoWidget(
+            width: ScreenUtil.getInstance().screenWidth,
+            height: 300,
+            url: 'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4',
+            placeImgUrl: 'https://www.baidu.com/img/bd_logo1.png?where=super',
+            autoPlay: true,
+          ),
+        ],
       ),
     );
   }

@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
 import 'package:video_player/video_player.dart';
+
+Widget defaultProgressBuilder(VideoPlayerController controller) => SizedBox();
 
 class SMCacheVideoWidget extends StatefulWidget {
   final double width;
@@ -17,14 +20,22 @@ class SMCacheVideoWidget extends StatefulWidget {
   // 配置
   final bool loop;
   final bool autoPlay;
+  final ProgressWidget progressWidget;
+  final bool isClickPause;
+  final bool showBottomBar;
 
   SMCacheVideoWidget({
     @required this.width,
     @required this.height,
+
     @required this.url,
     @required this.placeImgUrl,
     this.loop = false,
     this.autoPlay = false,
+    this.progressWidget = defaultProgressBuilder,
+    this.isClickPause = false,
+    this.showBottomBar = true,
+
   });
 
   @override
@@ -34,11 +45,26 @@ class SMCacheVideoWidget extends StatefulWidget {
 class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
   static String sName = "_SMCacheVideoWidgetState";
   VideoPlayerController _controller;
+  VoidCallback listener;
 
   @override
   void initState() {
     super.initState();
+    listener = () {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    };
     init();
+
+  }
+
+  config() {
+    if (widget.loop) _controller.setLooping(widget.loop);
+    if (widget.autoPlay) _controller.play();
+    _controller.addListener(listener);
+
   }
 
   @override
@@ -47,10 +73,13 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
     super.dispose();
   }
 
-  config() {
-    if (widget.loop) _controller.setLooping(widget.loop);
-    if (widget.autoPlay) _controller.play();
+  @override
+  void deactivate() {
+    _controller.removeListener(listener);
+    super.deactivate();
   }
+
+
 
   init() {
     // 网络
@@ -69,31 +98,19 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
         // b.无本地下载,并播放net
         LogUtil.i(sName, '找本地视频-无本地下载, network视频' + widget.url);
         setVideo(VideoType.network);
-        CacheFileUtil.setCacheFile(CacheFileType.VIDEO, widget.url, onReceiveProgress: (int count, int total) {
-//          LogUtil.i(sName, 'count:', count);
-//
-//          if (count / total > 0.5) {
-//            if (!isPlaying) {
-//              LogUtil.i(sName, 'play:');
-//
-//              setVideo(VideoType.file, CacheFileUtil.calculateCacheFilePath(widget.url, cacheFileType: CacheFileType.VIDEO));
-//              isPlaying = true;
-//            }
-//          }
-
-        });
+        CacheFileUtil.setCacheFile(CacheFileType.VIDEO, widget.url, onReceiveProgress: (int count, int total) {});
 
       }
     } else if (widget.url.startsWith('static')) {
-      //源为本地视频
+      // 源为asset视频
       LogUtil.i(sName, 'asset视频' + widget.url);
       setVideo(VideoType.asset);
     } else {
+      // 源为本地视频
       LogUtil.i(sName, '本地视频' + widget.url);
       setVideo(VideoType.file);
     }
   }
-  bool isPlaying = false;
 
   setVideo(VideoType videoType, [String filePath]) {
     if (!mounted) return;
@@ -107,7 +124,6 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
       if (!isExists) {
         throw new FileSystemException("localVideoFile is not exist", filePath ?? widget.url);
       } else {
-        print('heheh');
         _controller = VideoPlayerController.file(tmpImgFile);
       }
     }
@@ -119,17 +135,81 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _controller != null && _controller.value.initialized ?
-    Container(
-      width: widget.width,
-      height: widget.height,
-      child: VideoPlayer(_controller),
-    )
-        :
-    SMCacheImageWidget(
-        widget.placeImgUrl, width: widget.width, height: widget.height);
+    if (_controller != null && _controller.value.initialized) {
+      Widget body = Center(
+        child: AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
+        ),
+      );
+
+      if (widget.isClickPause) {
+        body = GestureDetector(
+          onTap: () {
+            _controller.value.isPlaying ? _controller.pause() : _controller.play();
+            setState(() {});
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              body,
+              _controller.value.isPlaying ? SizedBox() : Icon(Icons.play_arrow, size: 100, color: SMColors.opacity60CoverWhite,),
+            ],
+          ),
+        );
+      }
+
+
+      return Container(
+        width: widget.width,
+        height: widget.height,
+        color: SMColors.black,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            body,
+            widget.progressWidget.call(_controller),
+            widget.showBottomBar ? _buildBottomBar() : SizedBox()
+          ],
+        ),
+      );
+    } else {
+      return SMCacheImageWidget(widget.placeImgUrl, width: widget.width, height: widget.height);
+    }
+  }
+
+  Widget _buildBottomBar() {
+    return Positioned(
+      bottom: 20,
+      child: Container(
+        width: widget.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            IconButton(icon: Icon(_controller.value.isPlaying ? Icons.pause :Icons.play_arrow, color: SMColors.white,), onPressed: () {
+              _controller.value.isPlaying ? _controller.pause() : _controller.play();
+              setState(() {});
+            }),
+            Expanded(
+              child: VideoProgressIndicator(
+                _controller,
+                allowScrubbing: true,
+                colors: VideoProgressColors(playedColor: Colors.pink, bufferedColor: SMColors.opacity60CoverWhite, backgroundColor: SMColors.opacity30CoverWhite),
+              ),
+            ),
+            Text('${TimeUtil.formatDuration(_controller.value.position)}/${TimeUtil.formatDuration(_controller.value.duration)}', style: SMTxtStyle.minTextWhite,),
+            IconButton(icon: Icon(Icons.fullscreen, color: SMColors.white,), onPressed: () {
+
+            }),
+          ],
+        ),
+      ),
+    );
   }
 }
+
+typedef ProgressWidget = Widget Function(VideoPlayerController controller);
 
 enum VideoType {
   asset,

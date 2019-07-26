@@ -40,6 +40,8 @@ class SMColors {
 
   static const Color opacity75Cover = Color(0xcc000000);
 
+  static const Color opacity30CoverWhite = Color(0x33ffffff);
+
   static const Color opacity60CoverWhite = Color(0x96ffffff);
 
   static const Color opacity75CoverWhite = Color(0xccffffff);

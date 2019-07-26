@@ -20,14 +20,17 @@ class CacheFileUtil {
     String savePath = calculateCacheFilePath(url, cacheFileType: cacheFileType, cacheType: cacheType);
 
     try {
-      Response response = await HttpManager.dio.download(url, savePath,
-          onReceiveProgress: onReceiveProgress, cancelToken: cancelToken);
+      Response response = await HttpManager.dio.download(url, savePath, onReceiveProgress: onReceiveProgress, cancelToken: cancelToken);
+
       if (response.statusCode == 200) {
         CacheFile cacheFile = new CacheFile(cacheFileType, url, cacheType, savePath, DateTime.now());
-
         return cacheFile;
       }
+      File tmpFile = File(savePath);
+      if (tmpFile.existsSync()) tmpFile.deleteSync();
     } catch (e) {
+      File tmpFile = File(savePath);
+      if (tmpFile.existsSync()) tmpFile.deleteSync();
       LogUtil.i(sName,'CacheUtil失败');
       LogUtil.i(sName,e);
     }

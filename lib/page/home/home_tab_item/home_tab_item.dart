@@ -6,6 +6,7 @@ import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
+import 'package:video_player/video_player.dart';
 
 class HomeTabItem extends StatefulWidget {
   final HomeTabModel homeTabModel;
@@ -28,8 +29,7 @@ class _HomeTabItemState extends State<HomeTabItem> {
   @override
   Widget build(BuildContext context) {
     HomeTabModel homeTabModel = widget.homeTabModel;
-    String imgUrl =
-        homeTabModel.avatar + ThumbImgSize.homeItemImgScaleSize_414_414;
+    String imgUrl = homeTabModel.avatar; // + ThumbImgSize.homeItemImgScaleSize_414_414;
     return Container(
       color: SMColors.black,
       child: Stack(
@@ -43,6 +43,15 @@ class _HomeTabItemState extends State<HomeTabItem> {
                   placeImgUrl: imgUrl,
                   loop: true,
                   autoPlay: true,
+                  isClickPause: true,
+                  showBottomBar: false,
+                  progressWidget: (VideoPlayerController controller) => Positioned(
+                    bottom: ScreenUtil.getInstance().bottomBarHeight + 49,
+                    child: Container(
+                      width: ScreenUtil.getInstance().screenWidth,
+                      child: VideoProgressIndicator(controller, allowScrubbing: false, colors: VideoProgressColors(bufferedColor: SMColors.transparent, playedColor: SMColors.lightGolden, backgroundColor: SMColors.transparent),),
+                    ),
+                  ),
                 )
               :
               /// 图片

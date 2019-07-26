@@ -39,7 +39,14 @@ class _DiscoverPageState extends State<DiscoverPage>
               NavigatorUtils.getInstance().pushNamed(context, DebugPage.sName);
             },
             child: Text('Debug'),
-          )
+          ),
+          CircularProgressIndicator(
+            strokeWidth: 2,
+              backgroundColor: SMColors.lightGolden,
+              value: 0.8,
+              semanticsLabel: 'a',
+              semanticsValue: 'b'
+          ),
         ],
       ),
     );
