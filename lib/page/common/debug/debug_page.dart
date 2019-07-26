@@ -26,7 +26,7 @@ class _DebugPageState extends State<DebugPage> {
         children: <Widget>[
           SMCacheVideoWidget(
             width: ScreenUtil.getInstance().screenWidth,
-            height: 300,
+            height: 200,
             url: 'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4',
             placeImgUrl: 'https://www.baidu.com/img/bd_logo1.png?where=super',
             autoPlay: true,

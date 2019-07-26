@@ -9,7 +9,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
@@ -372,7 +371,6 @@ class VideoDemoPage extends StatefulWidget {
 }
 
 class _VideoDemoPageState extends State<VideoDemoPage> {
-  IjkMediaController ijkController = IjkMediaController();
 //  String source4 = 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D';
   String source4 = 'http://file.jinxianyun.com/2018-06-12_16_58_22.mp4';
 //  String source4 = 'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4';
@@ -462,13 +460,7 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
               SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    IjkPlayer(
-                      mediaController: ijkController,
-                      statusWidgetBuilder: buildStatusWidget,
-//                      controllerWidgetBuilder: (controller) {
-//                        return DefaultIJKControllerWidget(controller: controller, doubleTapPlay: true,);
-//                      },
-                    ),
+
                     RaisedButton(
                       onPressed: () {
                         File tmpImgFile = new File('/data/user/0/com.example.fluttersmallworld/app_flutter/file/cache/826281028608891033.tmp');
@@ -535,30 +527,6 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
     );
   }
 
-
-  Widget buildStatusWidget(BuildContext context, IjkMediaController controller, IjkStatus status) {
-    switch (status) {
-      case IjkStatus.noDatasource:
-      case IjkStatus.error:
-        return _buildImgHolder();
-      case IjkStatus.pause:
-        return _buildImgHolder(Icons.play_arrow, controller.play);
-      case IjkStatus.complete:
-        return _buildImgHolder(Icons.replay, () async {
-          await controller?.seekTo(0);
-          await controller?.play();
-        });
-      case IjkStatus.preparing:
-        return _buildProgressWidget(context);
-      case IjkStatus.playing:
-        return _buildPauseBtn(Icons.pause, controller.pause);
-      case IjkStatus.prepared:
-      default:
-        return SizedBox();
-
-
-    }
-  }
 
   Widget _buildImgHolder([IconData iconData, Function onTap]) {
     return Stack(

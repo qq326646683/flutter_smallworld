@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/config/config.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
@@ -18,12 +17,10 @@ class HomeTabItem extends StatefulWidget {
 }
 
 class _HomeTabItemState extends State<HomeTabItem> {
-  IjkMediaController mediaController;
 
   @override
   void initState() {
     super.initState();
-    mediaController = IjkMediaController();
   }
 
   @override
@@ -44,7 +41,7 @@ class _HomeTabItemState extends State<HomeTabItem> {
                   loop: true,
                   autoPlay: true,
                   isClickPause: true,
-                  showBottomBar: false,
+                  showCover: false,
                   progressWidget: (VideoPlayerController controller) => Positioned(
                     bottom: ScreenUtil.getInstance().bottomBarHeight + 49,
                     child: Container(

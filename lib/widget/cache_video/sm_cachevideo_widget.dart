@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/widget/index.dart';
@@ -22,7 +21,7 @@ class SMCacheVideoWidget extends StatefulWidget {
   final bool autoPlay;
   final ProgressWidget progressWidget;
   final bool isClickPause;
-  final bool showBottomBar;
+  final bool showCover;
 
   SMCacheVideoWidget({
     @required this.width,
@@ -34,7 +33,7 @@ class SMCacheVideoWidget extends StatefulWidget {
     this.autoPlay = false,
     this.progressWidget = defaultProgressBuilder,
     this.isClickPause = false,
-    this.showBottomBar = true,
+    this.showCover = true,
 
   });
 
@@ -169,7 +168,7 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
           children: <Widget>[
             body,
             widget.progressWidget.call(_controller),
-            widget.showBottomBar ? _buildBottomBar() : SizedBox()
+            widget.showCover ? _buildCover() : SizedBox()
           ],
         ),
       );
@@ -177,12 +176,45 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
       return SMCacheImageWidget(widget.placeImgUrl, width: widget.width, height: widget.height);
     }
   }
+  bool showCoverButton = true;
+
+  Widget _buildCover() {
+    return Stack(
+      children: <Widget>[
+        _buildBodyCover(),
+        showCoverButton ? _buildBottomBar() : SizedBox(),
+      ],
+    );
+  }
+
+  Widget _buildBodyCover() {
+    return GestureDetector(
+      onTap: () {
+        if (!mounted) return;
+        setState(() {
+          showCoverButton = !showCoverButton;
+        });
+
+
+
+      },
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        color: Color(0x3366ee55),
+      ),
+    );
+  }
 
   Widget _buildBottomBar() {
     return Positioned(
-      bottom: 20,
+      bottom: 0,
       child: Container(
         width: widget.width,
+        height: 50,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [SMColors.opacity30Cover, SMColors.opacity60Cover], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -191,14 +223,18 @@ class _SMCacheVideoWidgetState extends State<SMCacheVideoWidget> {
               _controller.value.isPlaying ? _controller.pause() : _controller.play();
               setState(() {});
             }),
+            SizedBox(width: _Style.bottomBarChildPadding5,),
             Expanded(
-              child: VideoProgressIndicator(
+              child: SMVideoProgressWidget(
                 _controller,
                 allowScrubbing: true,
                 colors: VideoProgressColors(playedColor: Colors.pink, bufferedColor: SMColors.opacity60CoverWhite, backgroundColor: SMColors.opacity30CoverWhite),
+                padding: EdgeInsets.all(0.0),
               ),
             ),
+            SizedBox(width: _Style.bottomBarChildPadding10,),
             Text('${TimeUtil.formatDuration(_controller.value.position)}/${TimeUtil.formatDuration(_controller.value.duration)}', style: SMTxtStyle.minTextWhite,),
+            SizedBox(width: _Style.bottomBarChildPadding5,),
             IconButton(icon: Icon(Icons.fullscreen, color: SMColors.white,), onPressed: () {
 
             }),
@@ -216,4 +252,10 @@ enum VideoType {
   file,
   network
 }
+
+class _Style {
+  static double bottomBarChildPadding5 = ScreenUtil.getInstance().getWidth(3.0);
+  static double bottomBarChildPadding10 = ScreenUtil.getInstance().getWidth(10.0);
+}
+
 

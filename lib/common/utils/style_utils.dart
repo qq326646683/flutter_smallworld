@@ -36,6 +36,8 @@ class SMColors {
 
   static const Color grayLineColor = Color(0xff707070);
 
+  static const Color opacity30Cover = Color(0x33000000);
+
   static const Color opacity60Cover = Color(0x96000000);
 
   static const Color opacity75Cover = Color(0xcc000000);
