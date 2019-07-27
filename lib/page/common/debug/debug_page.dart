@@ -22,11 +22,16 @@ class _DebugPageState extends State<DebugPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: SMColors.grayLineColor,
+      appBar: SMTitleBarWidget(
+        isDefault: false,
+        title: '视频demo',
+        backIconColor: SMColors.lightGolden,
+      ),
       body: Stack(
         children: <Widget>[
           SMCacheVideoWidget(
             width: ScreenUtil.getInstance().screenWidth,
-            height: 200,
+            height: 230,
             url: 'http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4',
             placeImgUrl: 'https://www.baidu.com/img/bd_logo1.png?where=super',
             autoPlay: true,

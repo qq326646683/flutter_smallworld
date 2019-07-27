@@ -22,5 +22,5 @@ export 'drag_debug_widget.dart';
 export 'sm_card_container_widget.dart';
 export 'cache_video/sm_cachevideo_widget.dart';
 export 'sm_loading_widget.dart';
-export 'cache_video/sm_video_progress_widget.dart';
+export 'cache_video/sm_video_cover_widget.dart';
 export 'cache_video/sm_video_linear_progress_indicator.dart';
