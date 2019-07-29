@@ -38,6 +38,11 @@ class ApiAddress {
     return '/strangers';
   }
 
+  // 活动详情
+  static getActivityInfo() {
+    return '/config';
+  }
+
   //处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]) {
     if (page != null) {

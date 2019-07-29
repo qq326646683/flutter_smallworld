@@ -16,6 +16,8 @@ import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'common/redux/config_state.dart';
+
 void main() {
   runApp(FlutterReduxApp());
 }
@@ -25,10 +27,9 @@ class FlutterReduxApp extends StatefulWidget {
   _FlutterReduxAppState createState() => _FlutterReduxAppState();
 }
 
-class _FlutterReduxAppState extends State<FlutterReduxApp>{
+class _FlutterReduxAppState extends State<FlutterReduxApp> {
   StreamSubscription stream;
   BuildContext mContext;
-
 
   final store = new Store<MainStore>(appReducer,
       initialState: MainStore(
@@ -36,28 +37,27 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
         taskHallState: TaskhallState.initStore(),
         smPhotoState: SmPhotoState.initStore(),
         homeTabState: HomeTabState.initStore(),
+        configState: ConfigState.initStore(),
       ));
 
   @override
   void initState() {
     super.initState();
-    stream = EventBusHelper.getEventTypeStream<HttpErrorEvent>().listen((event) {
+    stream =
+        EventBusHelper.getEventTypeStream<HttpErrorEvent>().listen((event) {
       errorHandleFunction(event.code, event.message, event.noTip);
     });
     EntityCreatorFactory.registerAllCreator();
-
   }
-
 
   @override
   void dispose() {
     super.dispose();
-    if(stream != null) {
+    if (stream != null) {
       stream.cancel();
       stream = null;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +69,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
             navigatorObservers: [
               NavigatorUtils.getInstance(),
             ],
+
             ///多语言实现代理
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
@@ -93,53 +94,61 @@ class _FlutterReduxAppState extends State<FlutterReduxApp>{
                   ),
                 ),
               );
-
             },
           ),
-        )
-    );
+        ));
   }
 
   errorHandleFunction(int code, message, noTip) {
     switch (code) {
-    /////////////一定提示//////////////
+      /////////////一定提示//////////////
       case 401:
         ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error_401);
         UserDao.clearAll();
-        NavigatorUtils.getInstance().pushNamedAndRemoveUntil(mContext, LoginPage.sName);
+        NavigatorUtils.getInstance()
+            .pushNamedAndRemoveUntil(mContext, LoginPage.sName);
         break;
       case Code.STATUS_CODE_UPLOAD_FAILURE:
-      //上传失败
-        ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_upload_error);
+        //上传失败
+        ToastUtil.showRed(
+            CommonUtils.getLocaleStr(mContext).network_upload_error);
         break;
 
-    ////////////////线上不提示Dio报错///////////
+      ////////////////线上不提示Dio报错///////////
       case Code.STATUS_CODE_DIO_ERROR:
-        if (Config.API_SETTING != APIType.PRODUCTION) ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error_dio);
+        if (Config.API_SETTING != APIType.PRODUCTION)
+          ToastUtil.showRed(
+              CommonUtils.getLocaleStr(mContext).network_error_dio);
         break;
 
-
-
-    /////////////按需提示//////////////
+      /////////////按需提示//////////////
       case Code.STATUS_CODE_NETWORK_ERROR:
-        if (!noTip) ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error);
+        if (!noTip)
+          ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error);
         break;
       case 403:
-        if (!noTip) ToastUtil.showRed( CommonUtils.getLocaleStr(mContext).network_error_403);
+        if (!noTip)
+          ToastUtil.showRed(
+              CommonUtils.getLocaleStr(mContext).network_error_403);
         break;
       case 404:
-        if (!noTip) ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error_404);
+        if (!noTip)
+          ToastUtil.showRed(
+              CommonUtils.getLocaleStr(mContext).network_error_404);
         break;
       case Code.STATUS_CODE_NETWORK_TIMEOUT:
-      //超时
-        if (!noTip) ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error_timeout);
+        //超时
+        if (!noTip)
+          ToastUtil.showRed(
+              CommonUtils.getLocaleStr(mContext).network_error_timeout);
         break;
       default:
-        if (!noTip) ToastUtil.showRed(CommonUtils.getLocaleStr(mContext).network_error_unknown +
-            " " +
-            message);
+        if (!noTip)
+          ToastUtil.showRed(
+              CommonUtils.getLocaleStr(mContext).network_error_unknown +
+                  " " +
+                  message);
         break;
     }
   }
-
 }

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_smallworld/common/localization/localization_wrap.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/page/discover/activity_info_page.dart';
 import 'package:flutter_smallworld/page/index.dart';
 
 class NavigatorUtils extends NavigatorObserver {
   static final String sName = "NavigatorUtils";
+
   /*配置routes*/
   static Map<String, WidgetBuilder> configRoutes = {
     SplashPage.sName: (context) => LocalizationsWidget(child: SplashPage()),
@@ -18,18 +20,24 @@ class NavigatorUtils extends NavigatorObserver {
     DebugPage.sName: (context) => LocalizationsWidget(child: DebugPage()),
     NetLogPage.sName: (context) => LocalizationsWidget(child: NetLogPage()),
     PrintLogPage.sName: (context) => LocalizationsWidget(child: PrintLogPage()),
-    NetLogDetailPage.sName: (context) => LocalizationsWidget(child: NetLogDetailPage()),
-    PackageInfoPage.sName: (context) => LocalizationsWidget(child: PackageInfoPage()),
-    VideoDemoPage.sName: (context) => LocalizationsWidget(child: VideoDemoPage()),
+    NetLogDetailPage.sName: (context) =>
+        LocalizationsWidget(child: NetLogDetailPage()),
+    PackageInfoPage.sName: (context) =>
+        LocalizationsWidget(child: PackageInfoPage()),
+    VideoDemoPage.sName: (context) =>
+        LocalizationsWidget(child: VideoDemoPage()),
+    ActivityInfoPage.sName: (context) =>
+        LocalizationsWidget(child: ActivityInfoPage()),
   };
   static NavigatorUtils navigatorUtils;
   static NavigatorState currentNavigator;
   BuildContext mContext;
   static List<Route> _mRoutes;
+
   Route get currentRoute => _mRoutes[_mRoutes.length - 1];
+
   List<Route> get routes => _mRoutes;
   static StreamController _streamController;
-
 
   static NavigatorUtils getInstance() {
     if (navigatorUtils == null) {
@@ -40,8 +48,7 @@ class NavigatorUtils extends NavigatorObserver {
     return navigatorUtils;
   }
 
-  StreamController get streamController=> _streamController;
-
+  StreamController get streamController => _streamController;
 
   setContext(BuildContext context) {
     mContext = context;
@@ -52,7 +59,8 @@ class NavigatorUtils extends NavigatorObserver {
   }
 
   // replace 页面
-  pushReplacementNamed(BuildContext context, String routeName, [WidgetBuilder builder]) {
+  pushReplacementNamed(BuildContext context, String routeName,
+      [WidgetBuilder builder]) {
     if (context != null) mContext = context;
     if (currentNavigator != null) {
       return currentNavigator.pushReplacement(
@@ -61,7 +69,6 @@ class NavigatorUtils extends NavigatorObserver {
           settings: RouteSettings(name: routeName),
         ),
       );
-
     }
   }
 
