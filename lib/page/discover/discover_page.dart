@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/redux/config_state.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
+import 'package:flutter_smallworld/page/discover/ranklist_page.dart';
 import 'package:flutter_smallworld/page/index.dart';
 import 'package:screen/screen.dart';
 
@@ -66,6 +67,13 @@ class _DiscoverPageState extends State<DiscoverPage>
               child: Text('置空redux中config'),
             ),
             Text(_getReduxConfigState()),
+            RaisedButton(
+              onPressed: () {
+                NavigatorUtils.getInstance()
+                    .pushNamed(context, RankListPage.sName);
+              },
+              child: Text('榜单列表'),
+            ),
             RaisedButton(
               onPressed: () {
                 NavigatorUtils.getInstance()

@@ -17,6 +17,7 @@ import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'common/redux/config_state.dart';
+import 'common/redux/rank_state.dart';
 
 void main() {
   runApp(FlutterReduxApp());
@@ -38,6 +39,7 @@ class _FlutterReduxAppState extends State<FlutterReduxApp> {
         smPhotoState: SmPhotoState.initStore(),
         homeTabState: HomeTabState.initStore(),
         configState: ConfigState.initStore(),
+        rankState: RankState.initStore(),
       ));
 
   @override

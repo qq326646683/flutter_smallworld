@@ -10,9 +10,9 @@ enum APIType {
 }
 
 Map<APIType, String> apiMap = {
-  APIType.DEV : 'http://10.0.0.17:4000',
-  APIType.STAGING : 'http://106.75.11.161:8082',
-  APIType.PRODUCTION : 'http://47.100.103.110:3000',
+  APIType.DEV: 'http://10.0.0.17:4000',
+  APIType.STAGING: 'http://106.75.11.161:8082',
+  APIType.PRODUCTION: 'http://47.100.103.110:3000',
 };
 
 class ApiAddress {
@@ -23,6 +23,7 @@ class ApiAddress {
   static login() {
     return '/users/login';
   }
+
   // 用户信息
   static userInfo() {
     return '/users/info';
@@ -43,6 +44,11 @@ class ApiAddress {
     return '/config';
   }
 
+  // 榜单
+  static getRankList() {
+    return '/ranking';
+  }
+
   //处理分页参数
   static getPageParams(tab, page, [pageSize = Config.PAGE_SIZE]) {
     if (page != null) {
@@ -55,5 +61,4 @@ class ApiAddress {
       return '';
     }
   }
-
 }

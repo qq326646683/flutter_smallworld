@@ -1,5 +1,6 @@
 import 'package:flutter_smallworld/common/model/index.dart';
 import 'package:flutter_smallworld/common/model/test/cofig_result_entity.dart';
+import 'package:flutter_smallworld/common/model/test/rank_list_result.dart';
 
 typedef T CreateEntity<T>(Map<String, dynamic> json);
 
@@ -16,6 +17,7 @@ class EntityCreatorFactory {
     _EntityFactory.instance.registerCreator(UserInfo, (Map<String, dynamic> json) => UserInfo.fromJson(json));
     _EntityFactory.instance.registerCreator(HomeTabResult, (Map<String, dynamic> json) => HomeTabResult.fromJson(json));
     _EntityFactory.instance.registerCreator(Entity, (Map<String, dynamic> json) => Entity.fromJson(json));
+    _EntityFactory.instance.registerCreator(RankListResult, (Map<String, dynamic> json) => RankListResult.fromJson(json));
 
   }
 
