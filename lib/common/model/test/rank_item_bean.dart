@@ -12,7 +12,7 @@ class RankItem {
 
   int rank_change;
 
-  int amount;
+  var amount;
 
   String user_id;
 

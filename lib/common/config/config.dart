@@ -20,6 +20,15 @@ class Config {
   static const PRINTLOG_KEY = "print_log";
 
 
+
+  // 跳转页面延时操作
+  static const JUMP_PAGE_DELAY = 600;
+
+
+
+
+
+
 }
 
 class ThumbImgSize {

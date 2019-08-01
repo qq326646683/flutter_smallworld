@@ -96,10 +96,7 @@ class _RankListPageState extends State<RankListPage>
             Expanded(
               child: Padding(
                 padding: EdgeInsets.all(ScreenUtil.getInstance().getWidth(10)),
-                child: Image.network(
-                  item.avatar,
-                  fit: BoxFit.fill,
-                ),
+                child: SMCacheImageWidget(item.avatar + ThumbImgSize.avatarImgScaleSize_100_100),
               ),
               flex: 1,
             ),
