@@ -3,12 +3,14 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_smallworld/common/redux/config_state.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/discover/ranklist_page.dart';
+import 'package:flutter_smallworld/page/discover/socket_page.dart';
 import 'package:flutter_smallworld/page/index.dart';
 import 'package:screen/screen.dart';
 
 import 'activity_info_page.dart';
 import 'package:flutter_smallworld/common/redux/index.dart';
 import 'package:redux/redux.dart';
+
 
 class DiscoverPage extends StatefulWidget {
   static final String sName = "discover";
@@ -73,6 +75,13 @@ class _DiscoverPageState extends State<DiscoverPage>
                     .pushNamed(context, RankListPage.sName);
               },
               child: Text('榜单列表'),
+            ),
+            RaisedButton(
+              onPressed: () {
+                NavigatorUtils.getInstance()
+                    .pushNamed(context, SocketPage.sName);
+              },
+              child: Text('chat'),
             ),
             RaisedButton(
               onPressed: () {

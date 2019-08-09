@@ -6,6 +6,7 @@ import 'package:flutter_smallworld/common/localization/localization_wrap.dart';
 import 'package:flutter_smallworld/common/utils/index.dart';
 import 'package:flutter_smallworld/page/discover/activity_info_page.dart';
 import 'package:flutter_smallworld/page/discover/ranklist_page.dart';
+import 'package:flutter_smallworld/page/discover/socket_page.dart';
 import 'package:flutter_smallworld/page/index.dart';
 
 class NavigatorUtils extends NavigatorObserver {
@@ -30,6 +31,7 @@ class NavigatorUtils extends NavigatorObserver {
     ActivityInfoPage.sName: (context) =>
         LocalizationsWidget(child: ActivityInfoPage()),
     RankListPage.sName: (context) => LocalizationsWidget(child: RankListPage()),
+    SocketPage.sName: (context) => LocalizationsWidget(child: SocketPage()),
   };
   static NavigatorUtils navigatorUtils;
   static NavigatorState currentNavigator;

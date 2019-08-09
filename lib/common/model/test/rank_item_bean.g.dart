@@ -12,7 +12,7 @@ RankItem _$RankItemFromJson(Map<String, dynamic> json) {
       json['rank_flag'] as int,
       json['ranking'] as int,
       json['rank_change'] as int,
-      json['amount'],
+      json['amount'] as int,
       json['user_id'] as String,
       json['nickname'] as String,
       json['avatar'] as String,
