@@ -385,9 +385,6 @@ class _VideoDemoPageState extends State<VideoDemoPage> {
     String source1 = 'http://new-mini-world.ufile.ucloud.cn/27-certify-video-721-test-998?UCloudPublicKey=1NMunmNq9U%2FcYhPqRA019BFz8Tw2VflW%2BEuEnJdTDZ6KWFPh3snwlA%3D%3D&Signature=zsKtleVEgwNYtbSIQCnT32MLmo4%3D';
     String source2 = 'rtmp://live.hkstv.hk.lxdns.com/live/hks';
     String source3 = 'rtmp://172.16.100.245/live1';
-    String savaPath = CacheFileUtil.calculateCacheFilePath(source4, cacheFileType: CacheFileType.VIDEO);
-    print('savePath');
-    print(savaPath);
 //    await ijkController.setNetworkDataSource(source4, autoPlay: true);
 //    ijkController.setAssetDataSource(SMIcons.LOGIN_BG_MP4, autoPlay: true);
   }

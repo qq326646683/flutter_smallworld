@@ -24,7 +24,7 @@ class InitUtils {
     }
     StorageManager.getInstance().remove(Config.USERINFO_KEY);
 //    DbManager.destroy();
-//    CacheFileUtil.clearCacheFile();
+    CacheFileUtil.clearCacheFile();
 //    StorageManager.getInstance().remove(Config.UPDATE_IGNORE);
   }
 }

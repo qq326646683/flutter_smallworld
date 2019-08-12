@@ -17,27 +17,34 @@ class CacheFileUtil {
         ProgressCallback onReceiveProgress,
         CancelToken cancelToken}) async {
 
-    String savePath = calculateCacheFilePath(url, cacheFileType: cacheFileType, cacheType: cacheType);
+    String tmpSavePath = _calculateCacheFilePath(url, cacheFileType: cacheFileType, cacheType: cacheType);
 
     try {
-      Response response = await HttpManager.dio.download(url, savePath, onReceiveProgress: onReceiveProgress, cancelToken: cancelToken);
-
+      Response response = await HttpManager.download(url, tmpSavePath,
+          onReceiveProgress: onReceiveProgress, cancelToken: cancelToken);
       if (response.statusCode == 200) {
+        String savePath = tmpSavePath;
+        switch(cacheFileType) {
+          case CacheFileType.IMAGE:
+            savePath.replaceAll('.tmp', '.png');
+            break;
+          case CacheFileType.VIDEO:
+            savePath.replaceAll('.tmp', '.mp4');
+            break;
+        }
         CacheFile cacheFile = new CacheFile(cacheFileType, url, cacheType, savePath, DateTime.now());
         return cacheFile;
       }
-      File tmpFile = File(savePath);
-      if (tmpFile.existsSync()) tmpFile.deleteSync();
+      File(tmpSavePath).deleteSync();
     } catch (e) {
-      File tmpFile = File(savePath);
-      if (tmpFile.existsSync()) tmpFile.deleteSync();
-      LogUtil.i(sName,'CacheUtil失败');
-      LogUtil.i(sName,e);
+      File(tmpSavePath).deleteSync();
+      LogUtil.i(sName, 'CacheUtil失败');
+      LogUtil.i(sName, e);
     }
   }
 
   static CacheFile getCacheFile(String remoteUrl, { CacheFileType cacheFileType = CacheFileType.IMAGE,  CacheType cacheType = CacheType.CACHE }) {
-    String filePath = calculateCacheFilePath(remoteUrl, cacheFileType: cacheFileType, cacheType: cacheType);
+    String filePath = _calculateCacheFilePath(remoteUrl, cacheFileType: cacheFileType, cacheType: cacheType);
     File file = new File(filePath);
     if (!file.existsSync()) {
       return null;
@@ -50,18 +57,8 @@ class CacheFileUtil {
   }
 
   /// 根据url计算并拼接本地缓存文件路径，不判断文件是否存在
-  static String calculateCacheFilePath(String url, { CacheFileType cacheFileType = CacheFileType.IMAGE, CacheType cacheType = CacheType.CACHE }) {
-    String fileNameAndSuffix = _calculateFileName(url);
-    switch (cacheFileType) {
-      case CacheFileType.IMAGE:
-        fileNameAndSuffix += '.png';
-        break;
-      case CacheFileType.VIDEO:
-        fileNameAndSuffix += '.mp4';
-        break;
-      default:
-        break;
-    }
+  static String _calculateCacheFilePath(String url, { CacheFileType cacheFileType = CacheFileType.IMAGE, CacheType cacheType = CacheType.CACHE }) {
+    String fileNameAndSuffix = _calculateFileName(url) + '.tmp';
 
     String filePath;
     switch (cacheType) {
@@ -81,6 +78,12 @@ class CacheFileUtil {
     String localFilename = key.substring(0, firstHalfLength).hashCode.toString();
     localFilename += key.substring(firstHalfLength).hashCode.toString();
     return localFilename;
+  }
+
+  /// 清理缓存文件
+  static clearCacheFile() {
+    Directory(cacheDirection).deleteSync(recursive: true);
+    Directory(cacheDirection).createSync(recursive: true);
   }
 
   static initDirection() async {
