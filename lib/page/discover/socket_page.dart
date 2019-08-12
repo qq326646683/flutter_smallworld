@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_smallworld/common/utils/toast_util.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 const String _name = "ME";
 const String _receiverName = "YOU";
@@ -15,11 +16,12 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
   final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textController = TextEditingController();
   int fakeReceivedMsgPos = 0;
-  ScrollController scrollController = ScrollController();
   bool _didChangeMetrics = false;
   double _preBottomInset = 0;
   double _bottomInset = 0;
   WidgetsBinding _widgetsBinding = WidgetsBinding.instance;
+  AutoScrollController controller;
+
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
@@ -29,6 +31,10 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    controller = AutoScrollController(
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+        axis: Axis.vertical);
     _widgetsBinding.addObserver(this);
     _widgetsBinding.addPersistentFrameCallback((Duration timeStamp) {
       if (!_didChangeMetrics) {
@@ -41,20 +47,20 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
         return;
       }
       _didChangeMetrics = false;
-      scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      controller.scrollToIndex(_messages.length - 1);
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    scrollController.dispose();
+    controller.dispose();
     _textController.dispose();
     _widgetsBinding.removeObserver(this);
   }
 
   void _handleSubmitted(String text) {
-    if(text==null||text==""){
+    if (text == null || text == "") {
       ToastUtil.showRed("不要发空消息！！！");
       return;
     }
@@ -64,10 +70,8 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
     );
     setState(() {
       _messages.add(message);
-      scrollController.animateTo(scrollController.position.maxScrollExtent+100,
-          duration: Duration(microseconds: 200), curve: Curves.decelerate);
     });
-
+    controller.scrollToIndex(_messages.length-1);
   }
 
   Widget _buildTextComposer() {
@@ -110,9 +114,55 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
         children: <Widget>[
           Expanded(
             child: ListView.builder(
-              controller: scrollController,
+              controller: controller,
               padding: EdgeInsets.all(8.0),
-              itemBuilder: (_, int index) => _messages[index],
+              itemBuilder: (_, int index) {
+                ChatMessage msg = _messages[index];
+                return AutoScrollTag(
+                  key: ValueKey(index),
+                  controller: controller,
+                  index: index,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      textDirection:
+                          msg.isMe ? TextDirection.rtl : TextDirection.ltr,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(
+                              right: msg.isMe ? 0 : 5, left: msg.isMe ? 5 : 0),
+                          child: CircleAvatar(
+                            child: Text(
+                              msg.isMe ? _name : _receiverName,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            backgroundColor:
+                                msg.isMe ? Colors.blue : Colors.grey,
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: msg.isMe ? Colors.blue : Colors.grey,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            padding: EdgeInsets.all(10),
+                            child: Text(msg.text),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  highlightColor: Colors.black.withOpacity(0.1),
+                );
+              },
               itemCount: _messages.length,
             ),
           ),
@@ -136,70 +186,26 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
     );
     setState(() {
       _messages.add(message);
-      if(isAtBottom()) {
-        scrollController.animateTo(
-            scrollController.position.maxScrollExtent+100,
-            duration: Duration(microseconds: 200), curve: Curves.decelerate);
-      }
     });
-
+    if (isAtBottom()) {
+      controller.scrollToIndex(_messages.length - 1);
+    }
   }
 
-  bool isAtBottom(){
-    bool isAtBottom=false;
-    if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
-      isAtBottom=true;
+  bool isAtBottom() {
+    bool isAtBottom = false;
+    if ( controller.position.maxScrollExtent==controller.position.pixels&&controller.position.maxScrollExtent!=0) {
+      isAtBottom = true;
     }
-    return isAtBottom;
+     return isAtBottom;
   }
 }
 
-
-class ChatMessage extends StatelessWidget {
+class ChatMessage {
   ChatMessage({
     this.text,
     this.isMe = true,
   });
-
   final String text;
   final bool isMe;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        textDirection: isMe ? TextDirection.rtl : TextDirection.ltr,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(right: isMe ? 0 : 5, left: isMe ? 5 : 0),
-            child: CircleAvatar(
-              child: Text(
-                isMe ? _name : _receiverName,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: isMe ? Colors.blue : Colors.grey,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: isMe ? Colors.blue : Colors.grey,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-              ),
-              padding: EdgeInsets.all(10),
-              child: Text(text),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

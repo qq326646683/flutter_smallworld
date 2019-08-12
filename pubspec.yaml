@@ -43,6 +43,7 @@ dependencies:
   flare_flutter: 1.5.4
   screen: 0.0.5
   flutter_forbidshot: 0.0.1
+  scroll_to_index: ^1.0.1
 
 
 
