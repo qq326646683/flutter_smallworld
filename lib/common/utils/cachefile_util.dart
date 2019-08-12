@@ -32,12 +32,15 @@ class CacheFileUtil {
             savePath.replaceAll('.tmp', '.mp4');
             break;
         }
+        File(tmpSavePath).renameSync(savePath);
         CacheFile cacheFile = new CacheFile(cacheFileType, url, cacheType, savePath, DateTime.now());
         return cacheFile;
       }
-      File(tmpSavePath).deleteSync();
+      File tmpFile = File(tmpSavePath);
+      if (tmpFile.existsSync()) tmpFile.deleteSync();
     } catch (e) {
-      File(tmpSavePath).deleteSync();
+      File tmpFile = File(tmpSavePath);
+      if (tmpFile.existsSync()) tmpFile.deleteSync();
       LogUtil.i(sName, 'CacheUtil失败');
       LogUtil.i(sName, e);
     }
