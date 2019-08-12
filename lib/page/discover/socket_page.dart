@@ -64,9 +64,10 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
     );
     setState(() {
       _messages.add(message);
-      scrollController.animateTo(scrollController.position.maxScrollExtent+50,
+      scrollController.animateTo(scrollController.position.maxScrollExtent+100,
           duration: Duration(microseconds: 200), curve: Curves.decelerate);
     });
+
   }
 
   Widget _buildTextComposer() {
@@ -135,9 +136,24 @@ class _SocketPageState extends State<SocketPage> with WidgetsBindingObserver {
     );
     setState(() {
       _messages.add(message);
+      if(isAtBottom()) {
+        scrollController.animateTo(
+            scrollController.position.maxScrollExtent+100,
+            duration: Duration(microseconds: 200), curve: Curves.decelerate);
+      }
     });
+
+  }
+
+  bool isAtBottom(){
+    bool isAtBottom=false;
+    if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
+      isAtBottom=true;
+    }
+    return isAtBottom;
   }
 }
+
 
 class ChatMessage extends StatelessWidget {
   ChatMessage({
